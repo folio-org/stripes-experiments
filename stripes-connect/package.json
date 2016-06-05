@@ -1,0 +1,14 @@
+{
+  "name": "stripes-connect",
+  "version": "0.0.0",
+  "description": "A module connect to enable pluggable Redux applications.",
+  "repository": {
+    "private": true
+  },
+  "main": "connect.js",
+  "author": "Index Data",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=4.0.0"
+  }
+}
