@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 // TODO reducer registry in core via store.replaceReducer() and handle
 // module state with a reducer instance for each module/key
 const moduleStateReducer = (state = {}, action) => {
-  if (!(action.type.startsWith('MODULESTATE'))) return state;
+  if (!(action.type.startsWith('MODULESTATE_'))) return state;
   const newState = Object.assign({}, state);
   const module = action.meta.module;
   const key = action.meta.key;
