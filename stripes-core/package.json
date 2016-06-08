@@ -1,6 +1,7 @@
 {
   "name": "stripes-core",
   "version": "0.0.1",
+  "description": "The starting point for Stripes applications",
   "license": "UNLICENSED",
   "repository": {
     "private": true
