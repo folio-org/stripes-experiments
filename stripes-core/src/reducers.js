@@ -17,7 +17,7 @@ const moduleStateReducer = (state = {}, action) => {
       newState[module][key] = Object.assign({}, newState[module], action.payload);
       break;
     case 'MODULESTATE_REPLACE': 
-      if (!('module' in newState)) newState[module] = {};
+      if (!(module in newState)) newState[module] = {};
       newState[module][key] = Object.assign({}, action.payload);
       break;
   };
