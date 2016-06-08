@@ -10,6 +10,12 @@
     "node": ">=6.0.0"
   },
   "stripes": {
-    "type": "fullpage"
+    "type": "fullpage",
+    "routes": [
+      {
+        "path":"trivial",
+        "component":"About"
+      }
+    ]
   }
 }
