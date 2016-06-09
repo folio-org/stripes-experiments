@@ -28,3 +28,36 @@ Stripes module which makes its functionality available to users.
 > the existing one. Stripes allows different alternative modules to be
 > slipped into place.)
 
+
+Software Overview
+-----------------
+
+As so often in programming, the price of simplicity is complexity. To
+make modules neatly pluggable like this, we have to do a lot of work
+behind the scenes, and as a result Stripes is not the easiest piece of
+software to get to grips with.
+
+At present, Stripes itself consists of three modules, each of them
+packaged using NPM:
+
+* [**stripes-core**](https://github.com/sling-incubator/stripes-experiments/tree/master/stripes-core):
+  the core of system, including the web-application's
+  `index.html` and `index.js`. Also includes some utilities that are
+  used by the other modules.
+
+* [**stripes-connect**](https://github.com/sling-incubator/stripes-experiments/tree/master/stripes-connect):
+  Code that connects Stripes modules with sources of data, notably the
+  Okapi middleware that exposes Folio services.
+
+* [**stripes-loader**](https://github.com/sling-incubator/stripes-loader):
+  A Webpack loader that gathers and configures the selected set of
+  modules that will make up a particular Stripes application.
+
+Besides these core modules, there are a small number of Stripes
+modules available for inclusion in applicatiobs. At present these are
+strictly proof of concept modules, and do not do anything useful:
+
+* [**trivial**](https://github.com/sling-incubator/stripes-experiments/tree/master/trivial):
+  A "hello world" module that can express various greetings to
+  different people.
+
