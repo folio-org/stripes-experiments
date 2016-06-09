@@ -4,7 +4,7 @@ all: $(OUTPUT)
 
 %.html: %.md
 	rm -f $@
-	pandoc -f markdown_github $? > $@
+	pandoc -f markdown_github-hard_line_breaks $? > $@
 	chmod ugo-w $@
 
 clean:
