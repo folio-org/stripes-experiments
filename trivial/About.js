@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
 class About extends Component {
-  static dataQuery = { personToGreet: {} };
+  static dataQuery = { greetingParams: {} };
   componentWillMount() {
-    this.props.mutator.personToGreet.replace({ name: 'Kurt' });
+    this.props.mutator.greetingParams.replace({ name: 'Kurt' });
   }
   handleSubmit(e) {
-    this.props.mutator.personToGreet.replace({ name: e.target.firstChild.value });
+    this.props.mutator.greetingParams.replace({ name: e.target.firstChild.value });
   }
   render() {
     console.log('RENDR ABOUT');
     console.log(this.props);
     let greeting;
-    if (this.props.personToGreet) {
-      greeting = <h3>Hi {this.props.personToGreet.name}</h3>
+    if (this.props.greetingParams) {
+      greeting = <h3>Hi {this.props.greetingParams.name}</h3>
     } else {
       greeting = <h3>No one here :(</h3>
     }
