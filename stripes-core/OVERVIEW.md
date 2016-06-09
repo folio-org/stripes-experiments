@@ -61,3 +61,34 @@ strictly proof of concept modules, and do not do anything useful:
   A "hello world" module that can express various greetings to
   different people.
 
+Going forward, it's possible that the Stripes code will be split into
+more modules -- for example, we may separate out the code for
+communicating with Okapi. And it is a certainty that there will be
+many more application modules, including those created by other
+parties.
+
+
+How it all ties together
+------------------------
+
+Hold on to your hats -- this is s bit complicated.
+
+* NPM is the Node Package Manager. Although it started out as part of
+  Node, it's now more or less the universally used mechanism for
+  distributing packages of JavaScript code. When NPM builds a package,
+  it uses various tools including Webpack.
+
+* Webpack is a module bundler. It takes the many separate JavaScript,
+  HTML and CSS files that make up a typical JavaScript library, and
+  bundles them into one or more "static assets". At its very simplest,
+  it just concatenates a bunch of JavaScript files into one.
+
+* Webpack handles different kinds of files in different ways. For
+  example, depending on how it's configured, it might run ES6 (modern
+  JavaScript) through a translator called Babel to convert into and
+  older version of JavaScript that runs in more browsers.
+
+* The way Webpack does this is with "handlers". A Webpack handler a
+  piece of code invoked by Webpack when it's compiling a set of
+  resources down into static assets.
+
