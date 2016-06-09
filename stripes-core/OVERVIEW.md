@@ -1,5 +1,5 @@
-Stripes -- a modular toolkit for user interfaces
-================================================
+Stripes: a modular toolkit for user interfaces
+==============================================
 
 Introduction
 ------------
