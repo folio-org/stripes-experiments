@@ -1,7 +1,7 @@
 Stripes Core
 ============
 
-This is the documentation for the `stripes-core` module, which is part of the modular UI toolkit Stripes, which is in turn part of the open library services platform [Folio](http://www.folio.org/). If you are not already familiar with Stripes, start with [The Stripes Overview](OVERVIEW.md).
+This is the documentation for the `stripes-core` module, which is part of the modular UI toolkit Stripes, which is in turn part of the open library services platform [Folio](http://www.folio.org/). If you are not already familiar with Stripes, start with [The Stripes Overview](OVERVIEW.html).
 
 XXX to be done: stuff about stripes-core in particular.
 
