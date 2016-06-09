@@ -6,10 +6,9 @@ class About extends Component {
     this.props.mutator.greetingParams.replace({ greeting: 'Hi', name: 'Kurt' });
   }
   handleSubmit(e) {
-    let replacement = { greeting: document.getElementById('g').value,
-                        name: document.getElementById('n').value };
-    console.log(replacement);
-    this.props.mutator.greetingParams.replace(replacement);
+    this.props.mutator.greetingParams.replace({
+      greeting: document.getElementById('g').value,
+      name: document.getElementById('n').value });
   }
   render() {
     console.log('RENDR ABOUT');
