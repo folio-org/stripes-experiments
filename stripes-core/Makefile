@@ -1,4 +1,6 @@
-all: README.html
+OUTPUT = README.html OVERVIEW.html
+
+all: $(OUTPUT)
 
 %.html: %.md
 	rm -f $@
@@ -6,5 +8,5 @@ all: README.html
 	chmod ugo-w $@
 
 clean:
-	rm -f README.html
+	rm -f $(OUTPUT)
 
