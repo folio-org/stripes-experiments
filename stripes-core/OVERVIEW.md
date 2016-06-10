@@ -86,9 +86,29 @@ Hold on to your hats -- this is s bit complicated.
 * Webpack handles different kinds of files in different ways. For
   example, depending on how it's configured, it might run ES6 (modern
   JavaScript) through a translator called Babel to convert into and
-  older version of JavaScript that runs in more browsers.
+  older version of JavaScript that runs in more browsers. The way
+  Webpack does this is with "handlers". A Webpack handler is a piece
+  of code invoked by Webpack when it's compiling a set of resources
+  down into static assets. Handlers can also be explicitly invokes, as
+  we will see later.
 
-* The way Webpack does this is with "handlers". A Webpack handler a
-  piece of code invoked by Webpack when it's compiling a set of
-  resources down into static assets.
+* When the `stripes-core` module is compiled:
+
+    * It begins with `stripes-core/src/index.js`.
+    * This imports the file `Root.js` (so it can render the React
+      component `<Root>`).
+    * `Root.js` imports `routes.js` (so it can pass the routes into the
+      React component `<Router>`.
+    * `routes.js` contains the magical incantation:
+      `import { routes as moduleRoutes } from 'stripes-loader!';`
+
+* That's where the magic happens. Usually when Webpack sees an
+  `import` statement, it includes the named source file. But when the
+  import is of the form _loaderName_`!`_fileName_, it invokes the
+  named Webpack loader, passing it the contents of the nominated
+  `fileName`. In this case, there is no named file, so the named
+  loader is invoked. This is how `stripes-loader` is run as part of
+  the build process for `stripes-core`.
+
+
 
