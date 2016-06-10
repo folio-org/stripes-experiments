@@ -1,6 +1,27 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect as reduxConnect } from 'react-redux';
+import { addReducer } from 'stripes-core/src/reducerRegistry';
+
+addReducer('modules', (state = {}, action) => {
+  if (!(action.type.startsWith('MODULESTATE_'))) return state;
+  const newState = Object.assign({}, state);
+  const module = action.meta.module;
+  const key = action.meta.key;
+  switch (action.type) {
+    case 'MODULESTATE_UPDATE': 
+      if (!(module in newState)) newState[module] = {};
+      if (!(key in newState[module])) newState[module][key] = {};
+      newState[module][key] = Object.assign({}, newState[module], action.payload);
+      break;
+    case 'MODULESTATE_REPLACE': 
+      if (!(module in newState)) newState[module] = {};
+      newState[module][key] = Object.assign({}, action.payload);
+      break;
+  };
+  return newState;
+});
+
 
 function getMutatorFor(resource, module, type, dispatch) {
   switch (type) {
@@ -35,6 +56,7 @@ function getMutatorFor(resource, module, type, dispatch) {
 
 export const connect = (Component, module) => {
   const resources = Object.keys(Component.dataQuery); 
+  console.log(Component.store);
   const mapStateToProps = (state) => {
     return resources.reduce((result, resource) => {
       const query = Component.dataQuery[resource];
