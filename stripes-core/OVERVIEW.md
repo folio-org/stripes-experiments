@@ -71,7 +71,11 @@ parties.
 How it all ties together
 ------------------------
 
-Hold on to your hats -- this is a bit complicated.
+Hold on to your hats -- this is a bit complicated. The crucial point
+is that, while stripes-core and stripes-connect are parts of the
+runtime system that supports Stripes components, stripes-loader runs
+at _compile_ time in order to gather all the included modules. Here's
+how we make it happen.
 
 * NPM is the Node Package Manager. Although it started out as part of
   Node, it's now more or less the universally used mechanism for
@@ -110,5 +114,13 @@ Hold on to your hats -- this is a bit complicated.
   loader is invoked. This is how `stripes-loader` is run as part of
   the build process for `stripes-core`.
 
+* The stripes-loader software obtains a list of which Stripes modules
+  are to be bundled. How does it do this? At present, it simply reads
+  them from a `modules.json` file in stripes-core. It could easily
+  instead take this bit of configuration from a suitable part of the
+  stripes-core `package.json`. But in the longer term, it will obtain
+  this information dynamically from Okapi.
 
+* XXX to be continued
 
+<p>&nbsp</p><p>&nbsp</p><p>&nbsp</p>
