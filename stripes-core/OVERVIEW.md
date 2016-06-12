@@ -89,7 +89,7 @@ Hold on to your hats -- this is a bit complicated.
   older version of JavaScript that runs in more browsers. The way
   Webpack does this is with "handlers". A Webpack handler is a piece
   of code invoked by Webpack when it's compiling a set of resources
-  down into static assets. Handlers can also be explicitly invokes, as
+  down into static assets. Handlers can also be explicitly invoked, as
   we will see later.
 
 * When the `stripes-core` module is compiled:
