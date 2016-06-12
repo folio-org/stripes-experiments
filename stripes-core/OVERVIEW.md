@@ -71,7 +71,7 @@ parties.
 How it all ties together
 ------------------------
 
-Hold on to your hats -- this is s bit complicated.
+Hold on to your hats -- this is a bit complicated.
 
 * NPM is the Node Package Manager. Although it started out as part of
   Node, it's now more or less the universally used mechanism for
