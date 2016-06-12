@@ -28,6 +28,12 @@ Stripes module which makes its functionality available to users.
 > the existing one. Stripes allows different alternative modules to be
 > slipped into place.)
 
+Stripes modules present themselves as a set of one of more
+[React](https://facebook.github.io/react/) components, together with
+information on how to route various URL paths and menu items to those
+paths. Module authors will need to understand React, but will be
+largely insulated from the details of related modules such as Redux.
+
 
 Software Overview
 -----------------
@@ -121,6 +127,10 @@ how we make it happen.
   stripes-core `package.json`. But in the longer term, it will obtain
   this information dynamically from Okapi.
 
-* XXX to be continued
+* Each module that is specified for inclusion must provide information
+  about the routes and menus that it provides. At present, this is
+  placed in the `routes.json` and `menus.json` files, but it could in
+  future be included directly in the `package.json`. The module must
+  also provide all the React components that are named in the routes
+  and menus.
 
-<p>&nbsp</p><p>&nbsp</p><p>&nbsp</p>
