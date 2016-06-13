@@ -124,8 +124,9 @@ how we make it happen.
 
 * The stripes-loader software obtains a list of which Stripes modules
   are to be bundled. How does it do this? At present, it simply reads
-  them from the `package.json` file in stripes-core. But in the longer
-  term, it will obtain this information dynamically from Okapi.
+  them from the WebPack config file in stripes-core -- for example,
+  `webpack.config.prod.js`. But in the longer term, it will obtain
+  this information dynamically from Okapi.
 
 * Each module that is specified for inclusion must provide information
   about the routes and menus that it provides. At present, this is
