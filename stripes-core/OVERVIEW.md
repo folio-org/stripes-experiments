@@ -13,7 +13,7 @@ acquisitions module or integration with an institutional respository.
 Folio modules run on clouds of servers -- either hosted commercially
 by SAAS providers like EBSCO, or hosted locally by institutions that
 prefer to take on this kind of infrastructure work. These modules
-provide their services via RESTful APIPs. But the way Folio
+provide their services via RESTful APIs. But the way Folio
 functionality is exposed to users (whether librarians, administrators
 or patrons) is in a Web browser. Each Folio module is fronted by a
 Stripes module which makes its functionality available to users.
