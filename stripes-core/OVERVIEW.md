@@ -4,12 +4,11 @@ Stripes: a modular toolkit for user interfaces
 Introduction
 ------------
 
-Stripes is part of the [Folio](http://www.folio.org/) project, which
-is building an open library services platform. The goal of Folio is
-that third-party developers will be able to contribute moduls that
-slide easily into place as part of a library' IT infrastructure -- for
-example, an acquisitions module or integration with an institutional
-respository.
+Stripes is part of the open library services platform
+[Folio](http://www.folio.org/). The goal of Folio is that third-party
+developers will be able to contribute moduls that slide easily into
+place as part of a library' IT infrastructure -- for example, an
+acquisitions module or integration with an institutional respository.
 
 Folio modules run on clouds of servers -- either hosted commercially
 by SAAS providers like EBSCO, or hosted locally by institutions that
@@ -21,7 +20,7 @@ Stripes module which makes its functionality available to users.
 
 > (Actually, that's a bit of a simplification. A given Folio module
 > may be represented more than one Stripes module. for example, two
-> different Stripes Loads modules might present different views of the
+> different Stripes Loans modules might present different views of the
 > loan process, one more suited to academic libraries and one to
 > public libraries. Then anotber vendor might come along and offer a
 > third alternative: a slicker public-library loans UI to compete with
@@ -29,10 +28,11 @@ Stripes module which makes its functionality available to users.
 > slipped into place.)
 
 Stripes modules present themselves as a set of one of more
-[React](https://facebook.github.io/react/) components, together with
-information on how to route various URL paths and menu items to those
-paths. Module authors will need to understand React, but will be
-largely insulated from the details of related modules such as Redux.
+[React](https://facebook.github.io/react/) components. Full-page
+components also specify information on how to route various URL paths
+and menu items to those paths. Module authors will need to understand
+React (but will be largely insulated from the details of related
+modules such as Redux).
 
 
 Software Overview
@@ -40,8 +40,10 @@ Software Overview
 
 As so often in programming, the price of simplicity is complexity. To
 make modules neatly pluggable like this, we have to do a lot of work
-behind the scenes, and as a result Stripes is not the easiest piece of
-software to get to grips with.
+behind the scenes. As a result, while Stripes should be easy for
+module developers to _use_, it's not the easiest piece of software to
+uderstand the internals of. Note that what follows is only of interest
+to those working _on_ Stripes, not those working _with_ it.
 
 At present, Stripes itself consists of three modules, each of them
 packaged using NPM:
@@ -97,10 +99,10 @@ how we make it happen.
   example, depending on how it's configured, it might run ES6 (modern
   JavaScript) through a translator called Babel to convert into and
   older version of JavaScript that runs in more browsers. The way
-  Webpack does this is with "handlers". A Webpack handler is a piece
-  of code invoked by Webpack when it's compiling a set of resources
-  down into static assets. Handlers can also be explicitly invoked, as
-  we will see later.
+  Webpack does this is with "loaders". A Webpack loader is a piece of
+  code invoked by Webpack when it's compiling a set of resources down
+  into static assets. Loaders can also be explicitly invoked, as we
+  will see later.
 
 * When the `stripes-core` module is compiled:
 
@@ -122,10 +124,8 @@ how we make it happen.
 
 * The stripes-loader software obtains a list of which Stripes modules
   are to be bundled. How does it do this? At present, it simply reads
-  them from a `modules.json` file in stripes-core. It could easily
-  instead take this bit of configuration from a suitable part of the
-  stripes-core `package.json`. But in the longer term, it will obtain
-  this information dynamically from Okapi.
+  them from the `package.json` file in stripes-core. But in the longer
+  term, it will obtain this information dynamically from Okapi.
 
 * Each module that is specified for inclusion must provide information
   about the routes and menus that it provides. At present, this is
