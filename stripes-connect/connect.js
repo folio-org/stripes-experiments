@@ -55,11 +55,11 @@ function getMutatorFor(resource, module, type, dispatch) {
 }
 
 export const connect = (Component, module) => {
-  const resources = Object.keys(Component.dataQuery); 
+  const resources = Object.keys(Component.manifest); 
   console.log(Component.store);
   const mapStateToProps = (state) => {
     return resources.reduce((result, resource) => {
-      const query = Component.dataQuery[resource];
+      const query = Component.manifest[resource];
       if (query.remote === true) {
         result[resource] = _.get(state.okapi, [resource], null);
       } else {
@@ -70,7 +70,7 @@ export const connect = (Component, module) => {
   }
   const mapDispatchToProps = (dispatch) => {
     return { mutator: resources.reduce((result, resource) => {
-      const query = Component.dataQuery[resource];
+      const query = Component.manifest[resource];
       if (query.remote === true) {
         result[resource] = getMutatorFor(resource, module, 'okapi', dispatch);
       } else {

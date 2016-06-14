@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
 class About extends Component {
-  static dataQuery = { greetingParams: {} };
+  static manifest = { greetingParams: {} };
   componentWillMount() {
     this.props.mutator.greetingParams.replace({ greeting: 'Hi', name: 'Kurt' });
   }
