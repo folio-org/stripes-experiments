@@ -1,3 +1,6 @@
 {
-  "@stripes-experiments/trivial":{}
+  "okapi": { "url":"http://localhost:9130" },
+  "modules": {
+    "@stripes-experiments/trivial": {}
+  }
 }
