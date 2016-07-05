@@ -15,14 +15,14 @@ module.exports = {
     publicPath: '/static/'
   },
   resolve: {
-    root: [
+    fallback: [
       path.resolve('src'),
       path.join(__dirname, 'node_modules'),
       path.join(__dirname, 'node_modules/@stripes-experiments')
     ]
   },
   resolveLoader: {
-    root: [
+    fallback: [
       path.join(__dirname, 'node_modules'),
       path.join(__dirname, 'node_modules/@stripes-experiments')
     ]
