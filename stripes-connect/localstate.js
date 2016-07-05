@@ -1,4 +1,4 @@
-export function getMutator(resource, module, dispatch) {
+export function mutatorFor(resource, module, dispatch) {
   return { 
     'update': function(newData) {
       return dispatch({
@@ -23,7 +23,7 @@ export function getMutator(resource, module, dispatch) {
   };
 }
 
-export function getReducer(resource, module) {
+export function reducerFor(resource, module) {
   return (state = {}, action) => {
     if (!(action.type.startsWith('STRIPESLOCALSTATE_'))) return state;
     if (!(action.meta.module && action.meta.resource)) return state; 

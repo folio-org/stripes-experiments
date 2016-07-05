@@ -2,24 +2,27 @@ import React from 'react';
 import _ from 'lodash';
 import { connect as reduxConnect } from 'react-redux';
 import { addReducer } from 'stripes-core/src/reducerRegistry';
+import reduxOkapi from 'redux-okapi';
 import * as localstate from './localstate';
+import * as okapi from './okapi';
 
 export const connect = (Component, module) => {
-  const resources = Object.keys(Component.manifest); 
+  const manifest = Component.manifest;
+  const resources = Object.keys(manifest);
 
-  resources.map((resource) => {
-    const query = Component.manifest[resource];
+  _.forOwn(manifest, (query, resource) => {
     if (query.remote) {
+      addReducer(resource, okapi.reducerFor(resource, module));
     } else {
-      addReducer(`${module}-${resource}`, localstate.getReducer(resource, module));
+      addReducer(`${module}-${resource}`, localstate.reducerFor(resource, module));
     }
   });
 
   const mapStateToProps = (state) => {
     return resources.reduce((result, resource) => {
-      const query = Component.manifest[resource];
+      const query = manifest[resource];
       if (query.remote) {
-        result[resource] = _.get(state.okapi, [resource], null);
+        result[resource] = _.get(state, [resource], null);
       } else {
         result[resource] = _.get(state, [`${module}-${resource}`], null);
       }
@@ -28,16 +31,26 @@ export const connect = (Component, module) => {
   }
 
   const mapDispatchToProps = (dispatch) => {
-    return { mutator: resources.reduce((result, resource) => {
-      const query = Component.manifest[resource];
-      if (query.remote) {
-        result[resource] = getMutatorFor(resource, module, 'okapi', dispatch);
-      } else {
-        result[resource] = localstate.getMutator(resource, module, dispatch);
+    return {
+      mutator: resources.reduce((result, resource) => {
+        const query = manifest[resource];
+        if (query.remote) {
+          result[resource] = okapi.mutatorFor(resource, module, dispatch);
+        } else {
+          result[resource] = localstate.mutatorFor(resource, module, dispatch);
+        }
+        return result;
+      }, {}),
+      refreshRemote: () => {
+        _.forOwn(manifest, (query, resource) => {
+          if (query.remote) {
+            dispatch(reduxOkapi.actions.fetch(resource));
+          }
+        });
       }
-      return result;
-    }, {}) };
+    };
   }
+
   const connectedComponent = reduxConnect(mapStateToProps, mapDispatchToProps)(Component);
   return connectedComponent;
 };

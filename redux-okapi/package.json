@@ -1,0 +1,15 @@
+{
+  "name": "redux-okapi",
+  "version": "0.0.0",
+  "description": "Redux actions and reducers for Okapi services",
+  "repository": {
+    "private": true
+  },
+  "main": "index.js",
+  "author": "Index Data",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "redux-crud": "^1.0.0"
+  }
+}
