@@ -1,12 +1,22 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect as reduxConnect } from 'react-redux';
-import { addReducer } from 'stripes-core/src/reducerRegistry';
 import reduxOkapi from 'redux-okapi';
 import * as localstate from './localstate';
 import * as okapi from './okapi';
 
+// TODO: This should move to provider or store somehow
+//
+// Current keys:
+//   addReducer(<state key>, <reducer function>)
+let config = {};
+export const init = newConfig => Object.assign(config, newConfig);
+
 export const connect = (Component, module) => {
+  if (!config.addReducer) {
+    throw new Error('stripes-connect not configured---please call init() first');
+  }
+  const addReducer = config.addReducer;
   const manifest = Component.manifest;
   const resources = Object.keys(manifest);
 

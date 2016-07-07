@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import crud from 'redux-crud';
+// TODO: pass in config externally, perhaps returning curried functions
 import { system } from 'stripes-loader!';
 
 const okapiurl = system.okapi.url;
