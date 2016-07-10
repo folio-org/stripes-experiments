@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
-class TenantList extends Component {
-  static manifest = { tenants: {remote: true} };
-  componentWillMount() {
+
+class StripesComponent extends Component {
+  componentDidMount() {
     this.props.refreshRemote();
   }
+}
+
+class TenantList extends StripesComponent {
+  static manifest = { tenants: {remote: true} };
   render() {
     var tenantNodes = this.props.tenants.map(function (tenant) {
       return (
