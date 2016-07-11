@@ -1,14 +1,10 @@
+// Common Webpack configuration for building Stripes for production
+
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const base = require('./webpack.config.base');
-const cli = require('./webpack.config.cli');
 
-module.exports = Object.assign({}, base, cli, {
-  devtool: 'source-map',
-  entry: [
-    './src/index'
-  ],
+module.exports = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
@@ -28,4 +24,4 @@ module.exports = Object.assign({}, base, cli, {
       { from:"node_modules/bootstrap/dist", to:"bootstrap"},
     ])
   ]
-});
+};

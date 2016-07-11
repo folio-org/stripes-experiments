@@ -1,3 +1,6 @@
+// Top level Webpack configuration for running a development environment
+// from the command line via devServer.js
+
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");

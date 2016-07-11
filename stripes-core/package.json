@@ -8,7 +8,7 @@
   },
   "scripts": {
     "clean": "rimraf static",
-    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build:webpack": "NODE_ENV=production webpack --config webpack.config.cli.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "node devServer.js",
     "lint": "eslint src"

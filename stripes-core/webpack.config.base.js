@@ -1,13 +1,13 @@
+// Common Webpack configuration for building Stripes
+
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  output: {
-    path: path.join(__dirname, 'static'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
-  },
+  entry: [
+    './src/index'
+  ],
   resolve: {
     fallback: [
       path.resolve('src'),
