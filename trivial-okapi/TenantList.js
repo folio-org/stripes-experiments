@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
 
-class StripesComponent extends Component {
-  componentDidMount() {
-    this.props.refreshRemote();
-  }
-}
 
-class TenantList extends StripesComponent {
+class TenantList extends Component {
   static manifest = { tenants: {remote: true} };
 
   render() {
