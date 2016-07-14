@@ -4,6 +4,15 @@ import { connect as reduxConnect } from 'react-redux';
 import reduxOkapi from 'redux-okapi';
 import * as localstate from './localstate';
 import * as okapi from './okapi';
+import Wrapping from './ComponentWrapping';
+
+
+class Wrapper extends React.Component {
+  render() {
+    return React.createElement(this.props.wrapped);
+  }
+};
+
 
 // TODO: This should move to provider or store somehow
 //
@@ -60,7 +69,8 @@ export const connect = (Component, module) => {
       }
     };
   }
-
-  const connectedComponent = reduxConnect(mapStateToProps, mapDispatchToProps)(Component);
+  let WrappedComponent = Wrapping(Component);
+  const connectedComponent = reduxConnect(mapStateToProps, mapDispatchToProps)(WrappedComponent);
   return connectedComponent;
 };
+
