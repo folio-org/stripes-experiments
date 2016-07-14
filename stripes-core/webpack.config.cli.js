@@ -14,7 +14,8 @@ module.exports = {
     okapi: { 'url':'http://localhost:9130' },
     modules: {
       '@stripes-experiments/trivial': {},
-      '@stripes-experiments/trivial-okapi': {}
+      '@stripes-experiments/trivial-okapi': {},
+      '@stripes-experiments/tenant-edit' : {}
     }
   }
 };

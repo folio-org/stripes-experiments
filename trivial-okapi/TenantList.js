@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
+import { Link } from 'react-router';
 
 
 class TenantList extends Component {
+
   static manifest = { tenants: {remote: true} };
 
   render() {
@@ -10,6 +12,7 @@ class TenantList extends Component {
       return (
         <li key={tenant.id}>
           {tenant.name}
+          [<Link to={'/tenant-edit/' + tenant.id}>Edit</Link>] 
         </li>
       );
     });
