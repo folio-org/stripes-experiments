@@ -2,7 +2,7 @@ import reduxOkapi from 'redux-okapi';
 
 export function mutatorFor(resource, module, dispatch) {
   return { 
-    'update': (resource, data) => reduxOkapi.actions.update(resource, data)
+    'delete': record => { dispatch(reduxOkapi.actions.delete(resource, record)) }
   };
 }
 

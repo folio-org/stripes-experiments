@@ -8,10 +8,10 @@ class TenantList extends Component {
   static manifest = { tenants: {remote: true} };
 
   render() {
-    var tenantNodes = this.props.tenants.map(function (tenant) {
+    var tenantNodes = this.props.tenants.map((tenant) => {
       return (
         <li key={tenant.id}>
-          {tenant.name}
+          {tenant.name} [<a onClick={() => this.props.mutator.tenants.delete(tenant)}>delete</a>]
           [<Link to={'/tenant-edit/' + tenant.id}>Edit</Link>] 
         </li>
       );
