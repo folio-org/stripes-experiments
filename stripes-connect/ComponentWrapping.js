@@ -7,8 +7,7 @@ let Wrapping = (Wrapped) => class extends React.Component {
   }
 
   componentDidMount() {
-    console.log("got ID from route?: ",this.props.params.id);
-	  this.props.refreshRemote();
+	  this.props.refreshRemote({...this.props.params});
   }
 
   render () {

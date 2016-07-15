@@ -12,7 +12,7 @@ class TenantList extends Component {
       return (
         <li key={tenant.id}>
           {tenant.name} [<a onClick={() => this.props.mutator.tenants.delete(tenant)}>delete</a>]
-          [<Link to={'/tenant-edit/' + tenant.id}>Edit</Link>] 
+          [<Link to={'/trivial-okapi/edit/' + tenant.id}>Edit</Link>] 
         </li>
       );
     });

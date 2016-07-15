@@ -1,11 +1,11 @@
 [
   {
-    "path":"trivial-okapi/list",
-    "component":"TenantList"
+    "path":"trivial-okapi/edit/:tenantid",
+    "component":"TenantEdit"
   },
   {
-    "path":"trivial-okapi/edit/:id",
-    "component":"TenantEdit"
+    "path":"trivial-okapi/list",
+    "component":"TenantList"
   }
 ]
 
