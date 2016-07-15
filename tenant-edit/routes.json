@@ -1,6 +1,0 @@
-[
-  {
-    "path":"tenant-edit/:id",
-    "component":"TenantEdit"
-  }
-]
