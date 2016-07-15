@@ -60,12 +60,13 @@ export const connect = (Component, module) => {
         }
         return result;
       }, {}),
-      refreshRemote: (overrides) => {
+      refreshRemote: (params) => {
         _.forOwn(manifest, (query, resource) => {
           if (query.remote) { 
+            let overrides = {};
             if (query.suffix && query.suffix.startsWith(":")) {
               let suffix = query.suffix.substring(1);
-              overrides = { suffix : "/"+overrides[suffix]};  
+              overrides = { suffix : "/"+params[suffix]};
             }                       
             dispatch(reduxOkapi.actions.fetch(resource,overrides));
           }
