@@ -7,13 +7,6 @@ import * as okapi from './okapi';
 import Wrapping from './ComponentWrapping';
 
 
-class Wrapper extends React.Component {
-  render() {
-    return React.createElement(this.props.wrapped);
-  }
-};
-
-
 // TODO: This should move to provider or store somehow
 //
 // Current keys:
