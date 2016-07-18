@@ -4,6 +4,8 @@ import { connect as reduxConnect } from 'react-redux';
 import reduxOkapi from 'redux-okapi';
 import * as localstate from './localstate';
 import * as okapi from './okapi';
+import Wrapping from './ComponentWrapping';
+
 
 // TODO: This should move to provider or store somehow
 //
@@ -51,16 +53,22 @@ export const connect = (Component, module) => {
         }
         return result;
       }, {}),
-      refreshRemote: () => {
+      refreshRemote: (params) => {
         _.forOwn(manifest, (query, resource) => {
-          if (query.remote) {
-            dispatch(reduxOkapi.actions.fetch(resource));
+          if (query.remote) { 
+            let overrides = {};
+            if (query.suffix && query.suffix.startsWith(":")) {
+              let suffix = query.suffix.substring(1);
+              overrides = { suffix : "/"+params[suffix]};
+            }                       
+            dispatch(reduxOkapi.actions.fetch(resource,overrides));
           }
         });
       }
     };
   }
-
-  const connectedComponent = reduxConnect(mapStateToProps, mapDispatchToProps)(Component);
+  let WrappedComponent = Wrapping(Component);
+  const connectedComponent = reduxConnect(mapStateToProps, mapDispatchToProps)(WrappedComponent);
   return connectedComponent;
 };
+
