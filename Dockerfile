@@ -7,9 +7,19 @@ RUN cd redux-okapi && \
    npm install 
 RUN cd stripes-core && \
    npm install 
-RUN cd stripes-core/node_modules/stripes-loader && \
-   npm install && \
-   npm run build
+
+# run from github source repo
+#RUN cd stripes-core/node_modules/stripes-loader && \
+#   npm install && \
+#   npm run build
+
+# run from tarball
+RUN cd stripes-core/node_modules/ && \
+   rm -rf stripes-loader && \
+   rm -rf stripes-loader-[0-9]* && \
+   wget https://s3.amazonaws.com/folio-ui-bundle/tarball/stripes-loader-0.0.0.tgz && \
+   tar xfz stripes-loader-0.0.0.tgz
+
 RUN cd stripes-core/node_modules && \
    ln -fs ../../@stripes-experiments . 
 
