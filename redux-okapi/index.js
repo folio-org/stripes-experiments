@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import crud from 'redux-crud';
 // TODO: pass in config externally, perhaps returning curried functions
 import { system } from 'stripes-loader!';
+import { uuid } from './uuid.js';
 
 const okapiurl = system.okapi.url;
 const defaults = {
@@ -11,6 +12,47 @@ const defaults = {
 };
 
 const actions = {
+  create: (endpoint, record, overrides = {}) => {
+    const options = Object.assign({}, defaults, overrides);
+    const crudActions = crud.actionCreatorsFor(endpoint)
+    let url = [okapiurl, options.prefix, endpoint].join('/');
+    if (options.suffix) url += options.suffix;
+    record.id = uuid();
+    return function(dispatch) {
+      dispatch(crudActions.createStart(record));
+      return fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(record)
+      })
+        .then(response => {
+          if (response.status >= 400) {
+            dispatch(crudActions.createError(response));
+          } else {
+            dispatch(crudActions.createSuccess(record));
+          }
+        });
+    }
+  },
+  update: (endpoint, record, overrides = {}) => {
+    const options = Object.assign({}, defaults, overrides);
+    const crudActions = crud.actionCreatorsFor(endpoint)
+    let url = [okapiurl, options.prefix, endpoint, record[options.pk]].join('/');
+    if (options.suffix) url += options.suffix;
+    return function(dispatch) {
+      dispatch(crudActions.updateStart(record));
+      return fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(record)
+      })
+        .then(response => {
+          if (response.status >= 400) {
+            dispatch(crudActions.updateError(response));
+          } else {
+            dispatch(crudActions.updateSuccess(record));
+          }
+        });
+    }
+  },
   delete: (endpoint, record, overrides = {}) => {
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
