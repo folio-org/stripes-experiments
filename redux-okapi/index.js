@@ -11,6 +11,27 @@ const defaults = {
 };
 
 const actions = {
+  update: (endpoint, record, overrides = {}) => {
+    const options = Object.assign({}, defaults, overrides);
+    const crudActions = crud.actionCreatorsFor(endpoint)
+    let url = [okapiurl, options.prefix, endpoint, record[options.pk]].join('/');
+    if (options.suffix) url += options.suffix;
+    return function(dispatch) {
+      dispatch(crudActions.deleteStart(record));
+      return fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(record)
+      })
+        .then(response => {
+          if (response.status >= 400) {
+            dispatch(crudActions.updateError(response));
+          } else {
+            dispatch(crudActions.updateSuccess(record));
+          }
+        });
+    }
+
+  },
   delete: (endpoint, record, overrides = {}) => {
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
