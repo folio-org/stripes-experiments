@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import crud from 'redux-crud';
 // TODO: pass in config externally, perhaps returning curried functions
 import { system } from 'stripes-loader!';
-import { uuid } from './uuid.js';
+import uuid from 'node-uuid';
 
 const okapiurl = system.okapi.url;
 const defaults = {
