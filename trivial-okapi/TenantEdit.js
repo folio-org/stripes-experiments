@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
 
 export default class TenantEdit extends Component {
-  static manifest = { tenants: {remote: true, suffix: ":tenantid"} };
+  static manifest = { '_proxy/tenants': {remote: true, path: ":tenantid"} };
 
   render() { 
       return <div>Tenant Edit ID: {this.props.params.tenantid}</div>
