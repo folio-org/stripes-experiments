@@ -13,4 +13,4 @@ https://github.com/npm/npm/issues/3055
     ln -s ../.. node_modules/@stripes-experiments
     npm start
 
-Node.js version 6.x is required for running stripes-experiments
+Node.js version 6.x is recommended for running stripes-experiments
