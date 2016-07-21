@@ -12,3 +12,5 @@ https://github.com/npm/npm/issues/3055
     cd ../..
     ln -s ../.. node_modules/@stripes-experiments
     npm start
+
+Node.js version 6.x is recommended for running stripes-experiments
