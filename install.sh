@@ -5,18 +5,18 @@ set -e
 
 (
 cd redux-okapi 
-npm install
+npm --silent install
 )
 
 (
 cd stripes-core
-npm install
+npm --silent install
 )
 
 (
 cd stripes-core/node_modules/stripes-loader
-npm install
-npm run build
+npm --silent install
+npm --silent run build
 )
 
 (
