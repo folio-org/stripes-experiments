@@ -31,15 +31,17 @@ export const connect = (Component, module) => {
   });
 
   const mapStateToProps = (state) => {
-    return resources.reduce((result, resource) => {
-      const query = manifest[resource];
-      if (query.remote) {
-        result[resource] = _.get(state, [resource], null);
-      } else {
-        result[resource] = _.get(state, [`${module}-${resource}`], null);
-      }
-      return result;
-    }, {});
+    return {
+      data: resources.reduce((result, resource) => {
+        const query = manifest[resource];
+        if (query.remote) {
+          result[resource] = _.get(state, [resource], null);
+        } else {
+          result[resource] = _.get(state, [`${module}-${resource}`], null);
+        }
+        return result;
+      }, {})
+    };
   }
 
   const mapDispatchToProps = (dispatch) => {

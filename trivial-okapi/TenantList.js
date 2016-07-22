@@ -7,8 +7,8 @@ class TenantList extends Component {
   static manifest = { '_/proxy/tenants': {remote: true} };
 
   render() {
-    if (!('_/proxy/tenants' in this.props)) return null;
-    var tenantNodes = this.props['_/proxy/tenants'].map((tenant) => {
+    if (!('_/proxy/tenants' in this.props.data)) return null;
+    var tenantNodes = this.props.data['_/proxy/tenants'].map((tenant) => {
       return (
         <li key={tenant.id}>
           {tenant.name} [<a onClick={() => this.props.mutator['_/proxy/tenants'].delete(tenant)}>delete</a>]
