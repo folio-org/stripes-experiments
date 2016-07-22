@@ -38,8 +38,8 @@ mkdir $bundle_dir
 curl -sSf -o $bundle_dir/favicon.ico https://www.folio.org/wp-content/themes/folio/img/FIO_fav.png 
 )
 
-env STRIPE_STATIC=/$aws_s3_path/$bundle_dir \
-  perl -i.bak -npe "s,(publicPath:)\s*'/static/',\$1 '\$STRIPE_STATIC'," \
+env STRIPE_STATIC=static \
+  perl -i.bak -npe "s,(publicPath:)\s*'/static/',\$1 '\$ENV{STRIPE_STATIC}'," \
   stripes-core/webpack.config.tenant.js
 
 ############################
