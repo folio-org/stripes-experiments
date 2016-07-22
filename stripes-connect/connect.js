@@ -7,7 +7,7 @@ import * as okapi from './okapi';
 import Wrapping from './ComponentWrapping';
 
 
-// TODO: This should move to provider or store somehow
+// TODO: This config/init should move to provider or store somehow
 //
 // Current keys:
 //   addReducer(<state key>, <reducer function>)
@@ -31,15 +31,17 @@ export const connect = (Component, module) => {
   });
 
   const mapStateToProps = (state) => {
-    return resources.reduce((result, resource) => {
-      const query = manifest[resource];
-      if (query.remote) {
-        result[resource] = _.get(state, [resource], null);
-      } else {
-        result[resource] = _.get(state, [`${module}-${resource}`], null);
-      }
-      return result;
-    }, {});
+    return {
+      data: resources.reduce((result, resource) => {
+        const query = manifest[resource];
+        if (query.remote) {
+          result[resource] = _.get(state, [resource], null);
+        } else {
+          result[resource] = _.get(state, [`${module}-${resource}`], null);
+        }
+        return result;
+      }, {})
+    };
   }
 
   const mapDispatchToProps = (dispatch) => {
@@ -57,11 +59,11 @@ export const connect = (Component, module) => {
         _.forOwn(manifest, (query, resource) => {
           if (query.remote) { 
             let overrides = {};
-            if (query.suffix && query.suffix.startsWith(":")) {
-              let suffix = query.suffix.substring(1);
-              overrides = { suffix : "/"+params[suffix]};
+            if (query.path && query.path.startsWith(":")) {
+              let path = query.path.substring(1);
+              overrides = { path: "/" + params[path] };
             }                       
-            dispatch(reduxOkapi.actions.fetch(resource,overrides));
+            dispatch(reduxOkapi.actions.fetch(resource, overrides));
           }
         });
       }

@@ -7,7 +7,6 @@ import uuid from 'node-uuid';
 const okapiurl = system.okapi.url;
 const defaults = {
   pk: 'id',
-  prefix: '_/proxy',
   clientGeneratePk: true
 };
 
@@ -15,8 +14,8 @@ const actions = {
   create: (endpoint, record, overrides = {}) => {
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
-    let url = [okapiurl, options.prefix, endpoint].join('/');
-    if (options.suffix) url += options.suffix;
+    let url = [okapiurl, endpoint].join('/');
+    if (options.path) url += options.path;
     record.id = uuid();
     return function(dispatch) {
       dispatch(crudActions.createStart(record));
@@ -36,8 +35,8 @@ const actions = {
   update: (endpoint, record, overrides = {}) => {
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
-    let url = [okapiurl, options.prefix, endpoint, record[options.pk]].join('/');
-    if (options.suffix) url += options.suffix;
+    let url = [okapiurl, endpoint, record[options.pk]].join('/');
+    if (options.path) url += options.path;
     return function(dispatch) {
       dispatch(crudActions.updateStart(record));
       return fetch(url, {
@@ -56,8 +55,8 @@ const actions = {
   delete: (endpoint, record, overrides = {}) => {
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
-    let url = [okapiurl, options.prefix, endpoint, record[options.pk]].join('/');
-    if (options.suffix) url += options.suffix;
+    let url = [okapiurl, endpoint, record[options.pk]].join('/');
+    if (options.path) url += options.path;
     return function(dispatch) {
       dispatch(crudActions.deleteStart(record));
       return fetch(url, {
@@ -77,8 +76,8 @@ const actions = {
     const options = Object.assign({}, defaults, overrides);
     // TODO: cache this?
     const crudActions = crud.actionCreatorsFor(endpoint)
-    let url = [okapiurl, options.prefix, endpoint].join('/');
-    if (options.suffix) url += options.suffix;
+    let url = [okapiurl, endpoint].join('/');
+    if (options.path) url += options.path;
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
       return fetch(url)
