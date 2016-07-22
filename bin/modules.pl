@@ -9,7 +9,7 @@ my @data;
 
 foreach my $module (@ARGV) {
     my $m = basename( $module, ".tgz" );
-    push @data, qq['\@stripes-experiments/$m': {}'];
+    push @data, qq['\@stripes-experiments/$m': {}];
 }
 
 my $data = join ",\n\t", @data;
