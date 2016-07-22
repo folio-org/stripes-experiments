@@ -47,8 +47,11 @@ curl -sSf -o $bundle_dir/favicon.ico https://www.folio.org/wp-content/themes/fol
 ./bin/install.sh
 
 # add new UI module to bundle
-wget $ui_url
-tar xfz $(basename $ui_url)
+for url in $ui_url
+do 
+  wget $url
+  tar xfz $(basename $url)
+done
 
 cd stripes-core && npm --silent run build:tenant
 pwd
