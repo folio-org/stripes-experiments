@@ -14,5 +14,5 @@ https://github.com/npm/npm/issues/3055
     npm start
 
 Note: node.js version 6.x is required for running stripes-experiments. Older node.js 
-versions are likely to fail due changes in react/reduct
+versions are likely to fail due changes in react/redux
 
