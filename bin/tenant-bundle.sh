@@ -11,6 +11,7 @@ aws_url="https://s3.amazonaws.com/$aws_s3_path"
 : ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wosch.tgz"}
 : ${stripes_branch="wosch"}
 : ${stripes_tenant="wosch"}
+: ${stripes_debug=false}
 
 
 echo "node version: $(node --version)"
@@ -58,8 +59,6 @@ do
 done
 
 cd stripes-core && npm --silent run build:tenant
-pwd
-
 
 cp index.html $bundle_dir
 rsync -a static $bundle_dir
@@ -67,4 +66,11 @@ rsync -a static $bundle_dir
 aws s3 sync --quiet $bundle_dir s3://$aws_s3_path/$bundle_dir
 
 echo $aws_url/$bundle_dir/index.html
+
+# cleanup temp space
+if $stripes_debug; then
+  pwd
+else
+  rm -rf $dir
+fi
 
