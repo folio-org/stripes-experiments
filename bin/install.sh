@@ -1,4 +1,8 @@
 #!/bin/sh
+#
+# requires ssh github access. If you don't have credentials, use
+# the script ./bin/install-nexus.sh 
+#
 
 # fail on error
 set -e
