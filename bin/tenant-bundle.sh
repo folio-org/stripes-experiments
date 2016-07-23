@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+pwd=$(pwd)
 
 #github_url="ssh://git@github.com/sling-incubator/stripes-experiments"
 : ${github_url="$(pwd)"} 
@@ -37,7 +38,8 @@ fi
 time=$(perl -e 'print time')
 bundle_dir="$stripes_tenant-$time"
 
-( cd stripes-core
+( 
+cd stripes-core
 rm -rf $bundle_dir
 mkdir $bundle_dir
 curl -sSf -o $bundle_dir/favicon.ico https://www.folio.org/wp-content/themes/folio/img/FIO_fav.png 
@@ -54,8 +56,15 @@ curl -sSf -o $bundle_dir/favicon.ico https://www.folio.org/wp-content/themes/fol
 # add new UI module to bundle
 for url in $ui_url
 do 
-  wget $url
-  tar xfz $(basename $url)
+  # a directory, just copy
+  if [ -d $pwd/$url ]; then
+    rsync -a $pwd/$url .
+
+  # fetch from web site
+  else
+    wget $url
+    tar xfz $(basename $url)
+  fi
 done
 
 cd stripes-core && npm --silent run build:tenant
