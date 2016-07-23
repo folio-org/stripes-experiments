@@ -21,7 +21,7 @@ app.get('/bundle', function (req, res) {
   
   asyncblock(function (flow) {
     // exec('node -v', flow.add());
-    var command = 'env tenant="' + tenant + '"' + ' ui_url="' + req.query.url.join(" ");
+    var command = 'env stripes_tenant="' + tenant + '"' + ' ui_url="' + req.query.url.join(" ");
     command += '" ./bin/tenant-bundle.sh';
     
     exec(command, flow.add());
