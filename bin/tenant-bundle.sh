@@ -51,7 +51,8 @@ curl -sSf -o $bundle_dir/favicon.ico https://www.folio.org/wp-content/themes/fol
 ############################
 # main
 #
-./bin/install.sh
+#./bin/install.sh
+./bin/install-nexus.sh
 
 # add new UI module to bundle
 for url in $ui_url
