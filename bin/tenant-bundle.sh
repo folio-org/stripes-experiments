@@ -16,7 +16,11 @@ aws_url="https://s3.amazonaws.com/$aws_s3_path"
 echo "node version: $(node --version)"
 echo "npm  version: $(npm --version)"
 
-dir=$(mktemp -d /tmp/stripe.XXXXXXXX)
+tmp=/tmp
+if [ -n "$TMPDIR" ]; then
+  tmp=$TMPDIR
+fi
+dir=$(mktemp -d $tmp/stripe.XXXXXXXX)
 
 cd $dir
 pwd 
