@@ -7,6 +7,7 @@ var exec = require('child_process').exec;
 
 var cache = {};
 var error = {}; // global error object
+var debug = 1;
 
 app.get('/', function (req, res) {
   res.send("Please use http://localhost:" + port + "/bundle?tenant=tenant&url=module1&url=module2 ...\n");
@@ -44,15 +45,19 @@ app.get('/bundle', function (req, res) {
     
     exec(command, flow.add());
     
-    console.log('Run build, may take 1-2 minutes, tenant ' + tenant);
-    console.log(req.query.url)
+    if (debug >= 1) {
+      console.log('Run build, may take 1-2 minutes, tenant ' + tenant);
+      console.log('UI module: ' + JSON.stringify(req.query.url))
+    }
     
     result = flow.wait();
-    console.log(result);    // There'll be trailing \n in the output
+    if (debug >= 2) {
+      console.log(result);    // There'll be trailing \n in the output
+    }
 
     // Some other jobs
-    console.log('More results like if it were sync...');
-    cache[id_tag] = result;
+    // console.log('More results like if it were sync...');
+    // cache[id_tag] = result;
 
     var lines = result.split("\n");
     lines.pop();
