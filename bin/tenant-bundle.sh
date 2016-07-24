@@ -73,9 +73,12 @@ cd stripes-core && npm --silent run build:tenant
 cp index.html $bundle_dir
 rsync -a static $bundle_dir
 
-aws s3 sync --quiet $bundle_dir s3://$aws_s3_path/$bundle_dir
-
-echo $aws_url/$bundle_dir/index.html
+if aws s3 sync --quiet $bundle_dir s3://$aws_s3_path/$bundle_dir; then
+  echo $aws_url/$bundle_dir/index.html
+else
+   echo "Upload to $aws_url failed, please check your ~/.aws setup"
+   exit 1
+fi
 
 # cleanup temp space
 if $stripes_debug; then
