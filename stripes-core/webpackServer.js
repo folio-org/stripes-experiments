@@ -8,7 +8,7 @@ var exec = require('child_process').exec;
 var cache = {};
 
 app.get('/', function (req, res) {
-  res.send("Please use http://localhost:" + port + "/bundle?url=module1&url=module2 ...\n");
+  res.send("Please use http://localhost:" + port + "/bundle?tenant=tenant&url=module1&url=module2 ...\n");
 });
 
 app.get('/bundle', function (req, res) {
