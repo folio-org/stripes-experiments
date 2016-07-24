@@ -20,7 +20,7 @@ echo "npm  version: $(npm --version)"
 
 tmp=/tmp
 if [ -n "$TMPDIR" ]; then
-  tmp=$TMPDIR
+    tmp=$TMPDIR
 fi
 dir=$(mktemp -d $tmp/stripe.XXXXXXXX)
 
@@ -30,9 +30,9 @@ git clone -q $github_url
 cd $(basename $github_url)
 
 if [ -n "$stripes_branch" ]; then
-   if ! git branch | egrep -q $stripes_branch; then
-     git checkout -b $stripes_branch origin/$stripes_branch
-   fi
+    if ! git branch | egrep -q $stripes_branch; then
+        git checkout -b $stripes_branch origin/$stripes_branch
+    fi
 fi
 
 time=$(perl -e 'print time')
@@ -57,15 +57,15 @@ curl -sSf -o $bundle_dir/favicon.ico https://www.folio.org/wp-content/themes/fol
 # add new UI module to bundle
 for url in $ui_url
 do 
-  # a directory, just copy
-  if [ -d $pwd/$url ]; then
-    rsync -a $pwd/$url .
+    # a directory, just copy
+    if [ -d $pwd/$url ]; then
+        rsync -a $pwd/$url .
 
-  # fetch from web site
-  else
-    wget $url
-    tar xfz $(basename $url)
-  fi
+    # fetch from web site
+    else
+        wget $url
+        tar xfz $(basename $url)
+    fi
 done
 
 cd stripes-core && npm --silent run build:tenant
@@ -74,16 +74,16 @@ cp index.html $bundle_dir
 rsync -a static $bundle_dir
 
 if aws s3 sync --quiet $bundle_dir s3://$aws_s3_path/$bundle_dir; then
-  echo $aws_url/$bundle_dir/index.html
+    echo $aws_url/$bundle_dir/index.html
 else
-   echo "Upload to $aws_url failed, please check your ~/.aws setup"
-   exit 1
+    echo "Upload to $aws_url failed, please check your ~/.aws setup"
+    exit 1
 fi
 
 # cleanup temp space
 if $stripes_debug; then
-  pwd
+    pwd
 else
-  rm -rf $dir
+    rm -rf $dir
 fi
 
