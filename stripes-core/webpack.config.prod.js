@@ -12,6 +12,7 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    // Note: UglifyJs plugin makes the build 3x slower
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         warnings: false
