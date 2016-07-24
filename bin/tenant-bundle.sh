@@ -10,8 +10,8 @@ aws_s3_path="folio-ui-bundle/tenant"
 aws_url="https://s3.amazonaws.com/$aws_s3_path"
 
 : ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wosch.tgz"}
-: ${stripes_branch="wosch"}
-: ${stripes_tenant="wosch"}
+: ${stripes_branch="wolfram"}
+: ${stripes_tenant="wolfram"}
 : ${stripes_debug=false}
 
 
@@ -30,7 +30,7 @@ git clone -q $github_url
 cd $(basename $github_url)
 
 if [ -n "$stripes_branch" ]; then
-   if ! git branch | egrep -q wosch; then
+   if ! git branch | egrep -q $stripes_branch; then
      git checkout -b $stripes_branch origin/$stripes_branch
    fi
 fi
