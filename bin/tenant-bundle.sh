@@ -84,6 +84,6 @@ fi
 if $stripes_debug; then
     pwd
 else
-    rm -rf $dir
+    rm -rf $dir &
 fi
 
