@@ -43,6 +43,9 @@ app.get('/bundle', function (req, res) {
     var command = 'env stripes_tenant="' + tenant + '"' + ' ui_url="' + ui_url;
     command += '" ./bin/tenant-bundle.sh';
     
+    if (debug >= 1) {
+        console.log("Run shell command: " + command)
+    }
     exec(command, flow.add());
     
     if (debug >= 1) {
