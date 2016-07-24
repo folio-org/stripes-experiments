@@ -12,6 +12,7 @@
     "build:tenant": "NODE_ENV=production webpack --config webpack.config.cli.tenant.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "node devServer.js",
+    "start:webpack": "cd ../ && node stripes-core/webpackServer.js",
     "lint": "eslint src"
   },
   "devDependencies": {
