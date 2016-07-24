@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var port = 3030;
+const path = require('path')
 
 var asyncblock = require('asyncblock');
 var exec = require('child_process').exec;
@@ -10,7 +11,8 @@ var error = {}; // global error object
 var debug = 1;
 
 app.get('/', function (req, res) {
-  res.send("Please use http://localhost:" + port + "/bundle?tenant=tenant&url=module1&url=module2 ...\n");
+  // res.send("Please use http://localhost:" + port + "/bundle?tenant=tenant&url=module1&url=module2 ...\n");
+  res.sendFile( path.resolve('./stripes-core/webpack.html'))
 });
 
 app.get('/bundle', function (req, res) {
