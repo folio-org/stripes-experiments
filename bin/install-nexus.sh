@@ -31,8 +31,6 @@ fi
 )
 
 echo ""
-echo "now start for dev:"
-echo "cd stripes-core && npm start"
-echo "  or for build"
-echo "cd stripes-core && npm run build"
+echo "now start for webpack dev:"
+echo "cd stripes-core && npm run start:webpack"
 
