@@ -42,7 +42,7 @@ bundle_dir="$stripes_tenant-$time"
 cd stripes-core
 rm -rf $bundle_dir
 mkdir $bundle_dir
-curl -sSf -o $bundle_dir/favicon.ico https://www.folio.org/wp-content/themes/folio/img/FIO_fav.png 
+cp favicon.ico  $bundle_dir
 )
 
 
