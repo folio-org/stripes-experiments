@@ -66,6 +66,7 @@ do
     if [ -d $pwd/$url ]; then
         if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
             rsync -a $pwd/$url .
+            (cd $(basename $url) && pwd && npm install )
         else
             echo "illegal directory path: [A-Za-z0-9_-]: $url"
             exit 1
@@ -76,6 +77,7 @@ do
         if echo $url | egrep -q -i '^https?://[a-z0-9]+\S+$'; then
             wget $url
             tar $tar_opt -xzf $(basename $url) '[a-zA-Z0-9]*'
+            (cd $(basename $url .tgz) && npm install )
         else
             echo "illegal URL: $url"
             exit 1
@@ -86,10 +88,10 @@ done
 # re-use installed node_modules
 if [ -d $pwd/stripes-core/node_modules ]; then
     rsync -a $pwd/stripes-core/node_modules stripes-core
-else
-    #./bin/install.sh
-    ./bin/install-nexus.sh
 fi
+
+#./bin/install.sh
+./bin/install-nexus.sh
 
 cd stripes-core && npm --silent run build:tenant
 
