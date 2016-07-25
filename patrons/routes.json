@@ -1,0 +1,11 @@
+[
+  { 
+    "path":"patrons/add",
+    "component":"PatronAdd"
+  },
+  {
+    "path":"patrons/list",
+    "component":"PatronList"
+  }
+]
+

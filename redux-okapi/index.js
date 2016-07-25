@@ -80,7 +80,12 @@ const actions = {
     if (options.path) url += options.path;
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
-      return fetch(url)
+      return fetch(url, {
+        'X-Okapi-Tenant': 'a01d5789-c160-4e91-8749-792596dff120',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'x'
+      })
         .then(response => {
           if (response.status >= 400) {
             dispatch(crudActions.fetchError(response));
