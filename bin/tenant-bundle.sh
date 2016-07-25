@@ -72,7 +72,7 @@ do
     else
         if echo $url | egrep -q -i '^https?://[a-z0-9]+\S+$'; then
             wget $url
-            tar xfz $(basename $url)
+            tar xzf $(basename $url) '^[a-zA-Z0-9]*'
         else
             echo "illegal URL: $url"
             exit 1
