@@ -51,3 +51,22 @@ $ sudo apt-get install awscli
 
 # macos
 $ brew install awscli
+
+Example run
+-------------------------------------------------------
+npm run start:webpack
+
+> stripes-core@0.0.1 start:webpack /home/wosch/indexdata/stripes-experiments/stripes-core
+> cd ../ && node stripes-core/webpackServer.js
+
+Example app listening on http://localhost:3030
+Run shell command: env stripes_tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz  " ./bin/tenant-bundle.sh
+Run build, may take 1-2 minutes, tenant test
+UI module: ["trivial","https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz","",""]
+Webpack script is done
+AWS S3 URL: http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469452979/index.html
+
+
+# in your browser
+http://localhost:3030
+{"status":200,"url":"http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469452979/index.html"}
