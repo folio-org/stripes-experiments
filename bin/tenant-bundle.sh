@@ -35,6 +35,11 @@ if [ -n "$stripes_branch" ]; then
     fi
 fi
 
+if ! echo $stripes_tenant | egrep -q -i '^[a-z0-9_-]+$'; then
+    echo "illegal tenant name: [A-Za-z0-9_-]: $tenant"
+    exit 1
+fi
+
 time=$(perl -e 'print time')
 bundle_dir="$stripes_tenant-$time"
 
@@ -51,22 +56,32 @@ cp favicon.ico  $bundle_dir
 ############################
 # main
 #
-#./bin/install.sh
-./bin/install-nexus.sh
-
 # add new UI module to bundle
 for url in $ui_url
 do 
     # a directory, just copy
     if [ -d $pwd/$url ]; then
-        rsync -a $pwd/$url .
+        if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
+            rsync -a $pwd/$url .
+        else
+            echo "illegal directory path: [A-Za-z0-9_-]: $url"
+            exit 1
+        fi
 
     # fetch from web site
     else
-        wget $url
-        tar xfz $(basename $url)
+        if echo $url | egrep -q -i '^https?://[a-z0-9]+\S+$'; then
+            wget $url
+            tar xfz $(basename $url)
+        else
+            echo "illegal URL: $url"
+            exit 1
+        fi
     fi
 done
+
+#./bin/install.sh
+./bin/install-nexus.sh
 
 cd stripes-core && npm --silent run build:tenant
 
