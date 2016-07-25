@@ -113,7 +113,7 @@ function myapp (type, req, res) {
     if (debug >= 1) {
         console.log("AWS S3 URL: " + url)
     }
-    var aws_url = { status: 200, url: url };
+    var aws_url = { status: 201, url: url };
     
     // res.send("get bundle for tenant " + tenant + " " + req.query.url + result);
     res.send(JSON.stringify(aws_url));
