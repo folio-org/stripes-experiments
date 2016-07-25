@@ -17,6 +17,8 @@
   },
   "devDependencies": {
     "asyncblock": "2.2.8",
+    "body-parser": "1.15.2",
+
     "babel": "^6.5.2",
     "babel-core": "^6.10.4",
     "babel-eslint": "^6.1.1",
