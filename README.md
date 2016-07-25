@@ -27,19 +27,13 @@ Webpack
 $ ./bin/install-nexus.sh
 
 # start webpack service on port 3030
-$ node ./stripes-core/webpackServer.js 
-
-or use in ./stripes-core
-./stripes-core$ npm run start:webpack 
+cd stripes-core && npm run start:webpack 
 
 # open web form to generate folio UI bundle
-$ open ./stripes-core/webpack.html 
-
-or run:
 $ open http://localhost:3030
 
 # testing on the command line
-$ env tenant=wolfram ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
+$ env tenant=test ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
 
 AWS S3
 -------------
@@ -50,5 +44,3 @@ for you. See `aws configure'
 $ sudo apt-get install awscli
 # macos
 $ brew install awscli
-
-
