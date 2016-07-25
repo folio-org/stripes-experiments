@@ -6,6 +6,7 @@ import { hashHistory } from 'react-router';
 import configureStore from './configureStore';
 import { addReducer } from './reducerRegistry';
 import { init as initConnect } from 'stripes-connect';
+import { init as initConnectForm } from 'stripes-connect/connect-form';
 import Root from './Root';
 
 // Stylesheets are stored in webpack/global.css via extract-text-webpack-plugin
@@ -16,6 +17,7 @@ const history = syncHistoryWithStore(hashHistory, store);
 
 // TODO: expose the reducer registry on the store/provider
 initConnect({ addReducer });
+initConnectForm({ addReducer });
 
 render(
   <Root store={store} history={history} />,
