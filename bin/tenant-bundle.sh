@@ -83,8 +83,13 @@ do
     fi
 done
 
-#./bin/install.sh
-./bin/install-nexus.sh
+# re-use installed node_modules
+if [ -d $pwd/stripes-core/node_modules ]; then
+    rsync -a $pwd/stripes-core/node_modules stripes-core
+else
+    #./bin/install.sh
+    ./bin/install-nexus.sh
+fi
 
 cd stripes-core && npm --silent run build:tenant
 
