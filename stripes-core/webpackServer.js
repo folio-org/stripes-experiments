@@ -48,14 +48,24 @@ app.get('/bundle', function (req, res) {
     if (debug >= 1) {
         console.log("Run shell command: " + command)
     }
-    exec(command, flow.add());
+
+    flow.errorCallback = function(error) {
+        console.log(error)
+        return res.send(JSON.stringify({status: 503, message: 'webpack exit with non-zero status' }));
+    };
     
     if (debug >= 1) {
       console.log('Run build, may take 1-2 minutes, tenant ' + tenant);
       console.log('UI module: ' + JSON.stringify(req.query.url))
     }
     
+    exec(command, flow.add());
     result = flow.wait();
+    
+    if (debug >= 1) {
+      console.log("Webpack script is done");
+    }
+    
     if (debug >= 2) {
       console.log(result);    // There'll be trailing \n in the output
     }
