@@ -32,6 +32,18 @@ app.post('/bundle', function (req, res) {
   myapp('post', req, res);
 });
 
+// remove empty entries from list
+function cleanup_list(list) {
+  var _list = [];
+  
+  for(var i = 0; i < list.length; i++) {
+    if (list[i] != "") {
+      _list.push(list[i]);
+    }
+  }
+  return _list;
+}
+
 function myapp (type, req, res) {
   var method = type == 'get' ? 'query' : 'body';
   // console.log(req)
@@ -51,7 +63,7 @@ function myapp (type, req, res) {
   
   var ui_url;
   if (typeof req[method].url == 'object') {
-    ui_url = req[method].url.join(" ");
+    ui_url = cleanup_list(req[method].url).join(" ");
   } else if (typeof req[method].url == 'string') {
     ui_url = req[method].url;
   } else {
@@ -76,7 +88,7 @@ function myapp (type, req, res) {
     
     if (debug >= 1) {
       console.log('Run build, may take 1-2 minutes, tenant ' + tenant);
-      console.log('UI module: ' + JSON.stringify(req[method].url))
+      console.log('UI module: ' + JSON.stringify(cleanup_list(req[method].url)))
     }
     
     exec(command, flow.add());
