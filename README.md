@@ -35,6 +35,8 @@ cd stripes-core && npm run start:webpack
 
 # open web form to generate folio UI bundle
 $ open http://localhost:3030
+and fill out the forms, and press submit
+
 
 # testing on the command line
 $ env tenant=test ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
