@@ -68,5 +68,7 @@ AWS S3 URL: http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469452979/index
 
 
 # in your browser
-http://localhost:3030
-{"status":200,"url":"http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469452979/index.html"}
+open http://localhost:3030
+
+and after a minute you should get the result:
+{"status":201,"url":"http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469452979/index.html"}
