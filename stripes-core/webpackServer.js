@@ -65,8 +65,13 @@ app.get('/bundle', function (req, res) {
     // cache[id_tag] = result;
 
     var lines = result.split("\n");
-    lines.pop();
-    var aws_url = { status: 200, url: lines.pop() };
+    lines.pop(); // newline
+    var url = lines.pop();
+    
+    if (debug >= 1) {
+        console.log("AWS S3 URL: " + url)
+    }
+    var aws_url = { status: 200, url: url };
     
     // res.send("get bundle for tenant " + tenant + " " + req.query.url + result);
     res.send(JSON.stringify(aws_url));
