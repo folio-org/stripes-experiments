@@ -53,6 +53,9 @@ cp favicon.ico  $bundle_dir
 
 ./bin/modules.pl $ui_url > stripes-core/webpack.config.tenant.js
 
+if [ $(uname) = "Linux" ]; then
+    tar_opt=--wildcards
+fi
 ############################
 # main
 #
@@ -72,7 +75,7 @@ do
     else
         if echo $url | egrep -q -i '^https?://[a-z0-9]+\S+$'; then
             wget $url
-            tar xzf $(basename $url) '^[a-zA-Z0-9]*'
+            tar $tar_opt -xzf $(basename $url) '[a-zA-Z0-9]*'
         else
             echo "illegal URL: $url"
             exit 1
