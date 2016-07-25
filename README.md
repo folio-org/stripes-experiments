@@ -21,6 +21,10 @@ Some node modules require an installed C++ compiler (g++)
 # macos
 $ brew install node
 
+# debian
+go to https://nodejs.org/en/download/current/ and download the Linux Binaries. Extract the
+archive, and symlink the programs "node" and "npm" to /usr/local/bin
+
 Webpack
 ----------------------------------------------------
 # run a local installation (see the readme above)
@@ -42,5 +46,6 @@ for you. See `aws configure'
 
 # debian
 $ sudo apt-get install awscli
+
 # macos
 $ brew install awscli
