@@ -1,0 +1,12 @@
+converted 'https://www.folio.org/wp-content/themes/folio/img/FIO_fav.png' (ANSI_X3.4-1968) -> 'https://www.folio.org/wp-content/themes/folio/img/FIO_fav.png' (UTF-8)
+--2016-07-25 10:36:19--  https://www.folio.org/wp-content/themes/folio/img/FIO_fav.png
+Resolving www.folio.org (www.folio.org)... 107.180.25.36
+Connecting to www.folio.org (www.folio.org)|107.180.25.36|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 18325 (18K) [image/png]
+Saving to: 'FIO_fav.png'
+
+     0K .......... .......                                    100%  193K=0.09s
+
+2016-07-25 10:36:19 (193 KB/s) - 'FIO_fav.png' saved [18325/18325]
+
