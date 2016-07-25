@@ -6,7 +6,7 @@ pwd=$(pwd)
 #github_url="ssh://git@github.com/sling-incubator/stripes-experiments"
 : ${github_url="$(pwd)"} 
 
-aws_s3_path="folio-ui-bundle/tenant"
+: ${aws_s3_path="folio-ui-bundle/tenant"}
 aws_url="http://s3.amazonaws.com/$aws_s3_path"
 
 : ${ui_url="https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz"}
