@@ -19,6 +19,12 @@ app.get('/', function (req, res) {
   res.sendFile( path.resolve('./stripes-core/webpack.html'))
 });
 
+app.get('/readme.md', function (req, res) {
+  res.contentType("text/plain");
+  res.sendFile( path.resolve('./README.md'))
+});
+
+
 app.get('/bundle', function (req, res) {
   myapp('get', req, res);
 });
