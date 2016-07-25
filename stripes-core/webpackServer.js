@@ -1,6 +1,10 @@
 var express = require('express');
 var app = express();
 var port = 3030;
+var bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
 const path = require('path')
 
 var asyncblock = require('asyncblock');
@@ -16,7 +20,17 @@ app.get('/', function (req, res) {
 });
 
 app.get('/bundle', function (req, res) {
-  var tenant = req.query.tenant
+  myapp('get', req, res);
+});
+app.post('/bundle', function (req, res) {
+  myapp('post', req, res);
+});
+
+function myapp (type, req, res) {
+  var method = type == 'get' ? 'query' : 'body';
+  // console.log(req)
+  
+  var tenant = req[method].tenant
   if (typeof tenant == 'undefined' || tenant == '') {
     return res.send(JSON.stringify({status: 503, message: 'missing tenant parameter' }));
   }
@@ -30,10 +44,10 @@ app.get('/bundle', function (req, res) {
   //var id_tag = id.join("|");
   
   var ui_url;
-  if (typeof req.query.url == 'object') {
-    ui_url = req.query.url.join(" ");
-  } else if (typeof req.query.url == 'string') {
-    ui_url = req.query.url;
+  if (typeof req[method].url == 'object') {
+    ui_url = req[method].url.join(" ");
+  } else if (typeof req[method].url == 'string') {
+    ui_url = req[method].url;
   } else {
     return res.send(JSON.stringify({status: 503, message: 'missing url parameter' }));
   }
@@ -56,7 +70,7 @@ app.get('/bundle', function (req, res) {
     
     if (debug >= 1) {
       console.log('Run build, may take 1-2 minutes, tenant ' + tenant);
-      console.log('UI module: ' + JSON.stringify(req.query.url))
+      console.log('UI module: ' + JSON.stringify(req[method].url))
     }
     
     exec(command, flow.add());
@@ -86,8 +100,7 @@ app.get('/bundle', function (req, res) {
     // res.send("get bundle for tenant " + tenant + " " + req.query.url + result);
     res.send(JSON.stringify(aws_url));
   });
-
-} );
+};
 
 app.listen(port, function () {
   console.log('Example app listening on http://localhost:' + port);
