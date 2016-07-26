@@ -121,10 +121,12 @@ function myapp (type, req, res) {
     
     // res.send("get bundle for tenant " + tenant + " " + req.query.url + result);
     res.location(url);
-    res.sendStatus(201);
+    res.status(201);
    
     if (type == 'get') { 
       res.send(JSON.stringify(aws_url));
+    } else {
+      res.send("");
     }
   });
 };
