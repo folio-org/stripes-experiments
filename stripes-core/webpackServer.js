@@ -5,6 +5,9 @@ var bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
+// curl -H "Content-Type: application/json" 
+app.use(bodyParser.json());
+
 const path = require('path')
 
 var asyncblock = require('asyncblock');
@@ -46,9 +49,10 @@ function cleanup_list(list) {
 
 function myapp (type, req, res) {
   var method = type == 'get' ? 'query' : 'body';
-  // console.log(req)
+
+  // GET requests read the tenant from an URL parameter, okapi POST requests from HTTP header  
+  var tenant = type == 'get' ? req[method].tenant : req.get('X-Okapi-Tenant-Id');
   
-  var tenant = req[method].tenant
   if (typeof tenant == 'undefined' || tenant == '') {
     return res.send(JSON.stringify({status: 503, message: 'missing tenant parameter' }));
   }
@@ -60,6 +64,8 @@ function myapp (type, req, res) {
   //id.push(tenant);
   //id.push(req.query.url);
   //var id_tag = id.join("|");
+  //const res_data = JSON.parse(req.body);
+  console.log(req.body);
   
   var ui_url;
   if (typeof req[method].url == 'object') {
@@ -69,8 +75,6 @@ function myapp (type, req, res) {
   } else {
     return res.send(JSON.stringify({status: 503, message: 'missing url parameter' }));
   }
-  
-  
   
   asyncblock(function (flow) {
     // exec('node -v', flow.add());
