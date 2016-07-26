@@ -120,7 +120,12 @@ function myapp (type, req, res) {
     var aws_url = { status: 201, url: url };
     
     // res.send("get bundle for tenant " + tenant + " " + req.query.url + result);
-    res.send(JSON.stringify(aws_url));
+    res.setHeader("Location: " + url);
+    res.sendStatus(201);
+   
+    if (type == 'get') { 
+      res.send(JSON.stringify(aws_url));
+    }
   });
 };
 
