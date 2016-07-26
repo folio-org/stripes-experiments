@@ -65,7 +65,7 @@ function myapp (type, req, res) {
   //id.push(req.query.url);
   //var id_tag = id.join("|");
   //const res_data = JSON.parse(req.body);
-  console.log(req.body);
+  //console.log(req.body);
   
   var ui_url;
   if (typeof req[method].url == 'object') {
@@ -120,7 +120,7 @@ function myapp (type, req, res) {
     var aws_url = { status: 201, url: url };
     
     // res.send("get bundle for tenant " + tenant + " " + req.query.url + result);
-    res.setHeader("Location: " + url);
+    res.location(url);
     res.sendStatus(201);
    
     if (type == 'get') { 
