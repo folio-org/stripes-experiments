@@ -81,19 +81,15 @@ const actions = {
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
       return fetch(url, {
-        headers: {
-          'X-Okapi-Tenant': 'a01d5789-c160-4e91-8749-792596dff120',
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'x'
-        }
+        headers: options.headers
       })
         .then(response => {
           if (response.status >= 400) {
             dispatch(crudActions.fetchError(response));
           } else {
             response.json().then(json => {
-              dispatch(crudActions.fetchSuccess(json));
+              let data = json.patrons;
+              dispatch(crudActions.fetchSuccess(data));
             });
           }
         });
@@ -103,7 +99,7 @@ const actions = {
 
 function reducerFor(endpoint, overrides = {}) {
   const options = Object.assign({}, defaults, overrides);
-  const crudReducers = crud.reducersFor(endpoint, {key: options.pk, store: crud.STORE_MUTABLE});
+  const crudReducers = crud.reducersFor(endpoint, {key: options.key, store: crud.STORE_MUTABLE});
   // extra reducer (beyond redux-crud generated reducers) for clearing a list before populating from new fetch
   return function (state=[], action) {
     switch (action.type) {

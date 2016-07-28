@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
-import TenantForm from './PatronForm';
+import PatronForm from './PatronForm';
 
 export default class PatronAdd extends Component {
   static manifest = { 'apis/patrons': {remote: true} };
