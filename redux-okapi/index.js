@@ -8,14 +8,15 @@ const okapiurl = system.okapi.url;
 const defaults = {
   pk: 'id',
   clientGeneratePk: true,
-  headers : { 'X-Okapi-Tenant': 'tenant-id',
-              'Accept': 'application/json',
+  headers : { 'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': 'x' }
+            }
 };
 
 const actions = {
   create: (endpoint, record, overrides = {}) => {
+            // deep override of headers (would other embedded objects need that?)
+    overrides.headers = Object.assign(defaults.headers, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint].join('/');
@@ -25,6 +26,7 @@ const actions = {
       dispatch(crudActions.createStart(record));
       return fetch(url, {
         method: 'POST',
+        headers: options.headers,
         body: JSON.stringify(record)
       })
         .then(response => {
@@ -37,6 +39,8 @@ const actions = {
     }
   },
   update: (endpoint, record, overrides = {}) => {
+            // deep override of headers (would other embedded objects need that?)
+    overrides.headers = Object.assign(defaults.headers, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint, record[options.pk]].join('/');
@@ -45,6 +49,7 @@ const actions = {
       dispatch(crudActions.updateStart(record));
       return fetch(url, {
         method: 'PUT',
+        headers: options.headers,
         body: JSON.stringify(record)
       })
         .then(response => {
@@ -57,6 +62,8 @@ const actions = {
     }
   },
   delete: (endpoint, record, overrides = {}) => {
+        // deep override of headers (would other embedded objects need that?)
+    overrides.headers = Object.assign(defaults.headers, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint, record[options.pk]].join('/');
@@ -64,7 +71,8 @@ const actions = {
     return function(dispatch) {
       dispatch(crudActions.deleteStart(record));
       return fetch(url, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: options.headers
       })
         .then(response => {
           if (response.status >= 400) {
@@ -77,6 +85,8 @@ const actions = {
     }
   },
   fetch: (endpoint, overrides = {}) => {
+    // deep override of headers (would other embedded objects need that?)
+    overrides.headers = Object.assign(defaults.headers, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     // TODO: cache this?
     const crudActions = crud.actionCreatorsFor(endpoint)
@@ -85,8 +95,7 @@ const actions = {
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
       return fetch(url,
-                   {headers: options.headers}
-      )
+                   {headers: options.headers})
         .then(response => {
           if (response.status >= 400) {
             dispatch(crudActions.fetchError(response));
