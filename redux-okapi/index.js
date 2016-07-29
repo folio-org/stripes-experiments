@@ -7,7 +7,11 @@ import uuid from 'node-uuid';
 const okapiurl = system.okapi.url;
 const defaults = {
   pk: 'id',
-  clientGeneratePk: true
+  clientGeneratePk: true,
+  headers : { 'X-Okapi-Tenant': 'tenant-id',
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'x' }
 };
 
 const actions = {
@@ -80,9 +84,9 @@ const actions = {
     if (options.path) url += options.path;
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
-      return fetch(url, {
-        headers: options.headers
-      })
+      return fetch(url,
+                   {headers: options.headers}
+      )
         .then(response => {
           if (response.status >= 400) {
             dispatch(crudActions.fetchError(response));
