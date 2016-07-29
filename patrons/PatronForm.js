@@ -17,7 +17,7 @@ class PatronForm extends Component {
 
   render() {
     const {
-      fields: {patron_name},
+      fields: {patron_name,patron_code,contact_info,total_fines_paid,total_loans,status,patron_barcode,total_fines},
       handleSubmit, 
       cancelForm, 
       resetForm, 
@@ -35,6 +35,63 @@ class PatronForm extends Component {
               <FormControl type='text' placeholder="Patron's name" {...patron_name} />
             </Col>
           </Row>
+          <Row>
+            <Col componentClass={ControlLabel} sm={2}>
+              Code
+            </Col>
+            <Col sm={10}>
+              <FormControl type='text' placeholder="Patron's code" {...patron_code} />
+            </Col>
+          </Row>
+          <Row>
+            <Col componentClass={ControlLabel} sm={2}>
+              ContactInfo
+            </Col>
+            <Col sm={10}>
+              <FormControl type='text' placeholder="Contact Info" {...contact_info} />
+            </Col>
+          </Row>
+          <Row>
+            <Col componentClass={ControlLabel} sm={2}>
+              Fines paid
+            </Col>
+            <Col sm={10}>
+              <FormControl type='text' placeholder="Total fines paid" {...total_fines_paid} />
+            </Col>
+          </Row>
+          <Row>
+            <Col componentClass={ControlLabel} sm={2}>
+              Loans
+            </Col>
+            <Col sm={10}>
+              <FormControl type='text' placeholder="Total loans" {...total_loans} />
+            </Col>
+          </Row>
+          <Row>
+            <Col componentClass={ControlLabel} sm={2}>
+              Status
+            </Col>
+            <Col sm={10}>
+              <FormControl type='text' placeholder="Patron's status" {...status} />
+            </Col>
+          </Row>
+          <Row>
+            <Col componentClass={ControlLabel} sm={2}>
+              Barcode
+            </Col>
+            <Col sm={10}>
+              <FormControl type='text' placeholder="Patron's barcode" {...patron_barcode} />
+            </Col>
+          </Row>
+          <Row>
+            <Col componentClass={ControlLabel} sm={2}>
+              Fines
+            </Col>
+            <Col sm={10}>
+              <FormControl type='text' placeholder="Total fines" {...total_fines} />
+            </Col>
+          </Row>
+
           <br/>
           <ButtonGroup>
             <Button bsStyle='primary' disabled={submitting} onClick={handleSubmit}>Save Patron</Button>
@@ -51,6 +108,7 @@ class PatronForm extends Component {
 export default reduxForm(
   {
     form: 'patronForm',
-    fields: ['patron_name']
+    fields: ['patron_name','patron_code','contact_info','total_fines_paid','total_loans','status','patron_barcode','total_fines']
   }
 )(PatronForm);
+
