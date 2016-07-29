@@ -3,7 +3,14 @@ import { connect } from 'stripes-connect';
 import PatronForm from './PatronForm';
 
 export default class PatronAdd extends Component {
-  static manifest = { 'apis/patrons': {remote: true} };
+  static manifest = { 'apis/patrons': { remote: true,
+                                        pk: '_id',
+                                        headers: {
+                                          "X-Okapi-Tenant": "tenant-id",
+                                          "Authorization": "x"
+                                        }
+                                      }
+                    };
 
   createPatron(data, dispatch, e) {
     this.props.mutator['apis/patrons'].create(data);
@@ -15,7 +22,7 @@ export default class PatronAdd extends Component {
 
   render() { 
       return <PatronForm onSubmit={this.createPatron.bind(this)} 
-                         cancelForm={this.cancel}  />
+                         cancelForm={this.cancel} />
   }
 }
 
