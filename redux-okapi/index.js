@@ -102,7 +102,7 @@ const actions = {
             dispatch(crudActions.fetchError(response));
           } else {
             response.json().then(json => {
-              let data = json.patrons;
+              let data = (options.records ? json[options.records] : json);
               dispatch(crudActions.fetchSuccess(data));
             });
           }

@@ -5,6 +5,7 @@ import PatronForm from './PatronForm';
 export default class PatronAdd extends Component {
   static manifest = { 'apis/patrons': { remote: true,
                                         pk: '_id',
+                                        records: 'patrons',
                                         headers: {
                                           "X-Okapi-Tenant": "tenant-id",
                                           "Authorization": "x"
