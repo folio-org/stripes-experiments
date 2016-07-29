@@ -21,9 +21,10 @@ const actions = {
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint].join('/');
     if (options.path) url += options.path;
-    record.id = uuid();
     return function(dispatch) {
-      dispatch(crudActions.createStart(record));
+      // Below dispatch is for optimistic create, to enable optimistic create, add 
+      // ID handling as per https://www.npmjs.com/package/redux-crud#about-optimistic-changes
+      // dispatch(crudActions.createStart(record));
       return fetch(url, {
         method: 'POST',
         headers: options.headers,
