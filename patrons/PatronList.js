@@ -5,14 +5,12 @@ import { Link } from 'react-router';
 class PatronList extends Component {
 
   static manifest = { 'apis/patrons': { remote: true,
-                                        overrides: { 
-                                          key: '_id', 
-                                          headers: {
+                                        pk: '_id',
+                                        headers: {
                                            'X-Okapi-Tenant': 'tenant-id',
                                            'Accept': 'application/json',
                                            'Content-Type': 'application/json',
                                            'Authorization': 'x'
-                                          }
                                         }
                                       }
                     };

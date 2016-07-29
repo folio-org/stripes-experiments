@@ -9,6 +9,5 @@ export function mutatorFor(resource, module, dispatch, overrides) {
 }
 
 export function reducerFor(resource, module, overrides) {
-  console.log("okapi reducerFor, overrides", overrides);
   return reduxOkapi.reducerFor(resource, overrides); 
 }

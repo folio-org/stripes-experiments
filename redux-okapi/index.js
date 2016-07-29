@@ -99,7 +99,7 @@ const actions = {
 
 function reducerFor(endpoint, overrides = {}) {
   const options = Object.assign({}, defaults, overrides);
-  const crudReducers = crud.reducersFor(endpoint, {key: options.key, store: crud.STORE_MUTABLE});
+  const crudReducers = crud.reducersFor(endpoint, {key: options.pk, store: crud.STORE_MUTABLE});
   // extra reducer (beyond redux-crud generated reducers) for clearing a list before populating from new fetch
   return function (state=[], action) {
     switch (action.type) {

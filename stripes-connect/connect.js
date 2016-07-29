@@ -25,7 +25,7 @@ export const connect = (Component, module) => {
   _.forOwn(manifest, (query, resource) => {
     
     if (query.remote) {
-      addReducer(resource, okapi.reducerFor(resource, module, query.overrides));
+      addReducer(resource, okapi.reducerFor(resource, module, query));
     } else {
       addReducer(`${module}-${resource}`, localstate.reducerFor(resource, module));
     }
@@ -50,7 +50,7 @@ export const connect = (Component, module) => {
       mutator: resources.reduce((result, resource) => {
         const query = manifest[resource];
         if (query.remote) {
-          result[resource] = okapi.mutatorFor(resource, module, dispatch, query.overrides);
+          result[resource] = okapi.mutatorFor(resource, module, dispatch, query);
         } else {
           result[resource] = localstate.mutatorFor(resource, module, dispatch);
         }
@@ -59,7 +59,7 @@ export const connect = (Component, module) => {
       refreshRemote: (params) => {
         _.forOwn(manifest, (query, resource) => {
           if (query.remote) { 
-            let overrides = {...query.overrides};
+            let overrides = {...query};
             if (query.path && query.path.startsWith(":")) {
               let path = query.path.substring(1);
               overrides.path = "/" + params[path];
