@@ -22,8 +22,8 @@ const actions = {
   create: (endpoint, record, overrides = {}) => {
     // deep override of headers
     overrides.headers = Object.assign(defaults.headers.POST, overrides.headers);
-    let options = Object.assign({}, defaults, overrides);
-    let crudActions = crud.actionCreatorsFor(endpoint)
+    const options = Object.assign({}, defaults, overrides);
+    const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint].join('/');
     if (options.path) url += options.path;
     return function(dispatch) {
