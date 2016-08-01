@@ -363,6 +363,16 @@ class PatronForm extends Component {
           <br/>
           <Row>
             <Col componentClass={ControlLabel} sm={3}>
+              Local ID
+            </Col>
+            <Col sm={9}>
+              <FormControl type='text' placeholder="Patron's local ID" {...patron_local_id} />
+            </Col>
+          </Row>
+          <br/>
+
+          <Row>
+            <Col componentClass={ControlLabel} sm={3}>
               Patron code
             </Col>
             <Col sm={3}>
