@@ -26,13 +26,15 @@ export default class PatronAdd extends Component {
     this.context.router.push('/patrons/list');
   }
 
-  cancel(data, dispatch, e) {
-  	console.log("cancelling create");
+  cancel(data) {
+    console.log("cancelling create");
+    this.context.router.push('/patrons/list');
   }
 
   render() { 
       return <PatronForm onSubmit={this.createPatron.bind(this)} 
-                         cancelForm={this.cancel} />
+                         cancelForm={this.cancel} 
+                         action={PatronForm.actionTypes['create']}/>
   }
 }
 
