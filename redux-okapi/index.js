@@ -13,7 +13,7 @@ const defaults = {
               DELETE: { 'Accept': "text/plain" },
               GET:    { 'Accept': 'application/json',
                         'Content-Type': 'application/json' },
-              PUT:    { 'Accept': 'application/json',
+              PUT:    { 'Accept': 'text/plain',
                         'Content-Type': 'application/json' }
             }
 };
@@ -55,13 +55,15 @@ const actions = {
   },
   update: (endpoint, record, overrides = {}) => {
     // deep override of headers 
-    overrides.headers = Object.assign(defaults.headers, overrides.headers);
+    overrides.headers = Object.assign(defaults.headers.PUT, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint, record[options.pk]].join('/');
-    if (options.path) url += options.path;
+    //if (options.path) url += options.path;
+    let clientRecord = record;
+    if (clientRecord[options.pk] && !clientRecord.id) clientRecord.id = clientRecord[options.pk];
     return function(dispatch) {
-      dispatch(crudActions.updateStart(record));
+      dispatch(crudActions.updateStart(clientRecord));
       return fetch(url, {
         method: 'PUT',
         headers: options.headers,
@@ -71,10 +73,13 @@ const actions = {
           if (response.status >= 400) {
             dispatch(crudActions.updateError(response,record));
           } else {
+            /* Patrons api will not return JSON
             response.json().then ( (json) => {
               if (json[options.pk] && !json.id) json.id = json[options.pk];
               dispatch(crudActions.updateSuccess(json));
             });
+            */
+            dispatch(crudActions.updateSuccess(clientRecord));
           }
         });
     }

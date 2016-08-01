@@ -10,8 +10,7 @@ export default class PatronEdit extends Component {
   static manifest = { 'apis/patrons': { remote: true,
                                         pk: '_id',
                                         clientGeneratePk: false,
-                                        path: ':_id',
-                                        records: 'patrons',
+                                        path: ':patronid',
                                         headers: {
                                           "X-Okapi-Tenant": "tenant-id",
                                           "Authorization": "x"
@@ -31,8 +30,11 @@ export default class PatronEdit extends Component {
 
   render() { 
       return <PatronForm onSubmit={this.updatePatron.bind(this)} 
-                         cancelForm={this.cancel} 
-                         action={PatronForm.actionTypes['update']}/>
+        cancelForm={this.cancel.bind(this)}
+        action={PatronForm.actionTypes['update']}
+        initialValues=
+          {this.props.data['apis/patrons']
+           .find((patron) => { return patron._id === this.props.params.patronid })} />
   }
 }
 

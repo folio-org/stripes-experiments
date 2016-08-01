@@ -18,7 +18,7 @@ class PatronForm extends Component {
 
   render() {
     const {
-      fields: {patron_name,patron_code,contact_info,total_fines_paid,total_loans,status,patron_barcode,total_fines},
+      fields: {_id,patron_name,patron_code,contact_info,total_fines_paid,total_loans,status,patron_barcode,total_fines,patron_local_id},
       handleSubmit, 
       cancelForm, 
       resetForm, 
@@ -110,7 +110,7 @@ class PatronForm extends Component {
 export default reduxForm(
   {
     form: 'patronForm',
-    fields: ['patron_name','patron_code','contact_info','total_fines_paid','total_loans','status','patron_barcode','total_fines']
+    fields: ['_id','patron_name','patron_code','contact_info','total_fines_paid','total_loans','status','patron_barcode','total_fines','patron_local_id']
   }
 )(PatronForm);
 
