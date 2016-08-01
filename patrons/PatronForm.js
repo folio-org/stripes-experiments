@@ -3,6 +3,7 @@ import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, 
 import {reduxForm} from 'redux-form';
 
 class PatronForm extends Component {
+
   static propTypes = {
     fields: PropTypes.object.isRequired,
     initializeForm: PropTypes.func.isRequired,
@@ -12,8 +13,8 @@ class PatronForm extends Component {
     submitting: PropTypes.bool.isRequired
   };
 
-  static defaultProps = {
-  };
+  static actionTypes = {'create' : { title: 'Add Patron', submitLabel: 'Save Patron'},
+                        'update' : { title: 'Edit Patron', submitLabel: 'Save Changes'}};
 
   render() {
     const {
@@ -21,12 +22,13 @@ class PatronForm extends Component {
       handleSubmit, 
       cancelForm, 
       resetForm, 
-      submitting
+      submitting,
+      action
     } = this.props;
     return (
       <div>
         <Form inline>
-          <h3>Add Patron</h3>
+          <h3>{action ? action.title : 'Patron'}</h3>
           <Row>
             <Col componentClass={ControlLabel} sm={2}>
               Name
@@ -94,7 +96,7 @@ class PatronForm extends Component {
 
           <br/>
           <ButtonGroup>
-            <Button bsStyle='primary' disabled={submitting} onClick={handleSubmit}>Save Patron</Button>
+            <Button bsStyle='primary' disabled={submitting} onClick={handleSubmit}>{action ? action.submitLabel : 'Save'}</Button>
             <Button disabled={submitting} onClick={resetForm}>Reset</Button>
             <Button disabled={submitting} onClick={cancelForm}>Cancel</Button>  
           </ButtonGroup>
