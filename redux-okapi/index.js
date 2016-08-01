@@ -8,23 +8,34 @@ const okapiurl = system.okapi.url;
 const defaults = {
   pk: 'id',
   clientGeneratePk: true,
-  headers : { 'Accept': 'application/json',
-              'Content-Type': 'application/json',
+  headers : { POST:   { 'Accept': 'application/json',
+                        'Content-Type': 'application/json' },
+              DELETE: { 'Accept': "text/plain" },
+              GET:    { 'Accept': 'application/json',
+                        'Content-Type': 'application/json' },
+              PUT:    { 'Accept': 'application/json',
+                        'Content-Type': 'application/json' }
             }
 };
 
 const actions = {
   create: (endpoint, record, overrides = {}) => {
-            // deep override of headers (would other embedded objects need that?)
-    overrides.headers = Object.assign(defaults.headers, overrides.headers);
-    const options = Object.assign({}, defaults, overrides);
-    const crudActions = crud.actionCreatorsFor(endpoint)
+    // deep override of headers
+    overrides.headers = Object.assign(defaults.headers.POST, overrides.headers);
+    let options = Object.assign({}, defaults, overrides);
+    let crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint].join('/');
     if (options.path) url += options.path;
     return function(dispatch) {
-      // Below dispatch is for optimistic create, to enable optimistic create, add 
-      // ID handling as per https://www.npmjs.com/package/redux-crud#about-optimistic-changes
-      // dispatch(crudActions.createStart(record));
+      // Optimistic record creation ('clientRecord')
+      let cuuid = uuid();
+      let clientRecord = {...record, id: cuuid};
+      clientRecord[options.pk] = cuuid;
+      dispatch(crudActions.createStart(clientRecord));
+      // Send remote record ('record')
+      if (options.clientGeneratePk) {
+        record[options.pk] = cuuid;
+      }
       return fetch(url, {
         method: 'POST',
         headers: options.headers,
@@ -32,15 +43,18 @@ const actions = {
       })
         .then(response => {
           if (response.status >= 400) {
-            dispatch(crudActions.createError(response));
+            dispatch(crudActions.createError(response,clientRecord));
           } else {
-            dispatch(crudActions.createSuccess(record));
+            response.json().then ( (json) => {
+              if (json[options.pk] && !json.id) json.id = json[options.pk];
+              dispatch(crudActions.createSuccess(json,cuuid));
+            });
           }
         });
     }
   },
   update: (endpoint, record, overrides = {}) => {
-            // deep override of headers (would other embedded objects need that?)
+    // deep override of headers 
     overrides.headers = Object.assign(defaults.headers, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
@@ -55,21 +69,25 @@ const actions = {
       })
         .then(response => {
           if (response.status >= 400) {
-            dispatch(crudActions.updateError(response));
+            dispatch(crudActions.updateError(response,record));
           } else {
-            dispatch(crudActions.updateSuccess(record));
+            response.json().then ( (json) => {
+              if (json[options.pk] && !json.id) json.id = json[options.pk];
+              dispatch(crudActions.updateSuccess(json));
+            });
           }
         });
     }
   },
   delete: (endpoint, record, overrides = {}) => {
-        // deep override of headers (would other embedded objects need that?)
-    overrides.headers = Object.assign(defaults.headers, overrides.headers);
+    // deep override of headers 
+    overrides.headers = Object.assign(defaults.headers.DELETE, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint, record[options.pk]].join('/');
     if (options.path) url += options.path;
     return function(dispatch) {
+      if (record[options.pk] && !record.id) record.id = record[options.pk];
       dispatch(crudActions.deleteStart(record));
       return fetch(url, {
         method: 'DELETE',
@@ -77,17 +95,17 @@ const actions = {
       })
         .then(response => {
           if (response.status >= 400) {
-            dispatch(crudActions.deleteError(response));
+            dispatch(crudActions.deleteError(response,record));
           } else {
-            console.log("deleting entity ", endpoint, record);
             dispatch(crudActions.deleteSuccess(record));
           }
         });
     }
   },
   fetch: (endpoint, overrides = {}) => {
-    // deep override of headers (would other embedded objects need that?)
-    overrides.headers = Object.assign(defaults.headers, overrides.headers);
+    // deep override of headers 
+    overrides.headers = Object.assign(defaults.headers.GET, overrides.headers);
+    // top-level overrides of any other default properties
     const options = Object.assign({}, defaults, overrides);
     // TODO: cache this?
     const crudActions = crud.actionCreatorsFor(endpoint)
