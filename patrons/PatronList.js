@@ -19,7 +19,7 @@ class PatronList extends Component {
     var patronNodes = this.props.data['apis/patrons'].map((patron) => {
       return (
         <li key={patron.id}>
-          {patron.patron_name} 
+          {patron.patron_name} [<a onClick={() => this.props.mutator['apis/patrons'].delete(patron)}>delete</a>]
         </li>
       );
     });
