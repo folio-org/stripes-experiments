@@ -18,7 +18,7 @@ export default class PatronAdd extends Component {
                                       }
                     };
 
-  createPatron(data, dispatch, e) {
+  createPatron(data) {
     data.contact_info = {};
     data.patron_code = {};
     data.patron_local_id= "xyz";
