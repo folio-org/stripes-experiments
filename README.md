@@ -50,12 +50,7 @@ $ open http://localhost:3030
 and fill out the forms, and press submit
 
 
-# testing on the command line
-$ env tenant=test ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
-
-
-
-Example run
+Example run with GET (browser)
 -------------------------------------------------------
 npm run start:webpack
 
@@ -76,6 +71,9 @@ open http://localhost:3030
 and after a minute you should get the result:
 {"status":201,"url":"http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469452979/index.html"}
 
+
+Example run with POST (command line)
+-----------------------------------------------------------
 or more Okapi style with a post request:
 
 $ cat etc/post.json
@@ -85,4 +83,9 @@ $curl -v -H "X-Okapi-Tenant-Id: test2" -X POST --data-binary @./etc/post.json -H
 HTTP/1.1 201 Created
 Location: http://s3.amazonaws.com/folio-ui-bundle/tenant/test2-1469549040/index.html
 
+
+Testing with a shell script
+-----------------------------------------------------------
+# testing on the command line
+$ env tenant=test ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
     
