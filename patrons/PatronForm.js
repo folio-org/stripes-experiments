@@ -5,6 +5,9 @@ import {reduxForm} from 'redux-form';
 
 // Patrons form for adding or editing patron data
 // Uses redux-form (and older version) but that's expected to change.
+//
+// Not a 'connected' component, thus no manifest; this components gets
+// all it needs from 'connected' parent components. 
 class PatronForm extends Component {
 
   static propTypes = {

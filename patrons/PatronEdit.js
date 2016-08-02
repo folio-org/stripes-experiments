@@ -5,6 +5,7 @@ import PatronForm from './PatronForm';
 // One of multiple stripes-connected components in the patrons module
 export default class PatronEdit extends Component {
 
+  // The manifest is provided in components by the module developer and consumed by 'stripes connect'
   static manifest = { 'apis/patrons': { remote: true,  
                                         pk: '_id',  // The primary key of records from this end-point
                                                     //  (when it's not the default, "id")

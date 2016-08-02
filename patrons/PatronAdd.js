@@ -8,6 +8,7 @@ export default class PatronAdd extends Component {
     router: PropTypes.object.isRequired
   };
 
+  // The manifest is provided in components by the module developer and consumed by 'stripes connect'
   static manifest = { 'apis/patrons': { remote: true,
                                         pk: '_id',  // The primary key of records from this end-point
                                                     //  (when it's not the default, "id")

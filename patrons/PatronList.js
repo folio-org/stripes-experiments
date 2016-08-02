@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 // One of multiple stripes-connected components in the patrons module
 class PatronList extends Component {
 
+  // The manifest is provided in components by the module developer and consumed by 'stripes connect'
   static manifest = { 'apis/patrons': { remote: true,
                                         pk: '_id',  // The primary key of records from this end-point
                                                     //  (when it's not the default, "id")
@@ -14,13 +15,13 @@ class PatronList extends Component {
 
   render() {
 
-    // Accesses patrons data and mutator function, passed in by 'stripes connect' according to the manifest
+    // Accesses patrons data and one mutator function, passed in by 'stripes connect' according to the manifest
     if (!('apis/patrons' in this.props.data)) return null;
     var patronNodes = this.props.data['apis/patrons'].map((patron) => {
       return (
         <li key={patron.id}>
           {patron.patron_name} [<a onClick={() => this.props.mutator['apis/patrons'].delete(patron)}>delete</a>]
-                               // Links to form based on path in routes.json
+                               // Links to patrons form based on path in routes.json
                                &nbsp;[<Link to={'patrons/edit/' + patron._id}>edit</Link>]
         </li>
       );
