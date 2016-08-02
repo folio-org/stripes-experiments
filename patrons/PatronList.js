@@ -20,7 +20,7 @@ class PatronList extends Component {
       return (
         <li key={patron.id}>
           {patron.patron_name} [<a onClick={() => this.props.mutator['apis/patrons'].delete(patron)}>delete</a>]
-                               <Link to={'patrons/edit/' + patron._id}>Edit patron</Link>
+                               &nbsp;[<Link to={'patrons/edit/' + patron._id}>edit</Link>]
         </li>
       );
     });
@@ -30,7 +30,7 @@ class PatronList extends Component {
         <ul>
           {patronNodes}
         </ul>
-        <Link to={'patrons/add'}>Add patron</Link>
+        [<Link to={'patrons/add'}>add patron</Link>]
       </div>
     );
   }
