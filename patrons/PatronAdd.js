@@ -4,7 +4,7 @@ import PatronForm from './PatronForm';
 
 export default class PatronAdd extends Component {
   static contextTypes = {
-    router: PropTypes.func.isRequired
+    router: PropTypes.object.isRequired
   };
 
   static manifest = { 'apis/patrons': { remote: true,
