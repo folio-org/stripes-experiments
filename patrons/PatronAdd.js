@@ -12,7 +12,6 @@ export default class PatronAdd extends Component {
                                         clientGeneratePk: false,
                                         records: 'patrons',
                                         headers: {
-                                          "X-Okapi-Tenant": "tenant-id",
                                           "Authorization": "x"
                                         }
                                       }

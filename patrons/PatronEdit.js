@@ -8,7 +8,6 @@ export default class PatronEdit extends Component {
                                         pk: '_id',     // primary key of records from apis/patrons
                                         path: ':patronid',
                                         headers: {
-                                          "X-Okapi-Tenant": "tenant-id",
                                           "Authorization": "x"
                                         }
                                       }
