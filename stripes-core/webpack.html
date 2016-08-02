@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Folio UI Webpack</title>
+    <link rel="shortcut icon" href="favicon.ico" />
   </head>
   <body>
     <h3>FOLIO UI webpack demo</h3>
@@ -15,7 +16,10 @@
 	UI Module4: <input size="60" type="text" name="url" /> </br>
 
 	<p>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit" onsubmit='return spinning_wheel()'/>
+	<span id="spinning_wheel" style="display:none">
+	&nbsp;&nbsp; <img src="http://mk2.indexdata.com/gfx/progress.gif" />
+	</span>
 	</p>
       </form>
 
@@ -30,6 +34,7 @@
     <a href="/readme.md">help</a>
 
     <!-- <script src="static-webpack/bundle.js"></script> -->
+    <script>function spinning_wheel () { document.getElementById('spinning_wheel').style.display = "inline" }</script>
   </body>
 </html>
 
