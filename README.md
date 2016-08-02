@@ -62,14 +62,14 @@ Run shell command: env stripes_tenant="test" ui_url="trivial https://s3.amazonaw
 Run build, may take 1-2 minutes, tenant test
 UI module: ["trivial","https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz","",""]
 Webpack script is done
-AWS S3 URL: http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469452979/index.html
+AWS S3 URL: http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469456474/index.html
 
 
 # in your browser
 open http://localhost:3030
 
-and after a minute you should get the result:
-{"status":201,"url":"http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469452979/index.html"}
+and after 20-30 seconds you should get the result:
+{"status":201,"url":"http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469456474/index.html"}
 
 
 Example run with POST (command line)
