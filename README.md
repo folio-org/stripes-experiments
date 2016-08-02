@@ -25,6 +25,18 @@ $ brew install node
 go to https://nodejs.org/en/download/current/ and download the Linux Binaries. Extract the
 archive, and symlink the programs "node" and "npm" to /usr/local/bin
 
+AWS S3
+-------------
+To upload files to AWS S3, you need the aws(1) tool installed, and setup ~/.aws
+for you. See `aws configure'
+
+# debian
+$ sudo apt-get install awscli
+
+# macos
+$ brew install awscli
+
+
 Webpack
 ----------------------------------------------------
 # run a local installation (see the readme above)
@@ -41,16 +53,7 @@ and fill out the forms, and press submit
 # testing on the command line
 $ env tenant=test ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
 
-AWS S3
--------------
-To upload files to AWS S3, you need the aws(1) tool installed, and setup ~/.aws
-for you. See `aws configure'
 
-# debian
-$ sudo apt-get install awscli
-
-# macos
-$ brew install awscli
 
 Example run
 -------------------------------------------------------
