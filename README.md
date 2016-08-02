@@ -87,7 +87,7 @@ Location: http://s3.amazonaws.com/folio-ui-bundle/tenant/test2-1469549040/index.
 Testing with a shell script
 -----------------------------------------------------------
 # testing on the command line
-$ env tenant=test ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
+$ env tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
 
 
 Misc
