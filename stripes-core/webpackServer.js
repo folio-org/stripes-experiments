@@ -95,7 +95,7 @@ function myapp (type, req, res) {
     };
     
     if (debug >= 1) {
-      console.log('Run build, may take 20-30 seconds, tenant ' + tenant);
+      console.log('Run build, may take 1-2 minutes, tenant ' + tenant);
       console.log('UI module: ' + JSON.stringify(cleanup_list(req[method].url)))
     }
     
