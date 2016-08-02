@@ -10,12 +10,8 @@ export default class PatronAdd extends Component {
   static manifest = { 'apis/patrons': { remote: true,
                                         pk: '_id',
                                         clientGeneratePk: false,
-                                        records: 'patrons',
-                                        headers: {
-                                          "Authorization": "x"
-                                        }
-                                      }
-                    };
+                                        records: 'patrons'
+                                      }};
 
   createPatron(data) {
     this.props.mutator['apis/patrons'].create(data);

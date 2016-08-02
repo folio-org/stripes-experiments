@@ -6,12 +6,8 @@ export default class PatronEdit extends Component {
 
   static manifest = { 'apis/patrons': { remote: true,  // get data from Okapi
                                         pk: '_id',     // primary key of records from apis/patrons
-                                        path: ':patronid',
-                                        headers: {
-                                          "Authorization": "x"
-                                        }
-                                      }
-                    };
+                                        path: ':patronid' // request parameter from router
+                                      }};
 
   static contextTypes = {
     router: PropTypes.object.isRequired

@@ -6,13 +6,8 @@ class PatronList extends Component {
 
   static manifest = { 'apis/patrons': { remote: true,
                                         pk: '_id',
-                                        records: 'patrons',
-                                        headers: {
-                                          "X-Okapi-Tenant": "tenant-id",
-                                          Authorization: "x"
-                                        }
-                                      }
-                    };
+                                        records: 'patrons'
+                                      }};
 
   render() {
     if (!('apis/patrons' in this.props.data)) return null;

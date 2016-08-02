@@ -15,14 +15,15 @@ const defaults = {
                         'Content-Type': 'application/json' },
               PUT:    { 'Accept': 'text/plain',
                         'Content-Type': 'application/json' },
-              ALL:    { 'X-Okapi-Tenant': 'tenant-id'}
+              ALL:    { 'X-Okapi-Tenant': 'tenant-id',
+                        'Authorization': 'x'}
             }
 };
 
 const actions = {
   create: (endpoint, record, overrides = {}) => {
     // deep override of headers
-    overrides.headers = Object.assign(defaults.headers.POST, defaults.headers.ALL, overrides.headers);
+    overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.POST, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint].join('/');
@@ -56,7 +57,7 @@ const actions = {
   },
   update: (endpoint, record, overrides = {}) => {
     // deep override of headers 
-    overrides.headers = Object.assign(defaults.headers.PUT, defaults.headers.ALL, overrides.headers);
+    overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.PUT, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint, record[options.pk]].join('/');
@@ -87,7 +88,7 @@ const actions = {
   },
   delete: (endpoint, record, overrides = {}) => {
     // deep override of headers 
-    overrides.headers = Object.assign(defaults.headers.DELETE, defaults.headers.ALL, overrides.headers);
+    overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.DELETE, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint, record[options.pk]].join('/');
@@ -110,7 +111,7 @@ const actions = {
   },
   fetch: (endpoint, overrides = {}) => {
     // deep override of headers 
-    overrides.headers = Object.assign(defaults.headers.GET, defaults.headers.ALL, overrides.headers);
+    overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.GET, overrides.headers);
     // top-level overrides of any other default properties
     const options = Object.assign({}, defaults, overrides);
     // TODO: cache this?
