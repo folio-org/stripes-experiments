@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
 import { Link } from 'react-router';
 
+// One of multiple stripes-connected components in the patrons module
 class PatronList extends Component {
 
   static manifest = { 'apis/patrons': { remote: true,
@@ -13,12 +14,13 @@ class PatronList extends Component {
 
   render() {
 
-    // Accesses patrons data passed in by 'connect' according to manifest
+    // Accesses patrons data and mutator function, passed in by 'stripes connect' according to the manifest
     if (!('apis/patrons' in this.props.data)) return null;
     var patronNodes = this.props.data['apis/patrons'].map((patron) => {
       return (
         <li key={patron.id}>
           {patron.patron_name} [<a onClick={() => this.props.mutator['apis/patrons'].delete(patron)}>delete</a>]
+                               // Links to form based on path in routes.json
                                &nbsp;[<Link to={'patrons/edit/' + patron._id}>edit</Link>]
         </li>
       );
@@ -29,6 +31,7 @@ class PatronList extends Component {
         <ul>
           {patronNodes}
         </ul>
+        // Links to form based on another path in routes.json
         [<Link to={'patrons/add'}>add patron</Link>]
       </div>
     );

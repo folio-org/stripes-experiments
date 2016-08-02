@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'stripes-connect';
 import PatronForm from './PatronForm';
 
+// One of multiple stripes-connected components in the patrons module
 export default class PatronEdit extends Component {
 
   static manifest = { 'apis/patrons': { remote: true,  
