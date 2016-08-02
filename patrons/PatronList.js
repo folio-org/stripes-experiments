@@ -38,4 +38,6 @@ class PatronList extends Component {
     );
   }
 }
+
+// This function call might be implicit in a future version (invoked by the framework)
 export default connect(PatronList, 'patrons');
