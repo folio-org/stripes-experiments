@@ -88,4 +88,9 @@ Testing with a shell script
 -----------------------------------------------------------
 # testing on the command line
 $ env tenant=test ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz" ./bin/tenant-bundle.sh
-    
+
+
+Misc
+------------------------------------------------------------
+AWS S3 supports both HTTP and HTTPS. We are using HTTP URLs to enable
+access to a local runing okapi instance on localhost:9130
