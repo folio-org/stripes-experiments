@@ -4,6 +4,7 @@
     <title>Folio UI Webpack</title>
   </head>
   <body>
+    <h3>FOLIO UI webpack demo</h3>
     <div id='root'>
       <form action="/bundle" method="get">
 	Tenant: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
@@ -14,17 +15,21 @@
 	UI Module4: <input size="60" type="text" name="url" /> </br>
 
 	<p>
-	An UI module can be either a local directory, or a complete URL
-        </p>
-	<p>
-	<input type="submit" value="Submit" />
+        <input type="submit" value="Submit" />
 	</p>
       </form>
+
+      <p/>
+      <p>An UI module can be either a local directory, or a complete URL.
+        Creating & uploading a bundle takes 20-30 seconds.
+      </p>
+
     </div>
+
     <hr/>
     <a href="/readme.md">help</a>
 
-    <script src="static-webpack/bundle.js"></script>
+    <!-- <script src="static-webpack/bundle.js"></script> -->
   </body>
 </html>
 
