@@ -26,6 +26,10 @@ app.get('/readme.md', function (req, res) {
   res.contentType("text/plain");
   res.sendFile( path.resolve('./README.md'))
 });
+app.get('/favicon.ico', function (req, res) {
+  res.contentType("image/png");
+  res.sendFile( path.resolve('./stripes-core/favicon.ico'))
+});
 
 
 app.get('/bundle', function (req, res) {
