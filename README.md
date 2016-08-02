@@ -59,7 +59,7 @@ npm run start:webpack
 
 Example app listening on http://localhost:3030
 Run shell command: env stripes_tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz  " ./bin/tenant-bundle.sh
-Run build, may take 1-2 minutes, tenant test
+Run build, may take 20-30 seconds, tenant test
 UI module: ["trivial","https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz","",""]
 Webpack script is done
 AWS S3 URL: http://s3.amazonaws.com/folio-ui-bundle/tenant/test-1469456474/index.html
