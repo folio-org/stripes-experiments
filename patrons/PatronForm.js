@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import {reduxForm} from 'redux-form';
 
+
+// Patrons form for adding or editing patron data
+// Uses redux-form (and older version) but that's expected to change.
 class PatronForm extends Component {
 
   static propTypes = {

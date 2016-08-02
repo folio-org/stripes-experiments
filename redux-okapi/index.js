@@ -5,6 +5,8 @@ import { system } from 'stripes-loader!';
 import uuid from 'node-uuid';
 
 const okapiurl = system.okapi.url;
+
+// Default request settings that can be overridden from component's manifest.
 const defaults = {
   pk: 'id',
   clientGeneratePk: true,

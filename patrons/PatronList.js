@@ -5,11 +5,15 @@ import { Link } from 'react-router';
 class PatronList extends Component {
 
   static manifest = { 'apis/patrons': { remote: true,
-                                        pk: '_id',
-                                        records: 'patrons'
+                                        pk: '_id',  // The primary key of records from this end-point
+                                                    //  (when it's not the default, "id")
+                                        records: 'patrons' // The name of the property in the JSON response
+                                                           // that holds the records 
                                       }};
 
   render() {
+
+    // Accesses patrons data passed in by 'connect' according to manifest
     if (!('apis/patrons' in this.props.data)) return null;
     var patronNodes = this.props.data['apis/patrons'].map((patron) => {
       return (

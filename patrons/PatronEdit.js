@@ -4,16 +4,17 @@ import PatronForm from './PatronForm';
 
 export default class PatronEdit extends Component {
 
-  static manifest = { 'apis/patrons': { remote: true,  // get data from Okapi
-                                        pk: '_id',     // primary key of records from apis/patrons
-                                        path: ':patronid' // request parameter from router
+  static manifest = { 'apis/patrons': { remote: true,  
+                                        pk: '_id',  // The primary key of records from this end-point
+                                                    //  (when it's not the default, "id")
+                                        path: ':patronid' // request parameter, provided by router
                                       }};
 
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
 
-  // Invokes the mutator provided by connect to perform a PUT
+  // Invokes the mutator provided by stripes connect to perform a PUT
   // Uses router object to navigate back to list
   updatePatron(data) {
     this.props.mutator['apis/patrons'].update(data);
@@ -21,7 +22,6 @@ export default class PatronEdit extends Component {
   }
 
   cancel(data) {
-    console.log("cancelling edit");
     this.context.router.push('/patrons/list');
   }
 

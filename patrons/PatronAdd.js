@@ -8,9 +8,12 @@ export default class PatronAdd extends Component {
   };
 
   static manifest = { 'apis/patrons': { remote: true,
-                                        pk: '_id',
-                                        clientGeneratePk: false,
-                                        records: 'patrons'
+                                        pk: '_id',  // The primary key of records from this end-point
+                                                    //  (when it's not the default, "id")
+                                        clientGeneratePk: false, // Set if the backend service requires 
+                                                                 // that it generates unique IDs for records
+                                        records: 'patrons' // The name of the property in the JSON response
+                                                           // that holds the records 
                                       }};
 
   createPatron(data) {
@@ -19,7 +22,6 @@ export default class PatronAdd extends Component {
   }
 
   cancel(data) {
-    console.log("cancelling create");
     this.context.router.push('/patrons/list');
   }
 
