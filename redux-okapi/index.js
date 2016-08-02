@@ -32,10 +32,10 @@ const actions = {
       let clientRecord = {...record, id: cuuid};
       clientRecord[options.pk] = cuuid;
       dispatch(crudActions.createStart(clientRecord));
-      // Send remote record ('record')
       if (options.clientGeneratePk) {
         record[options.pk] = cuuid;
       }
+      // Send remote record ('record')
       return fetch(url, {
         method: 'POST',
         headers: options.headers,

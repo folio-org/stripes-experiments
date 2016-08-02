@@ -3,13 +3,9 @@ import { connect } from 'stripes-connect';
 import PatronForm from './PatronForm';
 
 export default class PatronEdit extends Component {
-  static contextTypes = {
-    router: PropTypes.func.isRequired
-  };
 
-  static manifest = { 'apis/patrons': { remote: true,
-                                        pk: '_id',
-                                        clientGeneratePk: false,
+  static manifest = { 'apis/patrons': { remote: true,  // get data from Okapi
+                                        pk: '_id',     // primary key of records from apis/patrons
                                         path: ':patronid',
                                         headers: {
                                           "X-Okapi-Tenant": "tenant-id",
@@ -18,6 +14,12 @@ export default class PatronEdit extends Component {
                                       }
                     };
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  };
+
+  // Invokes the mutator provided by connect to perform a PUT
+  // Uses router object to navigate back to list
   updatePatron(data) {
     this.props.mutator['apis/patrons'].update(data);
     this.context.router.push('/patrons/list');
@@ -29,12 +31,14 @@ export default class PatronEdit extends Component {
   }
 
   render() { 
+      let patronid = this.props.params.patronid;
+      let patrons = this.props.data['apis/patrons']
+      let patron = patrons.find((patron) =>  { return patron._id === patronid });
+
       return <PatronForm onSubmit={this.updatePatron.bind(this)} 
         cancelForm={this.cancel.bind(this)}
         action={PatronForm.actionTypes['update']}
-        initialValues=
-          {this.props.data['apis/patrons']
-           .find((patron) => { return patron._id === this.props.params.patronid })} />
+        initialValues={patron} />
   }
 }
 
