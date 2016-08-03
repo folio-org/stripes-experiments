@@ -79,7 +79,7 @@ or more Okapi style with a post request:
 $ cat etc/post.json
 {"url":["trivial", "https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz"] }
     
-$curl -v -H "X-Okapi-Tenant-Id: test2" -X POST --data-binary @./etc/post.json -H "Content-Type: application/json" 'http://localhost:3030/bundle'
+$ curl -v -H "X-Okapi-Tenant-Id: test2" -X POST --data-binary @./etc/post.json -H "Content-Type: application/json" 'http://localhost:3030/bundle'
 HTTP/1.1 201 Created
 Location: http://s3.amazonaws.com/folio-ui-bundle/tenant/test2-1469549040/index.html
 
