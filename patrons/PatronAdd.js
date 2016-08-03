@@ -11,11 +11,9 @@ export default class PatronAdd extends Component {
   // The manifest is provided in components by the module developer and consumed by 'stripes connect'
   static manifest = { 'apis/patrons': { remote: true,
                                         pk: '_id',  // The primary key of records from this end-point
-                                                    //  (when it's not the default, "id")
-                                        clientGeneratePk: false, // Set if the backend service requires 
-                                                                 // that it generates unique IDs for records
-                                        records: 'patrons' // The name of the property in the JSON response
-                                                           // that holds the records 
+                                                    // Set this if not using the default, "id".
+                                        clientGeneratePk: false // Set this if the backend service requires 
+                                                                // that it generates unique IDs for records
                                       }};
 
   createPatron(data) {
