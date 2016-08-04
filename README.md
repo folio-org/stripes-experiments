@@ -37,10 +37,10 @@ archive, and symlink the programs "node" and "npm" to /usr/local/bin
 To upload files to AWS S3, you need the aws(1) tool installed, and setup ~/.aws
 for you. See `aws configure'
 
-### debian
+# debian
 $ sudo apt-get install awscli
 
-### macos
+# macos
 $ brew install awscli
 
 
