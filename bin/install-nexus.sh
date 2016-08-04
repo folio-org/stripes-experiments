@@ -32,5 +32,5 @@ fi
 
 echo ""
 echo "now start for webpack dev:"
-echo "cd stripes-core && npm run start:webpack"
+echo "( cd stripes-core && npm run start:webpack )"
 
