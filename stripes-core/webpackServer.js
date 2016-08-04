@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
   res.sendFile( path.resolve('./stripes-core/webpack.html'))
 });
 
-app.get('/readme.md', function (req, res) {
+app.get('/readme.html', function (req, res) {
     var fs = require('fs');
     var markdown = require( "markdown" ).markdown;
     
@@ -30,6 +30,11 @@ app.get('/readme.md', function (req, res) {
     
     res.contentType("text/html");
     res.send( markdown.toHTML(readme));
+});
+
+app.get('/readme.md', function (req, res) {
+  res.contentType("text/plain");
+  res.sendFile( path.resolve('./README.md'))
 });
 
 app.get('/favicon.ico', function (req, res) {
