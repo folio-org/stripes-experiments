@@ -23,9 +23,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/readme.md', function (req, res) {
-  res.contentType("text/plain");
-  res.sendFile( path.resolve('./README.md'))
+    var fs = require('fs');
+    var markdown = require( "markdown" ).markdown;
+    
+    var readme = fs.readFileSync(path.resolve('./README.md'), { encoding: 'utf8' });
+    
+    res.contentType("text/html");
+    res.send( markdown.toHTML(readme));
 });
+
 app.get('/favicon.ico', function (req, res) {
   res.contentType("image/png");
   res.sendFile( path.resolve('./stripes-core/favicon.ico'))
