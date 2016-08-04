@@ -1,13 +1,13 @@
 import reduxOkapi from 'redux-okapi';
 
-export function mutatorFor(resource, module, dispatch) {
+export function mutatorFor(resource, module, dispatch, overrides) {
   return { 
-    'delete': record => { dispatch(reduxOkapi.actions.delete(resource, record)) },
-    'update': record => { dispatch(reduxOkapi.actions.update(resource, record)) },
-    'create': record => { dispatch(reduxOkapi.actions.create(resource, record)) }
+    'delete': record => { dispatch(reduxOkapi.actions.delete(resource, record, overrides)) },
+    'update': record => { dispatch(reduxOkapi.actions.update(resource, record, overrides)) },
+    'create': record => { dispatch(reduxOkapi.actions.create(resource, record, overrides)) }
   };
 }
 
-export function reducerFor(resource, module) {
-  return reduxOkapi.reducerFor(resource); 
+export function reducerFor(resource, module, overrides) {
+  return reduxOkapi.reducerFor(resource, overrides); 
 }

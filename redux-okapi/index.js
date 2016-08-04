@@ -5,74 +5,116 @@ import { system } from 'stripes-loader!';
 import uuid from 'node-uuid';
 
 const okapiurl = system.okapi.url;
+
+// Default request settings that can be overridden from component's manifest.
 const defaults = {
   pk: 'id',
-  clientGeneratePk: true
+  clientGeneratePk: true,
+  headers : { POST:   { 'Accept': 'application/json',
+                        'Content-Type': 'application/json' },
+              DELETE: { 'Accept': "text/plain" },
+              GET:    { 'Accept': 'application/json',
+                        'Content-Type': 'application/json' },
+              PUT:    { 'Accept': 'text/plain',
+                        'Content-Type': 'application/json' },
+              ALL:    { 'X-Okapi-Tenant': 'tenant-id',
+                        'Authorization': 'x'}
+            }
 };
 
 const actions = {
   create: (endpoint, record, overrides = {}) => {
+    // deep override of headers
+    overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.POST, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint].join('/');
     if (options.path) url += options.path;
-    record.id = uuid();
     return function(dispatch) {
-      dispatch(crudActions.createStart(record));
+      // Optimistic record creation ('clientRecord')
+      let cuuid = uuid();
+      let clientRecord = {...record, id: cuuid};
+      clientRecord[options.pk] = cuuid;
+      dispatch(crudActions.createStart(clientRecord));
+      if (options.clientGeneratePk) {
+        record[options.pk] = cuuid;
+      }
+      // Send remote record ('record')
       return fetch(url, {
         method: 'POST',
+        headers: options.headers,
         body: JSON.stringify(record)
       })
         .then(response => {
           if (response.status >= 400) {
-            dispatch(crudActions.createError(response));
+            dispatch(crudActions.createError(response,clientRecord));
           } else {
-            dispatch(crudActions.createSuccess(record));
+            response.json().then ( (json) => {
+              if (json[options.pk] && !json.id) json.id = json[options.pk];
+              dispatch(crudActions.createSuccess(json,cuuid));
+            });
           }
         });
     }
   },
   update: (endpoint, record, overrides = {}) => {
+    // deep override of headers 
+    overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.PUT, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint, record[options.pk]].join('/');
-    if (options.path) url += options.path;
+    //if (options.path) url += options.path;
+    let clientRecord = record;
+    if (clientRecord[options.pk] && !clientRecord.id) clientRecord.id = clientRecord[options.pk];
     return function(dispatch) {
-      dispatch(crudActions.updateStart(record));
+      dispatch(crudActions.updateStart(clientRecord));
       return fetch(url, {
         method: 'PUT',
+        headers: options.headers,
         body: JSON.stringify(record)
       })
         .then(response => {
           if (response.status >= 400) {
-            dispatch(crudActions.updateError(response));
+            dispatch(crudActions.updateError(response,record));
           } else {
-            dispatch(crudActions.updateSuccess(record));
+            /* Patrons api will not return JSON
+            response.json().then ( (json) => {
+              if (json[options.pk] && !json.id) json.id = json[options.pk];
+              dispatch(crudActions.updateSuccess(json));
+            });
+            */
+            dispatch(crudActions.updateSuccess(clientRecord));
           }
         });
     }
   },
   delete: (endpoint, record, overrides = {}) => {
+    // deep override of headers 
+    overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.DELETE, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
     const crudActions = crud.actionCreatorsFor(endpoint)
     let url = [okapiurl, endpoint, record[options.pk]].join('/');
     if (options.path) url += options.path;
     return function(dispatch) {
+      if (record[options.pk] && !record.id) record.id = record[options.pk];
       dispatch(crudActions.deleteStart(record));
       return fetch(url, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: options.headers
       })
         .then(response => {
           if (response.status >= 400) {
-            dispatch(crudActions.deleteError(response));
+            dispatch(crudActions.deleteError(response,record));
           } else {
-            console.log("deleting entity ", endpoint, record);
             dispatch(crudActions.deleteSuccess(record));
           }
         });
     }
   },
   fetch: (endpoint, overrides = {}) => {
+    // deep override of headers 
+    overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.GET, overrides.headers);
+    // top-level overrides of any other default properties
     const options = Object.assign({}, defaults, overrides);
     // TODO: cache this?
     const crudActions = crud.actionCreatorsFor(endpoint)
@@ -80,13 +122,15 @@ const actions = {
     if (options.path) url += options.path;
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
-      return fetch(url)
+      return fetch(url,
+                   {headers: options.headers})
         .then(response => {
           if (response.status >= 400) {
             dispatch(crudActions.fetchError(response));
           } else {
             response.json().then(json => {
-              dispatch(crudActions.fetchSuccess(json));
+              let data = (options.records ? json[options.records] : json);
+              dispatch(crudActions.fetchSuccess(data));
             });
           }
         });
