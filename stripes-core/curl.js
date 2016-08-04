@@ -38,7 +38,7 @@ function webpack_service(tenant, body) {
   
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 201) {
-      console.log(response.rawHeaders.Location)
+      console.log(response.headers.location)
     } else {
       console.log("HTTP status for " + url + " " + response.statusCode);
     }
