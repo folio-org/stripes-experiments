@@ -95,5 +95,11 @@ Misc
 AWS S3 supports both HTTP and HTTPS. We are using HTTP URLs to enable
 access to a local running okapi instance on localhost:9130
 
+uiDescriptor
+------------------------------------------------------------
+Create a tenant "test", and assign 2 UI modules:
+
+$ tenant=test module="trivial trivial-okapi" ./bin/ui-deploy.sh
+
 --
 Index Data, Aug 2016
