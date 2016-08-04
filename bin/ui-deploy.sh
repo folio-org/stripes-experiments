@@ -1,6 +1,6 @@
 #!/bin/sh
 
-: ${tenant="our"}
+: ${tenant="test"}
 : ${modules="trivial trivial-okapi"}
 
 module_json=$(mktemp)
