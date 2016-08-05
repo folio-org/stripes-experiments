@@ -1,7 +1,10 @@
 #!/bin/sh
 
+#set -e
+
 : ${tenant="test"}
 : ${modules="trivial trivial-okapi patrons"}
+curl='curl -sSf'
 
 module_json=$(mktemp)
 tenant_json=$(mktemp)
@@ -17,12 +20,11 @@ cat > $tenant_json <<END
 }
 END
 
-echo "Create tenant '$tenant'"
-curl -w '\n' -X POST -D - \
+echo "==> Create tenant '$tenant'"
+$curl -w '\n' -X POST -D - \
   -H "Content-type: application/json" \
   -d @$tenant_json \
   http://localhost:9130/_/proxy/tenants
-
 
 
 ########################################
@@ -42,7 +44,9 @@ do
 }
 END
 
-  curl -w '\n' -X POST -D - \
+  echo ""
+  echo "==> Create module '$module'"
+  $curl -w '\n' -X POST -D - \
     -H "Content-type: application/json" \
     -d @$module_json  \
     http://localhost:9130/_/proxy/modules
@@ -55,17 +59,20 @@ END
 }
 END
 
-  curl -w '\n' -X POST -D - \
+  echo ""
+  echo "==> Enable module '$module' for tenant '$tenant'"
+  $curl -w '\n' -X POST -D - \
     -H "Content-type: application/json" \
     -d @$tenant_enable_json  \
     http://localhost:9130/_/proxy/tenants/$tenant/modules
 
   # get full info for trivial (repeat for each one returned above)
-  curl -w '\n' -D - http://localhost:9130/_/proxy/modules/$module
+  $curl -w '\n' -D - http://localhost:9130/_/proxy/modules/$module
 done
 
 # get list of enabled modules for tenant
-echo "List modules for '$tenant'"
-curl -w '\n' -D - http://localhost:9130/_/proxy/tenants/$tenant/modules
+echo ""
+echo "==> List modules for '$tenant'"
+$curl -w '\n' -D - http://localhost:9130/_/proxy/tenants/$tenant/modules
 
 rm -f $module_json $tenant_json $tenant_enable_json
