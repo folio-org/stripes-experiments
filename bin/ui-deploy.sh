@@ -1,4 +1,12 @@
 #!/bin/sh
+#
+# ui-deploy - creates a tenant, some Folio UI modules and
+#             assign the modules to the tenant
+#
+# e.g.:
+#
+# $ tenant=test module="trivial trivial-okapi" ./ui-deploy.sh
+#
 
 #set -e
 
