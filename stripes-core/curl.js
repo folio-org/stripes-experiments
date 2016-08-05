@@ -23,7 +23,7 @@ function webpack_service(tenant, body) {
   
   var headers = {
       'X-Okapi-Tenant-Id': tenant,
-      'User-Agent':       'Folio Agent/0.0.1',
+      'User-Agent':       'Webpack Folio UI Agent/0.1.0',
       'Content-Type':     'application/json'
   }
    
