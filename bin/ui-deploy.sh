@@ -1,7 +1,7 @@
 #!/bin/sh
 
 : ${tenant="test"}
-: ${modules="trivial trivial-okapi"}
+: ${modules="trivial trivial-okapi patrons"}
 
 module_json=$(mktemp)
 tenant_json=$(mktemp)
