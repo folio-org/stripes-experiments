@@ -27,7 +27,7 @@ export default class PatronAdd extends Component {
 
   render() { 
       return <PatronForm onSubmit={this.createPatron.bind(this)} 
-                         cancelForm={this.cancel} 
+                         cancelForm={this.cancel.bind(this)} 
                          action={PatronForm.actionTypes['create']}/>
   }
 }
