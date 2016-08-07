@@ -6,24 +6,50 @@ import uuid from 'node-uuid';
 
 const okapiurl = system.okapi.url;
 
-// Default request settings that can be overridden from component's manifest.
-const defaults = {
-  pk: 'id',
-  clientGeneratePk: true,
-  headers : { POST:   { 'Accept': 'application/json',
-                        'Content-Type': 'application/json' },
-              DELETE: { 'Accept': "text/plain" },
-              GET:    { 'Accept': 'application/json',
-                        'Content-Type': 'application/json' },
-              PUT:    { 'Accept': 'text/plain',
-                        'Content-Type': 'application/json' },
-              ALL:    { 'X-Okapi-Tenant': 'tenant-id',
-                        'Authorization': 'x'}
-            }
-};
+export default class restResource { 
 
-const actions = {
-  create: (endpoint, record, overrides = {}) => {
+  constructor(defaults) {
+    if (defaults) this.defaults = defaults;
+    else this.defaults = { pk: 'id', clientGeneratePk: true };
+  }
+
+  mutatorFor(resource, module, dispatch, query) {
+    return { 
+      'delete': record => { dispatch(this.delete(resource, record, query)) },
+      'update': record => { dispatch(this.update(resource, record, query)) },
+      'create': record => { dispatch(this.create(resource, record, query)) }
+    };
+  }
+
+  reducerFor(resource, module, query) {
+    const options = Object.assign({}, this.defaults, query);
+    const crudReducers = crud.reducersFor(resource, {key: options.pk, store: crud.STORE_MUTABLE});
+    // extra reducer (beyond redux-crud generated reducers) for clearing a list before populating from new fetch
+    return function (state=[], action) {
+      switch (action.type) {
+        case 'CLEAR_' + resource.toUpperCase() :
+          return [];
+        default:
+          return crudReducers(state, action);
+      }
+    }
+  }
+  
+  stateKey(resource, module, query) {
+    return resource;
+  }
+
+  refresh(resource, module, dispatch, query, params) {
+    let fetchQuery = {...query};
+    if (query.path && query.path.startsWith(":")) {
+      let path = query.path.substring(1);
+      fetchQuery.path = "/" + params[path];
+    }
+    dispatch(this.fetch(resource, fetchQuery));
+  }
+
+  create(endpoint, record, overrides = {}) {
+    const defaults = this.defaults;
     // deep override of headers
     overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.POST, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
@@ -56,8 +82,10 @@ const actions = {
           }
         });
     }
-  },
-  update: (endpoint, record, overrides = {}) => {
+  }
+
+  update(endpoint, record, overrides = {}) {
+    const defaults = this.defaults;
     // deep override of headers 
     overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.PUT, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
@@ -87,8 +115,10 @@ const actions = {
           }
         });
     }
-  },
-  delete: (endpoint, record, overrides = {}) => {
+  }
+
+  delete(endpoint, record, overrides = {}) {
+    const defaults = this.defaults;
     // deep override of headers 
     overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.DELETE, overrides.headers);
     const options = Object.assign({}, defaults, overrides);
@@ -110,8 +140,10 @@ const actions = {
           }
         });
     }
-  },
-  fetch: (endpoint, overrides = {}) => {
+  } 
+
+  fetch(endpoint, overrides = {}) {
+    const defaults = this.defaults;
     // deep override of headers 
     overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.GET, overrides.headers);
     // top-level overrides of any other default properties
@@ -136,20 +168,5 @@ const actions = {
         });
     };
   }
-};
-
-function reducerFor(endpoint, overrides = {}) {
-  const options = Object.assign({}, defaults, overrides);
-  const crudReducers = crud.reducersFor(endpoint, {key: options.pk, store: crud.STORE_MUTABLE});
-  // extra reducer (beyond redux-crud generated reducers) for clearing a list before populating from new fetch
-  return function (state=[], action) {
-    switch (action.type) {
-      case 'CLEAR_' + endpoint.toUpperCase() :
-        return [];
-      default:
-        return crudReducers(state, action);
-    }
-  }
+  
 }
-
-export default { reducerFor, actions };

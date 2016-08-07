@@ -1,7 +1,7 @@
 Currently, stripes-loader is loaded from github so will need to be built manually rather than via prepublish script because of this:
 https://github.com/npm/npm/issues/3055
 
-    cd redux-okapi
+    cd stripes-connect
     npm install
     cd ..
     cd stripes-core

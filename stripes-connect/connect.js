@@ -1,9 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect as reduxConnect } from 'react-redux';
-import reduxOkapi from 'redux-okapi';
-import * as localstate from './localstate';
-import * as okapi from './okapi';
+import restResource from './restResource';
+import localResource from './localResource';
 import Wrapping from './ComponentWrapping';
 
 
@@ -14,6 +13,26 @@ import Wrapping from './ComponentWrapping';
 let config = {};
 export const init = newConfig => Object.assign(config, newConfig);
 
+const defaultType = 'local';
+const types = {
+  'local': new localResource(),
+  'okapi': new restResource({
+    pk: 'id',
+    clientGeneratePk: true,
+    headers : { POST:   { 'Accept': 'application/json',
+                          'Content-Type': 'application/json' },
+                DELETE: { 'Accept': "text/plain" },
+                GET:    { 'Accept': 'application/json',
+                          'Content-Type': 'application/json' },
+                PUT:    { 'Accept': 'text/plain',
+                          'Content-Type': 'application/json' },
+                ALL:    { 'X-Okapi-Tenant': 'tenant-id',
+                          'Authorization': 'x'}
+              }
+  }),
+  'rest': new restResource()
+}
+
 export const connect = (Component, module) => {
   if (!config.addReducer) {
     throw new Error('stripes-connect not configured---please call init() first');
@@ -23,23 +42,17 @@ export const connect = (Component, module) => {
   const resources = Object.keys(manifest);
 
   _.forOwn(manifest, (query, resource) => {
-    
-    if (query.remote) {
-      addReducer(resource, okapi.reducerFor(resource, module, query));
-    } else {
-      addReducer(`${module}-${resource}`, localstate.reducerFor(resource, module));
-    }
+    const type = types[query.type || defaultType];
+    addReducer(type.stateKey(resource, module, query),
+               type.reducerFor(resource, module, query));
   });
 
   const mapStateToProps = (state) => {
     return {
       data: resources.reduce((result, resource) => {
         const query = manifest[resource];
-        if (query.remote) {
-          result[resource] = _.get(state, [resource], null);
-        } else {
-          result[resource] = _.get(state, [`${module}-${resource}`], null);
-        }
+        const type = types[query.type || defaultType];
+        result[resource] = _.get(state, [type.stateKey(resource, module, query)], null);
         return result;
       }, {})
     };
@@ -49,22 +62,15 @@ export const connect = (Component, module) => {
     return {
       mutator: resources.reduce((result, resource) => {
         const query = manifest[resource];
-        if (query.remote) {
-          result[resource] = okapi.mutatorFor(resource, module, dispatch, query);
-        } else {
-          result[resource] = localstate.mutatorFor(resource, module, dispatch);
-        }
+        const type = types[query.type || defaultType];
+        result[resource] = type.mutatorFor(resource, module, dispatch, query);
         return result;
       }, {}),
       refreshRemote: (params) => {
         _.forOwn(manifest, (query, resource) => {
-          if (query.remote) { 
-            let overrides = {...query};
-            if (query.path && query.path.startsWith(":")) {
-              let path = query.path.substring(1);
-              overrides.path = "/" + params[path];
-            }
-            dispatch(reduxOkapi.actions.fetch(resource, overrides));
+          const type = types[query.type || defaultType];
+          if (type.refresh) {
+            type.refresh(resource, module, dispatch, query, params);
           }
         });
       }

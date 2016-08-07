@@ -4,7 +4,9 @@ import { Link } from 'react-router';
 
 class TenantList extends Component {
 
-  static manifest = { '_/proxy/tenants': {remote: true} };
+  static manifest = {
+    '_/proxy/tenants': { type: 'okapi' }
+  };
 
   render() {
     if (!('_/proxy/tenants' in this.props.data)) return null;
