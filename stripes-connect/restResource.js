@@ -36,7 +36,7 @@ export default class restResource {
   }
   
   stateKey(resource, module, query) {
-    return resource;
+    return this.fetchURL(resource, query);
   }
 
   refresh(resource, module, dispatch, query, params) {
@@ -142,16 +142,22 @@ export default class restResource {
     }
   } 
 
+  fetchURL(resource, query = {}) {
+    const options = Object.assign({}, this.defaults, query);
+    let url = [okapiurl, resource].join('/');
+    if (options.path) url += options.path;
+    return url;
+  }
+
   fetch(endpoint, overrides = {}) {
     const defaults = this.defaults;
     // deep override of headers 
     overrides.headers = Object.assign(defaults.headers.ALL, defaults.headers.GET, overrides.headers);
     // top-level overrides of any other default properties
     const options = Object.assign({}, defaults, overrides);
+    const url = this.fetchURL(endpoint, overrides);
     // TODO: cache this?
     const crudActions = crud.actionCreatorsFor(endpoint)
-    let url = [okapiurl, endpoint].join('/');
-    if (options.path) url += options.path;
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
       return fetch(url,
