@@ -15,7 +15,7 @@ mkdir -p stripes-core/node_modules && \
    rm -rf stripes-loader-[0-9]* && \
    wget https://s3.amazonaws.com/folio-ui-bundle/tarball/stripes-loader-0.0.0-nogit.tgz && \
    tar xfz stripes-loader-0.0.0-nogit.tgz && \
-   perl -i.bak -npe 's/^\s*"stripes-loader"\s*:.*\n//' ../package.json
+   sed -i.bak -e 's/^[ \t]*"stripes-loader"[ \t]*:.*//' ../package.json
 )
 
 (
