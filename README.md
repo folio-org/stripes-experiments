@@ -32,6 +32,10 @@ $ brew install node
 go to https://nodejs.org/en/download/current/ and download the Linux Binaries. Extract the
 archive, and symlink the programs "node" and "npm" to /usr/local/bin
 
+### MS Windows
+Go to https://nodejs.org/en/, select version 6.x to for your Windows version and follow 
+the instructions in the installer. (Tested for Nodejs 6.2.2, 64bit version, on Windows 7.)  
+
 ## AWS S3
 
 To upload files to AWS S3, you need the aws(1) tool installed, and setup ~/.aws
