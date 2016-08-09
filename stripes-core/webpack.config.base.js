@@ -41,6 +41,12 @@ module.exports = {
               require.resolve("babel-preset-react")
           ]
         },
+        // On MS Windows:
+        //  ENABLE the below 'include' and DISABLE the 'exclude' if you followed
+        //  the README.md on how to install stripes-experiments on platforms
+        //  without symlink support
+        //
+        // include:  [path.join(__dirname, 'src'), /@stripes-experiments/]
         exclude: [/node_modules/]
       },
       {
