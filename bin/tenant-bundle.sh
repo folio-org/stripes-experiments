@@ -51,7 +51,7 @@ cp favicon.ico  $bundle_dir
 )
 
 
-./bin/modules.pl $ui_url > stripes-core/webpack.config.tenant.js
+./bin/modules.sh $ui_url > stripes-core/webpack.config.tenant.js
 
 if [ $(uname) = "Linux" ]; then
     tar_opt=--wildcards
