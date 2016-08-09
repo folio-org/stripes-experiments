@@ -1,20 +1,18 @@
-#!/usr/bin/perl
+#!/bin/sh
 
-use File::Basename;
+data=""
+for module in $@
+do
+    m=$(basename $module ".tgz")
+    if [ -z "$data" ]; then
+	data="'@stripes-experiments/$m': {}"
+    else
+	data=$(printf "$data,\n\t%s" "'@stripes-experiments/$m': {}")
+    fi
+done
 
-use strict;
-use warnings;
 
-my @data;
-
-foreach my $module (@ARGV) {
-    my $m = basename( $module, ".tgz" );
-    push @data, qq['\@stripes-experiments/$m': {}];
-}
-
-my $data = join ",\n\t", @data;
-
-print <<EOF;
+cat <<EOF;
 
 // Base Webpack configuration for building Stripes at the command line,
 // including Stripes configuration.
