@@ -40,7 +40,7 @@ if ! echo $stripes_tenant | egrep -q -i '^[a-z0-9_-]+$'; then
     exit 1
 fi
 
-time=$(perl -e 'print time')
+time=$(date '+%s')
 bundle_dir="$stripes_tenant-$time"
 
 ( 
