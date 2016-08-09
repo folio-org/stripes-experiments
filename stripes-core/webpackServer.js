@@ -24,12 +24,14 @@ app.get('/', function (req, res) {
 
 app.get('/readme.html', function (req, res) {
     var fs = require('fs');
-    var markdown = require( "markdown" ).markdown;
+    // var markdown = require( "markdown" ).markdown;
+    var markdown = require( "markdown-it" )()
+      .set({ html: true, breaks: true })
     
     var readme = fs.readFileSync(path.resolve('./README.md'), { encoding: 'utf8' });
     
     res.contentType("text/html");
-    res.send( markdown.toHTML(readme));
+    res.send( markdown.render(readme));
 });
 
 app.get('/readme.md', function (req, res) {
