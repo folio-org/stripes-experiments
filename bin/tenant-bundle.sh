@@ -26,8 +26,8 @@ dir=$(mktemp -d $tmp/stripe.XXXXXXXX)
 
 cd $dir
 pwd 
-git clone -q $github_url
-cd $(basename $github_url)
+git clone -q "$github_url"
+cd $(basename "$github_url")
 
 if [ -n "$stripes_branch" ]; then
     if ! git branch | egrep -q $stripes_branch; then
@@ -63,9 +63,9 @@ fi
 for url in $ui_url
 do 
     # a directory, just copy
-    if [ -d $pwd/$url ]; then
+    if [ -d "$pwd/$url" ]; then
         if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
-            rsync -a $pwd/$url .
+            rsync -a "$pwd/$url" .
             (cd $(basename $url) && pwd && npm install )
         else
             echo "illegal directory path: [A-Za-z0-9_-]: $url"
@@ -86,8 +86,8 @@ do
 done
 
 # re-use installed node_modules
-if [ -d $pwd/stripes-core/node_modules ]; then
-    rsync -a $pwd/stripes-core/node_modules stripes-core
+if [ -d "$pwd/stripes-core/node_modules" ]; then
+    rsync -a "$pwd/stripes-core/node_modules" stripes-core
 fi
 
 #./bin/install.sh
