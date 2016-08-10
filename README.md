@@ -70,13 +70,10 @@ and fill out the forms, and press submit
 ## Example run with GET (browser)
 
 ```
-npm run start:webpack
+node stripes-core/webpackServer.js
 ```
 
 ```
-> stripes-core@0.0.1 start:webpack /home/wosch/indexdata/stripes-experiments/stripes-core
-> cd ../ && node stripes-core/webpackServer.js
-
 Example app listening on http://localhost:3030
 Run shell command: env stripes_tenant="test" ui_url="trivial https://s3.amazonaws.com/folio-ui-bundle/tarball/trivial-wolfram.tgz  " ./bin/tenant-bundle.sh
 Run build, may take 20-30 seconds, tenant test

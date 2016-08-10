@@ -31,6 +31,6 @@ fi
 )
 
 echo ""
-echo "now start for webpack dev:"
-echo "( cd stripes-core && npm run start:webpack )"
+echo "now start the webpack service with: node stripes-core/webpackServer.js"
+#echo "( cd stripes-core && npm run start:webpack )"
 
