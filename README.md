@@ -70,7 +70,7 @@ and fill out the forms, and press submit
 ## Example run with GET (browser)
 
 ```
-node stripes-core/webpackServer.js
+$ node stripes-core/webpackServer.js
 ```
 
 ```
