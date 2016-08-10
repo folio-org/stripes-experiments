@@ -5,13 +5,16 @@
 #
 # e.g.:
 #
-# $ tenant=test module="trivial trivial-okapi" ./ui-deploy.sh
+# create two tenants, with ui and non-ui modules
+#
+# $ tenants="demo1 demo2" modules_ui="patrons" modules="trivial trivial-okapi" ./ui-deploy-demo.sh
 #
 
 #set -e
 
-: ${tenant="test"}
-: ${modules="trivial trivial-okapi patrons"}
+: ${tenants="demo1 demo2"}
+: ${modules_ui="patrons"}
+: ${modules="trivial trivial-okapi"}
 curl='curl -sSf'
 
 module_json=$(mktemp)
@@ -20,6 +23,9 @@ tenant_json=$(mktemp)
 ########################################
 # same 1st tenant as manual
 #
+for tenant in $tenants
+do
+    
 cat > $tenant_json <<END
 {
   "id" : "$tenant",
@@ -28,17 +34,18 @@ cat > $tenant_json <<END
 }
 END
 
-echo "==> Create tenant '$tenant'"
-$curl -w '\n' -X POST -D - \
-  -H "Content-type: application/json" \
-  -d @$tenant_json \
-  http://localhost:9130/_/proxy/tenants
+  echo "==> Create tenant '$tenant'"
+  $curl -w '\n' -X POST -D - \
+    -H "Content-type: application/json" \
+    -d @$tenant_json \
+    http://localhost:9130/_/proxy/tenants
+done
 
 
 ########################################
-# modules
+# ui modules
 #
-for module in $modules
+for module in $modules_ui
 do
     
   # trivial module
@@ -68,7 +75,47 @@ END
 END
 
   echo ""
-  echo "==> Enable module '$module' for tenant '$tenant'"
+  echo "==> Enable ui module '$module' for tenant '$tenant'"
+  $curl -w '\n' -X POST -D - \
+    -H "Content-type: application/json" \
+    -d @$tenant_enable_json  \
+    http://localhost:9130/_/proxy/tenants/$tenant/modules
+
+  # get full info for trivial (repeat for each one returned above)
+  $curl -w '\n' -D - http://localhost:9130/_/proxy/modules/$module
+done
+
+########################################
+# non-ui modules
+#
+for module in $modules
+do
+    
+  # trivial module
+  cat > $module_json <<END
+{
+  "id" : "$module",
+  "name" : "$module"
+}
+END
+
+  echo ""
+  echo "==> Create module '$module'"
+  $curl -w '\n' -X POST -D - \
+    -H "Content-type: application/json" \
+    -d @$module_json  \
+    http://localhost:9130/_/proxy/modules
+
+  # Enable tenant
+  tenant_enable_json=$(mktemp)
+  cat > $tenant_enable_json <<END
+{
+  "id" : "$module"
+}
+END
+
+  echo ""
+  echo "==> Enable non-ui module '$module' for tenant '$tenant'"
   $curl -w '\n' -X POST -D - \
     -H "Content-type: application/json" \
     -d @$tenant_enable_json  \
