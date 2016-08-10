@@ -1,6 +1,13 @@
 export default class localResource { 
 
-  mutatorFor(resource, module, dispatch, query) {
+  constructor(name, query = {}, module = null)  {
+    this.name = name;
+    this.module = module;
+    this.reducer = this.reducer.bind(this);
+  }
+
+  getMutator(dispatch) {
+    const { name, module } = this;
     return { 
       'update': function(newData) {
         return dispatch({
@@ -8,7 +15,7 @@ export default class localResource {
           payload: newData,
           meta: {
             module: module,
-            resource: resource
+            resource: name
           }
         });
       },  
@@ -18,32 +25,30 @@ export default class localResource {
           payload: newData,
           meta: {
             module: module,
-            resource: resource
+            resource: name
           }
         });
       }  
     };
   }
 
-  stateKey(resource, module, query) {
-    return `${module}-${resource}`;
+  stateKey() {
+    return `${this.module}-${this.name}`;
   }
 
-  reducerFor(resource, module, query) {
-    return (state = {}, action) => {
-      if (!(action.type.startsWith('STRIPESLOCALSTATE_'))) return state;
-      if (!(action.meta.module && action.meta.resource)) return state; 
-      const actionKey = `${action.meta.module}-${action.meta.resource}`;
-      if (!(actionKey === `${module}-${resource}`)) return state;
-      switch (action.type) {
-        case 'STRIPESLOCALSTATE_UPDATE': 
-          return Object.assign({}, state, action.payload);
-        case 'STRIPESLOCALSTATE_REPLACE': 
-          return action.payload;
-      };
-      return newState;
-   }
-  }
+  reducer(state = {}, action) {
+    if (!(action.type.startsWith('STRIPESLOCALSTATE_'))) return state;
+    if (!(action.meta.module && action.meta.resource)) return state; 
+    const actionKey = `${action.meta.module}-${action.meta.resource}`;
+    if (!(actionKey === this.stateKey())) return state;
+    switch (action.type) {
+      case 'STRIPESLOCALSTATE_UPDATE': 
+        return Object.assign({}, state, action.payload);
+      case 'STRIPESLOCALSTATE_REPLACE': 
+        return action.payload;
+    };
+    return newState;
+ }
   
 }
 
