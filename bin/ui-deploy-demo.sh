@@ -126,4 +126,13 @@ echo ""
 echo "==> List modules for '$tenant'"
 $curl -w '\n' -D - http://localhost:9130/_/proxy/tenants/$tenant/modules
 
+# show module config
+echo ""
+for module in $($curl -w '\n' -D - http://localhost:9130/_/proxy/tenants/$tenant/modules |
+    egrep '"id"' |awk '{print $3}' | sed -e 's/"//g')
+do
+    curl -w '\n'  http://localhost:9130/_/proxy/modules/$module
+done
+    
+
 rm -f $module_json $tenant_json $tenant_enable_json
