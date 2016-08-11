@@ -3,6 +3,8 @@
 # fail on error
 set -e
 
+: ${interactive="yes"}
+
 (
 cd redux-okapi 
 npm install
@@ -30,7 +32,9 @@ if [ ! -e "@stripes-experiments" ]; then
 fi
 )
 
-echo ""
-echo "now start the webpack service with: node stripes-core/webpackServer.js"
+if [ "$interactive" = "yes" ]; then
+    echo ""
+    echo "now start the webpack service with: node stripes-core/webpackServer.js"
+fi
 #echo "( cd stripes-core && npm run start:webpack )"
 
