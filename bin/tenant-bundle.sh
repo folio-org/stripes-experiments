@@ -53,9 +53,11 @@ cp favicon.ico  $bundle_dir
 
 ./bin/modules.sh $ui_url > stripes-core/webpack.config.tenant.js
 
-if [ $(uname) = "Linux" ]; then
+# GNU tar needs special options
+if tar --help| egrep -w -- --wildcards >/dev/null; then
     tar_opt=--wildcards
 fi
+
 ############################
 # main
 #
