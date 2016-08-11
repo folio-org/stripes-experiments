@@ -71,7 +71,7 @@ do
     if [ -d "$pwd/$url" ]; then
         if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
             rsync -a "$pwd/$url" .
-            (cd $(basename $url) && pwd && npm --silent install )
+            (cd $(basename $url) && pwd && npm install )
         else
             echo "illegal directory path: [A-Za-z0-9_-]: $url"
             exit 1
@@ -82,7 +82,7 @@ do
         if echo $url | egrep -q -i '^https?://[a-z0-9]+\S+$'; then
             wget -q $url
             tar $tar_opt -xzf $(basename $url) '[a-zA-Z0-9]*'
-            (cd $(basename $url .tgz) && npm --silent install )
+            (cd $(basename $url .tgz) && npm install )
         else
             echo "illegal URL: $url"
             exit 1
@@ -98,7 +98,7 @@ fi
 #./bin/install.sh
 env interactive="" ./bin/install-nexus.sh
 
-cd stripes-core && npm --silent run build:tenant
+cd stripes-core && npm run build:tenant
 
 cp index.html $bundle_dir
 rsync -a static $bundle_dir
