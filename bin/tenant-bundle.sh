@@ -26,6 +26,9 @@ dir=$(mktemp -d $tmp/stripe.XXXXXXXX)
 
 cd $dir
 pwd 
+if [[ $(uname -s) =~ CYGWIN.* ]]; then
+    github_url="${github_url/\//\\}"
+fi
 git clone -q "$github_url"
 cd $(basename "$github_url")
 
