@@ -71,7 +71,7 @@ do
     if [ -d "$pwd/$url" ]; then
         if echo $url | egrep -q -i '^[a-z0-9_-]+$'; then
             rsync -a "$pwd/$url" .
-            (cd $(basename $url) && pwd && npm install )
+            (cd $(basename $url) && pwd && npm --silent install )
         else
             echo "illegal directory path: [A-Za-z0-9_-]: $url"
             exit 1
@@ -80,9 +80,9 @@ do
     # fetch from web site
     else
         if echo $url | egrep -q -i '^https?://[a-z0-9]+\S+$'; then
-            wget $url
+            wget -q $url
             tar $tar_opt -xzf $(basename $url) '[a-zA-Z0-9]*'
-            (cd $(basename $url .tgz) && npm install )
+            (cd $(basename $url .tgz) && npm --silent install )
         else
             echo "illegal URL: $url"
             exit 1
