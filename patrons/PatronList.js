@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 class PatronList extends Component {
 
   // The manifest is provided in components by the module developer and consumed by 'stripes connect'
-  static manifest = { 'apis/patrons': { remote: true,
+  static manifest = { 'apis/patrons': { type: 'okapi',
                                         pk: '_id',  // The primary key of records from this end-point
                                                     //  (when it's not the default, "id")
                                         records: 'patrons' // The name of the property in the JSON response

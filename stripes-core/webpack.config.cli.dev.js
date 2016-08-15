@@ -8,7 +8,7 @@ const base = require('./webpack.config.base');
 const cli = require('./webpack.config.cli');
 
 module.exports = Object.assign({}, base, cli, {
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   entry: [
     'webpack-hot-middleware/client',
     './src/index'

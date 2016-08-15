@@ -14,8 +14,8 @@ class About extends Component {
     console.log('RENDR ABOUT');
     console.log(this.props);
     let greeting;
-    if (this.props.greetingParams) {
-      greeting = <h3>{this.props.greetingParams.greeting} {this.props.greetingParams.name}</h3>
+    if (this.props.data.greetingParams ) {
+      greeting = <h3>{this.props.data.greetingParams.greeting} {this.props.data.greetingParams.name}</h3>
     } else {
       greeting = <h3>No one here :(</h3>
     }

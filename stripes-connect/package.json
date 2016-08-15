@@ -8,6 +8,11 @@
   "main": "connect.js",
   "author": "Index Data",
   "license": "Apache-2.0",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "redux-crud": "^1.0.0",
+    "node-uuid": "1.4.7"
+  },
   "engines": {
     "node": ">=4.0.0"
   }
