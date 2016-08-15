@@ -6,7 +6,7 @@ set -e
 : ${interactive="yes"}
 
 (
-cd redux-okapi 
+cd stripes-connect
 npm install
 )
 
