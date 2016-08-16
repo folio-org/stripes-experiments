@@ -47,9 +47,9 @@ export default class restResource {
     // shallow copy; we'll need to go deeper once templating params
     this.options = {...this.optionsTemplate};
     // TODO: still not really implemented
-    if (this.path && this.path.startsWith(":")) {
+    if (this.options.path && this.options.path.startsWith(":")) {
       let path = this.options.path.substring(1);
-      this.options.path = "/" + params[path];
+      this.options.path = params[path];
     }
     dispatch(this.fetchAction());
   }
@@ -61,7 +61,7 @@ export default class restResource {
     return function(dispatch) {
       // Optimistic record creation ('clientRecord')
       const cuuid = uuid();
-      let clientRecord = { ...record };
+      let clientRecord = { ...record, id: cuuid };
       clientRecord[pk] = cuuid;
       dispatch(crudActions.createStart(clientRecord));
       if (clientGeneratePk) {
@@ -78,7 +78,7 @@ export default class restResource {
             dispatch(crudActions.createError(response, clientRecord));
           } else {
             response.json().then ( (json) => {
-              if (json[options.pk] && !json.id) json.id = json[options.pk];
+              if (json[pk] && !json.id) json.id = json[pk];
               dispatch(crudActions.createSuccess(json, cuuid));
             });
           }
@@ -91,7 +91,7 @@ export default class restResource {
     const crudActions = this.crudActions;
     const url = [ root, endpoint || this.name, record[pk] ].join('/');
     let clientRecord = record;
-    if (clientRecord[pk] && !clientRecord.id) clientRecord.id = clientRecord[options.pk];
+    if (clientRecord[pk] && !clientRecord.id) clientRecord.id = clientRecord[pk];
     return function(dispatch) {
       dispatch(crudActions.updateStart(clientRecord));
       return fetch(url, {
