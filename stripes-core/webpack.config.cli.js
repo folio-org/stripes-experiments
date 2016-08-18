@@ -15,7 +15,8 @@ module.exports = {
     modules: {
       '@stripes-experiments/trivial': {},
       '@stripes-experiments/trivial-okapi': {},
-      '@stripes-experiments/patrons': {}
+      '@stripes-experiments/patrons': {},
+      '@stripes-experiments/okapi-console': {}
     }
   }
 };

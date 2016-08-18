@@ -1,0 +1,10 @@
+{"primary":[
+  {
+    "name":"Okapi Tenants",
+    "path":"/okapi-console/tenants/list"
+  },
+  {
+    "name":"Okapi Modules",
+    "path":"/okapi-console/modules/list"
+  }  
+]}

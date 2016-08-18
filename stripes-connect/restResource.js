@@ -47,9 +47,16 @@ export default class restResource {
     // shallow copy; we'll need to go deeper once templating params
     this.options = {...this.optionsTemplate};
     // TODO: still not really implemented
-    if (this.options.path && this.options.path.startsWith(":")) {
-      let path = this.options.path.substring(1);
-      this.options.path = params[path];
+    if (this.options.path) {
+      let path = "";
+      let sections = this.options.path.split("/");
+      for (var i=0; i < sections.length; i++ ) {
+        if (sections[i].startsWith(":")) {
+          let section = sections[i].substring(1);
+          sections[i] = params[section];
+        } 
+      }
+      this.options.path = sections.join("/");
     }
     dispatch(this.fetchAction());
   }
@@ -142,6 +149,8 @@ export default class restResource {
     const crudActions = this.crudActions;
     // ie. only join truthy elements
     const url = [ root, endpoint || this.name, path ].filter(_.identity).join('/');
+    console.log("fetch path ", path);
+    console.log("fetch url ", url);
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
       return fetch(url, { headers: Object.assign({}, headers.ALL, headers.GET) })

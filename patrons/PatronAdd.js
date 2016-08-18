@@ -3,7 +3,7 @@ import { connect } from 'stripes-connect';
 import PatronForm from './PatronForm';
 
 // One of multiple stripes-connected components in the patrons module
-export default class PatronAdd extends Component {
+class PatronAdd extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   };

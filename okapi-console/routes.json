@@ -1,0 +1,27 @@
+[
+  {
+    "path":"okapi-console/tenants/list",
+    "component":"tenants/TenantList"
+  },
+  {
+    "path":"okapi-console/tenants/edit/:tenantid",
+    "component":"tenants/TenantEdit"
+  },
+  {
+    "path":"okapi-console/tenants/add",
+    "component":"tenants/TenantAdd"
+  },
+  {
+    "path":"okapi-console/modules/list",
+    "component":"modules/ModuleList"
+  },
+  {
+    "path":"okapi-console/modules/add",
+    "component":"modules/ModuleAdd"
+  },
+  {
+    "path":"okapi-console/modules/edit/:moduleid",
+    "component":"modules/ModuleEdit"
+  }
+]
+
