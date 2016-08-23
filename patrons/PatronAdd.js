@@ -12,8 +12,10 @@ export default class PatronAdd extends Component {
   static manifest = { 'apis/patrons': { type: 'okapi',
                                         pk: '_id',  // The primary key of records from this end-point
                                                     // Set this if not using the default, "id".
-                                        clientGeneratePk: false // Set this if the backend service requires 
-                                                                // that it generates unique IDs for records
+                                        clientGeneratePk: false, // Set this if the backend service requires
+                                                                 // that it generates unique IDs for records
+                                        records: 'patrons' // The name of the property in the JSON response
+                                                           // that holds the records
                                       }};
 
   createPatron(data) {
@@ -25,9 +27,9 @@ export default class PatronAdd extends Component {
     this.context.router.push('/patrons/list');
   }
 
-  render() { 
-      return <PatronForm onSubmit={this.createPatron.bind(this)} 
-                         cancelForm={this.cancel.bind(this)} 
+  render() {
+      return <PatronForm onSubmit={this.createPatron.bind(this)}
+                         cancelForm={this.cancel.bind(this)}
                          action={PatronForm.actionTypes['create']}/>
   }
 }
