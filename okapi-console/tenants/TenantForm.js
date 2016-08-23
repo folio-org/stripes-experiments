@@ -32,6 +32,7 @@ class TenantForm extends Component {
       submitLabel, 
       disableFields
     } = this.props;
+    let tenantid = (this.props.fields ? this.props.fields.id.value : null);
     return (
       <div>
         <Form inline>
@@ -64,7 +65,7 @@ class TenantForm extends Component {
           </ButtonGroup>
         </Form>
         <br/>
-        <ModuleSelector tenantid={id} />
+        <ModuleSelector tenantid={tenantid} />
 
       </div>
 
