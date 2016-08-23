@@ -6,7 +6,7 @@ let Wrapping = (Wrapped) => class extends React.Component {
   }
 
   componentDidMount() {
-    this.props.refreshRemote({...this.props.params});
+    this.props.refreshRemote({...this.props});
   }
 
   render () {

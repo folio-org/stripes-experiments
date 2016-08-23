@@ -43,7 +43,7 @@ export default class restResource {
     return this.crudName;
   }
 
-  refresh(dispatch, params) {
+  refresh(dispatch, props) {
     // shallow copy; we'll need to go deeper once templating params
     this.options = {...this.optionsTemplate};
     // TODO: still not really implemented
@@ -53,7 +53,8 @@ export default class restResource {
       for (var i=0; i < sections.length; i++ ) {
         if (sections[i].startsWith(":")) {
           let section = sections[i].substring(1);
-          sections[i] = params[section];
+          // Substitute from component's router params, if found, otherwise from component's props
+          sections[i] = ( (props.params && props.params[section]) ? props.params[section] : props[section]);
         } 
       }
       this.options.path = sections.join("/");
