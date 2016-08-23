@@ -150,8 +150,6 @@ export default class restResource {
     const crudActions = this.crudActions;
     // ie. only join truthy elements
     const url = [ root, endpoint || this.name, path ].filter(_.identity).join('/');
-    console.log("fetch path ", path);
-    console.log("fetch url ", url);
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
       return fetch(url, { headers: Object.assign({}, headers.ALL, headers.GET) })
