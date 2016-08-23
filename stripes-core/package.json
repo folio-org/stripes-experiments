@@ -45,7 +45,7 @@
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.1",
-    "stripes-loader":"git+ssh://git@github.com/sling-incubator/stripes-loader.git"
+    "stripes-loader":"git+ssh://git@github.com/folio-org/stripes-loader.git"
   },
   "dependencies": {
     "babel-polyfill": "^6.9.1",

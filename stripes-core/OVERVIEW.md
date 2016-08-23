@@ -48,16 +48,16 @@ to those working _on_ Stripes, not those working _with_ it.
 At present, Stripes itself consists of three modules, each of them
 packaged using NPM:
 
-* [**stripes-core**](https://github.com/sling-incubator/stripes-experiments/tree/master/stripes-core):
+* [**stripes-core**](https://github.com/folio-org/stripes-experiments/tree/master/stripes-core):
   the core of system, including the web-application's
   `index.html` and `index.js`. Also includes some utilities that are
   used by the other modules.
 
-* [**stripes-connect**](https://github.com/sling-incubator/stripes-experiments/tree/master/stripes-connect):
+* [**stripes-connect**](https://github.com/folio-org/stripes-experiments/tree/master/stripes-connect):
   Code that connects Stripes modules with sources of data, notably the
   Okapi middleware that exposes Folio services.
 
-* [**stripes-loader**](https://github.com/sling-incubator/stripes-loader):
+* [**stripes-loader**](https://github.com/folio-org/stripes-loader):
   A Webpack loader that gathers and configures the selected set of
   modules that will make up a particular Stripes application.
 
@@ -65,7 +65,7 @@ Besides these core modules, there are a small number of Stripes
 modules available for inclusion in applicatiobs. At present these are
 strictly proof of concept modules, and do not do anything useful:
 
-* [**trivial**](https://github.com/sling-incubator/stripes-experiments/tree/master/trivial):
+* [**trivial**](https://github.com/folio-org/stripes-experiments/tree/master/trivial):
   A "hello world" module that can express various greetings to
   different people.
 
