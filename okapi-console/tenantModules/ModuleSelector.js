@@ -37,9 +37,9 @@ class ModuleSelector extends Component {
       }
     };
 
-    var modules = this.props.data['modules'];
-    var enabled = this.props.data['enabledmodules'];
-    var availableModuleNodes = availableModules(modules,enabled).map((amodule, i) => {
+    var allModules = this.props.data['modules'];
+    var enabledModules = this.props.data['enabledmodules'];
+    var availableModuleNodes = availableModules(allModules,enabledModules).map((amodule, i) => {
       return (
         <li key={amodule.id}><span style={(amodule.enabled ? styles.bold : styles.normal)}>{amodule.name}</span>{' '}{' '}<a key={amodule.id} href='#' 
                onClick={ (e) => {e.preventDefault(); amodule.enabled ? this.disableModule(amodule.id) : this.enableModule(amodule.id);}}>{amodule.enabled ? '[X]' : 'Enable'}</a></li>
@@ -61,15 +61,15 @@ class ModuleSelector extends Component {
   }
 }
 
-const availableModules = (modules, tenants_modules) => {
+const availableModules = (allModules, enabledModules) => {
       let moduleList = [];
-      for (let i=0; i<modules.length; i++) {
+      for (let i=0; i<allModules.length; i++) {
         let amodule = {};
-        amodule.name = modules[i].name;
-        amodule.id = modules[i].id;
+        amodule.name = allModules[i].name;
+        amodule.id = allModules[i].id;
         amodule.enabled=false;
-        for (let j=0; j<tenants_modules.length; j++) {
-          if (tenants_modules[j].id == amodule.id) {
+        for (let j=0; j<enabledModules.length; j++) {
+          if (enabledModules[j].id == amodule.id) {
             amodule.enabled = true;
           } 
         }
