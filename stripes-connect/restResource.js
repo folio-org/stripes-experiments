@@ -32,7 +32,7 @@ export default class restResource {
   reducer(state = [], action) {
     switch (action.type) {
       // extra reducer (beyond redux-crud generated reducers) for clearing a list before populating from new fetch
-      case 'CLEAR_' + this.crudName.toUpperCase() :
+      case 'CLEAR_' + this.stateKey().toUpperCase() :
         return [];
       default:
         return this.crudReducers(state, action);
@@ -148,6 +148,7 @@ export default class restResource {
   fetchAction() {
     const { root, path, pk, headers, records } = this.options;
     const crudActions = this.crudActions;
+    const key = this.stateKey();
     // ie. only join truthy elements
     const url = [ root, path ].filter(_.identity).join('/');
     return function(dispatch) {
@@ -158,6 +159,8 @@ export default class restResource {
             dispatch(crudActions.fetchError(response));
           } else {
             response.json().then(json => {
+              // TODO: This should only be done when fetching all, but how to know?
+              dispatch({ type: 'CLEAR_'+key.toUpperCase()});
               let data = (records ? json[records] : json);
               dispatch(crudActions.fetchSuccess(data));
             });

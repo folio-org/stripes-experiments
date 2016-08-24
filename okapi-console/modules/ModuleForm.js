@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import {reduxForm} from 'redux-form';
+import Deployments from './Deployments';
 
 
 class ModuleForm extends Component {
@@ -204,6 +205,7 @@ class ModuleForm extends Component {
           </ButtonGroup>
         </Form>
         <br/><br/>
+        <Deployments srvcId={id.value} />
       </div>
     );
   }
