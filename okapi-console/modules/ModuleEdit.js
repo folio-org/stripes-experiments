@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'stripes-connect';
 import ModuleForm from './ModuleForm';
-
+import { removeEmpty } from '../utils/removeEmptyObjectsFromArrays';
 
 class ModuleEdit extends Component {
 
@@ -15,6 +15,7 @@ class ModuleEdit extends Component {
                     };
 
   update(data) {
+    removeEmpty(data);
     this.props.mutator['modules'].update(data);
     this.context.router.push('/okapi-console/modules/list');
   }
