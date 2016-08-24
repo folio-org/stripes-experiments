@@ -5,9 +5,10 @@ import { Grid, Row, Col } from 'react-bootstrap';
 class ModuleSelector extends Component {
 
   static manifest = {
-    '_/proxy/tenants': { type: 'okapi',
-                         path: ':tenantid/modules' },
-    '_/proxy/modules' : { type: 'okapi' }
+    'enabledmodules': { type: 'okapi',
+                        path: '_/proxy/tenants/:tenantid/modules'},
+    'modules' :       { type: 'okapi',
+                        path: '_/proxy/modules' }
   };
 
   render() {
@@ -20,29 +21,27 @@ class ModuleSelector extends Component {
       }
     };
 
-    if (false) {
-      var availableModuleNodes = this.props.availableModules.map((amodule, i) => {
-        return (
-          <li key={amodule.id}><span style={(amodule.enabled ? styles.bold : styles.normal)}>{amodule.name}</span>{' '}{' '}<a key={amodule.id} href='#' 
-                 onClick={ (e) => {e.preventDefault(); amodule.enabled ? disableModule(amodule.id) : enableModule(amodule.id);}}>{amodule.enabled ? '[X]' : 'Enable'}</a></li>
-        );
-      });
-
+    var modules = this.props.data['modules'];
+    var enabled = this.props.data['enabledmodules'];
+    var availableModuleNodes = availableModules(modules,enabled).map((amodule, i) => {
       return (
-        <div>
-          <Grid>
-            <Row className="show-grid">
-              <Col xs={6} md={6}><h3>Available modules</h3></Col>
-            </Row>
-            <Row className="show-grid">
-              <Col xs={6} md={6}>{availableModuleNodes}</Col>
-            </Row>
-          </Grid>
-        </div>
+        <li key={amodule.id}><span style={(amodule.enabled ? styles.bold : styles.normal)}>{amodule.name}</span>{' '}{' '}<a key={amodule.id} href='#' 
+               onClick={ (e) => {e.preventDefault(); amodule.enabled ? disableModule(amodule.id) : enableModule(amodule.id);}}>{amodule.enabled ? '[X]' : 'Enable'}</a></li>
       );
-    } else {
-      return (<div>placeholder</div>);
-    }
+    });
+
+    return (
+      <div>
+        <Grid>
+          <Row className="show-grid">
+            <Col xs={6} md={6}><h3>Available modules</h3></Col>
+          </Row>
+          <Row className="show-grid">
+            <Col xs={6} md={6}>{availableModuleNodes}</Col>
+          </Row>
+        </Grid>
+      </div>
+    );
   }
 }
 

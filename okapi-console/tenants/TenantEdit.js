@@ -7,9 +7,9 @@ class TenantEdit extends Component {
     router: PropTypes.object.isRequired
   };
 
-  static manifest = { '_/proxy/tenants': { type: 'okapi',
-                                           path: ':tenantid'
-                                         }
+  static manifest = { 'tenants': { type: 'okapi',
+                                   path: '_/proxy/tenants/:tenantid'
+                                 }
                     };
 
   cancel (data, dispatch, e) {
@@ -17,13 +17,13 @@ class TenantEdit extends Component {
   }
 
   update(data) {
-    this.props.mutator['_/proxy/tenants'].update(data);
+    this.props.mutator['tenants'].update(data);
     this.context.router.push('/okapi-console/tenants/list');
   }
 
   render() {
       let tenantid = this.props.params.tenantid;
-      let tenants = this.props.data['_/proxy/tenants']
+      let tenants = this.props.data['tenants']
       let tenant = tenants.find((tenant) =>  { return tenant.id === tenantid });
 
       return <TenantForm onSubmit={this.update.bind(this)}

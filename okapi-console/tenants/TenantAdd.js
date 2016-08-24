@@ -7,12 +7,13 @@ class TenantAdd extends Component {
     router: PropTypes.object.isRequired
   };
 
-  static manifest = { '_/proxy/tenants': { type: 'okapi'
-                                         }
+  static manifest = { 'tenants': { type: 'okapi',
+                                   path: '_/proxy/tenants'
+                                 }
                     };
 
   create(data) {
-    this.props.mutator['_/proxy/tenants'].create(data);
+    this.props.mutator['tenants'].create(data);
     this.context.router.push('/okapi-console/tenants/list');
   }
 

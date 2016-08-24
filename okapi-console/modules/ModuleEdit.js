@@ -9,13 +9,13 @@ class ModuleEdit extends Component {
     router: PropTypes.object.isRequired
   };
 
-  static manifest = { '_/proxy/modules': { type: 'okapi',
-                                           path: ':moduleid'
-                                         }
+  static manifest = { 'modules': { type: 'okapi',
+                                   path: '_/proxy/modules/:moduleid'
+                                 }
                     };
 
   update(data) {
-    this.props.mutator['_/proxy/modules'].update(data);
+    this.props.mutator['modules'].update(data);
     this.context.router.push('/okapi-console/modules/list');
   }
 
@@ -26,7 +26,7 @@ class ModuleEdit extends Component {
   
   render() {
     let moduleid = this.props.params.moduleid;
-    let modules = this.props.data['_/proxy/modules']
+    let modules = this.props.data['modules']
     let module = modules.find((module) =>  { return module.id === moduleid });
 
     return <ModuleForm onSubmit={this.update.bind(this)} 

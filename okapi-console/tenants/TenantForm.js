@@ -66,7 +66,6 @@ class TenantForm extends Component {
         </Form>
         <br/>
         <ModuleSelector tenantid={tenantid} />
-
       </div>
 
     );

@@ -7,12 +7,13 @@ class ModuleAdd extends Component {
     router: PropTypes.object.isRequired
   };
 
-  static manifest = { '_/proxy/modules': { type: 'okapi'
-                                         }
+  static manifest = { 'modules' : { type: 'okapi',
+                                    path: '_/proxy/modules'
+                                  }
                     };
 
   create(data) {
-    this.props.mutator['_/proxy/modules'].create(data);
+    this.props.mutator['modules'].create(data);
     this.context.router.push('/okapi-console/modules/list');
   }
 

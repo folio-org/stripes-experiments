@@ -63,9 +63,9 @@ export default class restResource {
   }
 
   createAction(record) {
-    const { root, endpoint, pk, clientGeneratePk, headers } = this.options;
+    const { root, path, pk, clientGeneratePk, headers } = this.options;
     const crudActions = this.crudActions;
-    const url = [ root, endpoint || this.name ].join('/');
+    const url = [ root, path ].join('/');
     return function(dispatch) {
       // Optimistic record creation ('clientRecord')
       const cuuid = uuid();
@@ -95,9 +95,9 @@ export default class restResource {
   }
 
   updateAction(record) {
-    const { root, endpoint, pk, clientGeneratePk, headers } = this.options;
+    const { root, path, pk, clientGeneratePk, headers } = this.options;
     const crudActions = this.crudActions;
-    const url = [ root, endpoint || this.name, record[pk] ].join('/');
+    const url = [ root, path ].join('/');
     let clientRecord = record;
     if (clientRecord[pk] && !clientRecord.id) clientRecord.id = clientRecord[pk];
     return function(dispatch) {
@@ -124,9 +124,9 @@ export default class restResource {
   }
 
   deleteAction(record) {
-    const { root, endpoint, pk, clientGeneratePk, headers } = this.options;
+    const { root, path, pk, clientGeneratePk, headers } = this.options;
     const crudActions = this.crudActions;
-    const url = [ root, endpoint || this.name, record[pk] ].join('/');
+    const url = [ root, path, record[pk] ].join('/');
     return function(dispatch) {
       if (record[pk] && !record.id) record.id = record[pk];
       dispatch(crudActions.deleteStart(record));
@@ -146,10 +146,10 @@ export default class restResource {
 
 
   fetchAction() {
-    const { root, endpoint, path, pk, headers, records } = this.options;
+    const { root, path, pk, headers, records } = this.options;
     const crudActions = this.crudActions;
     // ie. only join truthy elements
-    const url = [ root, endpoint || this.name, path ].filter(_.identity).join('/');
+    const url = [ root, path ].filter(_.identity).join('/');
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
       return fetch(url, { headers: Object.assign({}, headers.ALL, headers.GET) })
