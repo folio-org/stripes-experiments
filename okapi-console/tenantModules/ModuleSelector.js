@@ -6,10 +6,26 @@ class ModuleSelector extends Component {
 
   static manifest = {
     'enabledmodules': { type: 'okapi',
-                        path: '_/proxy/tenants/:tenantid/modules'},
+                        path: '_/proxy/tenants/:tenantid/modules',
+                        clientGeneratePk: false
+                      },
     'modules' :       { type: 'okapi',
                         path: '_/proxy/modules' }
   };
+
+  enableModule(moduleId) {
+    let data = {
+      id: moduleId
+    };
+    this.props.mutator['enabledmodules'].create(data);
+  }
+
+  disableModule(moduleId) {
+    let data = {
+      id: moduleId
+    };
+    this.props.mutator['enabledmodules'].delete(data);
+  }
 
   render() {
     var styles = {
@@ -26,7 +42,7 @@ class ModuleSelector extends Component {
     var availableModuleNodes = availableModules(modules,enabled).map((amodule, i) => {
       return (
         <li key={amodule.id}><span style={(amodule.enabled ? styles.bold : styles.normal)}>{amodule.name}</span>{' '}{' '}<a key={amodule.id} href='#' 
-               onClick={ (e) => {e.preventDefault(); amodule.enabled ? disableModule(amodule.id) : enableModule(amodule.id);}}>{amodule.enabled ? '[X]' : 'Enable'}</a></li>
+               onClick={ (e) => {e.preventDefault(); amodule.enabled ? this.disableModule(amodule.id) : this.enableModule(amodule.id);}}>{amodule.enabled ? '[X]' : 'Enable'}</a></li>
       );
     });
 
@@ -61,5 +77,6 @@ const availableModules = (modules, tenants_modules) => {
       }
       return moduleList;
 };
+
 
 export default connect(ModuleSelector, 'okapi-console');
