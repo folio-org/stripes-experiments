@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import {reduxForm} from 'redux-form';
 import ModuleList from '../modules/ModuleList';
-import ModuleSelector from '../tenantModules/ModuleSelector';
+import ModuleSelector from './ModuleSelector';
 
 class TenantForm extends Component {
   static propTypes = {
