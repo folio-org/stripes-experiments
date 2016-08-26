@@ -28,6 +28,8 @@ class ModuleSelector extends Component {
   }
 
   render() {
+    const { data } = this.props;
+
     var styles = {
       bold: {
         fontWeight: 'bold'
@@ -37,8 +39,8 @@ class ModuleSelector extends Component {
       }
     };
 
-    var allModules = this.props.data['modules'];
-    var enabledModules = this.props.data['enabledmodules'];
+    var allModules = data['modules'];
+    var enabledModules = data['enabledmodules'];
     var availableModuleNodes = availableModules(allModules,enabledModules).map((amodule, i) => {
       return (
         <li key={amodule.id}><span style={(amodule.enabled ? styles.bold : styles.normal)}>{amodule.name}</span>{' '}{' '}<a key={amodule.id} href='#' 

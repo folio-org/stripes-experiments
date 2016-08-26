@@ -25,13 +25,14 @@ class Health extends Component {
                                     path: '_/proxy/modules'}};
 
   render() {
+    const { data } = this.props;
 
-    let health = this.props.data['health'];
+    let health = data['health'];
     if (!health) {
       return <div/>
     }
 
-    let modules = this.props.data['modules'];
+    let modules = data['modules'];
     console.log("Health.render: ",
                 "health = " + typeof(health) + ": ", health, "; ",
                 "modules = " + typeof(modules) + ": ", modules);
