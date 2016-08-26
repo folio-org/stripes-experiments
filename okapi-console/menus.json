@@ -6,5 +6,9 @@
   {
     "name":"Okapi Modules",
     "path":"/okapi-console/modules/list"
+  },
+  {
+    "name": "Okapi Health",
+    "path": "/okapi-console/health/health"
   }  
 ]}

@@ -22,6 +22,10 @@
   {
     "path":"okapi-console/modules/edit/:moduleid",
     "component":"modules/ModuleEdit"
+  },
+  {
+    "path":"okapi-console/health/health",
+    "component":"health/Health"
   }
 ]
 
