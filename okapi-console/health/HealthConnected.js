@@ -4,14 +4,15 @@ import { connect } from 'stripes-connect';
 
 class Row extends Component {
   render() {
-    let h = this.props.h;
-    let href = "#/okapi-console/modules/edit/" + h.srvcId;
+    const { instId, srvcId, healthMessage, healthStatus } = this.props.h;
+
+    let href = "#/okapi-console/modules/edit/" + srvcId;
     return <tr>
-      <td>{h.instId}</td>
-      <td><a href={href}>{h.srvcId}</a></td>
-      <td>{this.props.map[h.srvcId]}</td>
-      <td>{h.healthMessage}</td>
-      <td>{h.healthStatus ? "true" : "false"}</td>
+      <td>{instId}</td>
+      <td><a href={href}>{srvcId}</a></td>
+      <td>{this.props.map[srvcId]}</td>
+      <td>{healthMessage}</td>
+      <td>{healthStatus ? "true" : "false"}</td>
     </tr>
   }
 }
@@ -19,10 +20,9 @@ class Row extends Component {
 class Health extends Component {
   static manifest = { 'health':   { type: 'okapi',
                                     pk:   'srvcId',
-                                    path: '_/discovery/health'
-                                  },
+                                    path: '_/discovery/health' },
                       'modules' : { type: 'okapi',
-                                    path: '_/proxy/modules'}};
+                                    path: '_/proxy/modules' }};
 
   render() {
     const { health, modules } = this.props.data;
