@@ -5,7 +5,7 @@ import { system } from 'stripes-loader!';
 class Row extends Component {
   render() {
     let h = this.props.h;
-    let href = "#/modules/edit/" + h.srvcId;
+    let href = "#/okapi-console/modules/edit/" + h.srvcId;
     return <tr>
       <td>{h.instId}</td>
       <td><a href={href}>{h.srvcId}</a></td>
