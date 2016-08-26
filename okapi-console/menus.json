@@ -10,5 +10,9 @@
   {
     "name": "Okapi Health",
     "path": "/okapi-console/health/health"
+  },
+  {
+    "name": "Health Connected",
+    "path": "/okapi-console/health/healthconnected"
   }  
 ]}

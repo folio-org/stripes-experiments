@@ -26,6 +26,10 @@
   {
     "path":"okapi-console/health/health",
     "component":"health/Health"
+  },
+  {
+    "path":"okapi-console/health/healthconnected",
+    "component":"health/HealthConnected"
   }
 ]
 
