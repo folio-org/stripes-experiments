@@ -1,17 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
-import {reduxForm} from 'redux-form';
+import {Field, FieldArray, reduxForm} from 'redux-form';
 import Deployments from './Deployments';
 
 
 class ModuleForm extends Component {
   static propTypes = {
-    fields: PropTypes.object.isRequired,
-    initializeForm: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,  
-    cancelForm: PropTypes.func.isRequired,    
-    resetForm: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired,
+    cancelForm: PropTypes.func.isRequired,
     submitLabel: PropTypes.string,
     disableFields: PropTypes.bool
   };
@@ -23,15 +18,44 @@ class ModuleForm extends Component {
 
   render() {
     const {
-      fields: {id, name, provides, requires, routingEntries},
+      array: { push },
       handleSubmit, 
-      cancelForm, 
-      resetForm, 
+      pristine,
+      reset,
       submitting,
+      cancelForm, 
       submitLabel, 
       disableFields,
-      dirty
     } = this.props;
+
+    const renderProvides = ({ fields }) => (
+      <ul>
+        <li>
+          <button type="button" onClick={() => fields.push({})}>Add Provides</button>
+        </li>
+        {fields.map((fld, index) =>
+          <li key={index}>
+            <button
+              type="button"
+              title="Remove Provision"
+              onClick={() => fields.remove(index)}/>
+            <h4>Provision #{index + 1}</h4>
+            <Field
+              name={`${fld}.id`}
+              type="text"
+              component="input"
+              placeholder="Module ID"/>
+            <br/>
+            <Field
+              name={`${fld}.version`}
+              type="text"
+              component="input"
+              placeholder="Version"/>
+          </li>
+        )}
+      </ul>
+    )
+
 
     return (
       <div>
@@ -44,168 +68,20 @@ class ModuleForm extends Component {
               Name
             </Col>
             <Col sm={10}>
-              <FormControl type='text' disabled={disableFields} placeholder='Module name' {...name} />
+              <Field name="name" component="input" type='text' placeholder='Module name' />
             </Col>
           </Row>
           <br/>
-          {!provides.length ?
-            <Row key={'new-provides'}>
-              <Col sm={2}><ControlLabel>Provides</ControlLabel></Col>
-              <Col sm={5}>
-                <Button type='button' bsStyle='primary' onClick={() => {provides.addField();}}>
-                    <Glyphicon glyph='plus' />Add entry
-                </Button>
-              </Col>
-            </Row>
-            : ''
-          }
-          {provides.map((provision,i) =>
-            <Row key={'provides'+i}>
-              <Col sm={2}>
-                {i==0 ? <ControlLabel>Provides</ControlLabel> : ''}
-              </Col>
-              <Col sm={5}>
-                <FormControl type='text' disabled={disableFields} placeholder='ID' {...(provision.id)} />
-              </Col>
-              <Col sm={4}>
-                <FormControl type='text' disabled={disableFields} placeholder='Version' {...(provision.version)} />
-              </Col>
-              <Col sm={1}>
-                {i==0 ?
-                  <Button type='button' bsStyle='primary' onClick={() => {provides.addField();}}>
-                    <Glyphicon glyph='plus' />
-                  </Button>
-                  :
-                  <Button type='button' bsStyle='primary' onClick={() => {provides.removeField(i)}}>
-                    <Glyphicon glyph='minus' />
-                  </Button>
-                }
-              </Col>
-            </Row>
-            )
-          }
-          <br/>
-          {!requires.length ?
-            <Row key={'new-requires'}>
-              <Col sm={2}><ControlLabel>Requires</ControlLabel></Col>
-              <Col sm={5}>
-                <Button type='button' bsStyle='primary' onClick={() => {requires.addField();}}>
-                    <Glyphicon glyph='plus' />Add entry
-                </Button>
-              </Col>
-            </Row>
-            : ''
-          }
-          {requires.map((requirement,i) =>
-            <Row key={'requires'+i}>
-              <Col sm={2}>
-                {i==0 ? <ControlLabel>Requires</ControlLabel> : ''}
-              </Col>
-              <Col sm={5}>
-                <FormControl type='text' disabled={disableFields} placeholder='Required module ID' {...(requirement.id)} />
-              </Col>
-              <Col sm={4}>
-                <FormControl type='text' disabled={disableFields} placeholder='Minimum version required' {...(requirement.version)} />
-              </Col>
-              <Col sm={1}>
-                {i==0 ?
-                  <Button type='button' bsStyle='primary' onClick={() => {requires.addField();}}>
-                    <Glyphicon glyph='plus' />
-                  </Button>
-                  :
-                  <Button type='button' bsStyle='primary' onClick={() => {requires.removeField(i)}}>
-                    <Glyphicon glyph='minus' />
-                  </Button>
-                }
-              </Col>
-            </Row>
-          )}
-          <br/><br/>
-          {!routingEntries.length ?
-            <Row key={'new-route'}>
-              <Col sm={2}><ControlLabel>Routing</ControlLabel></Col>
-              <Col sm={5}>
-                <Button type='button' bsStyle='primary' onClick={() => {routingEntries.addField();}}>
-                    <Glyphicon glyph='plus' />Add entry
-                </Button>
-              </Col>
-            </Row>
-            : ''
-          }
-          {routingEntries.map((entry,i) =>
-            <div key={'route'+i}>
-              <Row key={i}>
-                <Col sm={2}>
-                  {i==0 ? <ControlLabel>Routing</ControlLabel> : ''}
-                </Col>
-                <Col sm={10}>
-                  {!entry.methods.length ?
-                    <Row>
-                      <Col sm={2}><ControlLabel>Methods</ControlLabel></Col>
-                      <Col sm={5}>
-                        <Button type='button' bsStyle='primary' onClick={() => {entry.methods.addField();}}>
-                            <Glyphicon glyph='plus' />Add entry
-                        </Button>
-                      </Col>
-                    </Row>
-                    : ''
-                  }
-                  {entry.methods.map((method,j) =>
-                    <Row key={'entry'+j}>
-                      <Col componentClass={ControlLabel} sm={2}>
-                        {' '}{(j==0 ? ' Methods' : '')}
-                      </Col>
-                      <Col sm={4}>
-                        <FormControl type='text' disabled={disableFields} placeholder='HTTP method' {...method} />
-                      </Col>
-                      <Col sm={1}>
-                        {j==0 ?
-                          <Button type='button' bsStyle='primary' onClick={() => {entry.methods.addField();}}>
-                            <Glyphicon glyph='plus' />
-                          </Button>
-                          :
-                          <Button type='button' bsStyle='primary' onClick={() => {entry.methods.removeField(j)}}>
-                            <Glyphicon glyph='minus' />
-                          </Button>
-                        }
-                      </Col>
-                      <Col sm={5}/>
-                    </Row>
-                  )}
-                </Col>
-              </Row>
-              <br/>
-              <Row>
-                <Col sm={1}>{' '}</Col>
-                <Col sm={10}>
-                  <FormControl type='text' disabled={disableFields} placeholder='Request path' {...(entry.path)}  />
-                  <FormControl type='text' disabled={disableFields} placeholder='Priority level' {...(entry.level)}/>
-                  <FormControl type='text' disabled={disableFields} placeholder='Type' {...(entry.type)} />
-                </Col>
-                <Col sm={1}>
-                  {i==0 ?
-                    <Button type='button' bsStyle='primary' onClick={() => {routingEntries.addField();}}>
-                      <Glyphicon glyph='plus' />
-                    </Button>
-                    :
-                    <Button type='button' bsStyle='primary' onClick={() => {routingEntries.removeField(i)}}>
-                      <Glyphicon glyph='minus' />
-                    </Button>
-                  }
-                </Col>
-              </Row>
-              <br/>
-            </div>
-          )}
+          <FieldArray name="provides" component={renderProvides} />
           <br/><br/>
           <ButtonGroup className='pull-right'>
-            <Button type='submit' bsStyle='primary' disabled={submitting||(!disableFields&&!dirty)} onClick={handleSubmit}>{submitLabel} module proxy</Button>
-            <Button type='reset' disabled={submitting||disableFields||!dirty} onClick={resetForm}>Reset</Button>
-            <Button type='button' disabled={submitting} onClick={cancelForm}>{dirty? 'Cancel' : 'Go back'}</Button>
+            <Button type='submit' bsStyle='primary' disabled={submitting||(!disableFields&&pristine)} onClick={handleSubmit}>{submitLabel} module proxy</Button>
+            <Button type='reset' disabled={submitting||disableFields||pristine} onClick={reset}>Reset</Button>
+            <Button type='button' disabled={submitting} onClick={cancelForm}>{pristine? 'Go back' : 'Cancel'}</Button>
           </ButtonGroup>
         </Form>
         <br/><br/>
-        <Deployments srvcId={id.value} />
+        
       </div>
     );
   }
@@ -213,11 +89,6 @@ class ModuleForm extends Component {
 
 export default reduxForm(
   {
-    form: 'moduleForm',
-    fields: ['id','name',
-             'provides[].id', 'provides[].version',
-             'requires[].id', 'requires[].version',
-             'routingEntries[].path', 'routingEntries[].level', 'routingEntries[].type',
-             'routingEntries[].methods[]' ]
-  },
+    form: 'moduleForm'
+  }
 )(ModuleForm);

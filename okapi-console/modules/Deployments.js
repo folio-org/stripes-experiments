@@ -45,19 +45,19 @@ export class Deployments extends Component {
   }
 
   render () {
-    const {
-      srvcId
-    } = this.props;
+
+    const srvcId = this.props.srvcId;
+    const { discovery_modules, discovery_nodes } = this.props.data;
     
-    let nextindex=this.props.data['discovery_modules'].length;
+    let nextindex=discovery_modules.length;
     return (
      <div>
-     {this.props.data['discovery_modules'].map((deployment, index) =>
+     {discovery_modules.map((deployment, index) =>
        {if (deployment.srvcId===srvcId) {
          return (
         <DeploymentForm
           key={index}
-          deployNodes={this.props.data['discovery_nodes']}
+          deployNodes={discovery_nodes}
           formKey={index.toString()}
           initialValues={deployment}
           onSubmit={this.deleteDeploy.bind(this)}
@@ -67,9 +67,9 @@ export class Deployments extends Component {
      <br/>
      <DeploymentForm 
        key={nextindex}
-       deployNodes={this.props.data['discovery_nodes']}
+       deployNodes={discovery_nodes}
        formKey={nextindex.toString()}
-       initialValues={ {srvcId: srvcId} }	     
+       initialValues={ {srvcId: srvcId} }
        onSubmit={this.addDeploy.bind(this)}
        disable={false}/>
      </div>
