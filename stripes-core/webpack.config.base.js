@@ -12,13 +12,13 @@ module.exports = {
     fallback: [
       path.resolve('src'),
       path.join(__dirname, 'node_modules'),
-      path.join(__dirname, 'node_modules/@stripes-experiments')
+      path.join(__dirname, 'node_modules/@folio')
     ]
   },
   resolveLoader: {
     fallback: [
       path.join(__dirname, 'node_modules'),
-      path.join(__dirname, 'node_modules/@stripes-experiments')
+      path.join(__dirname, 'node_modules/@folio')
     ]
   },
   sassLoader: {
@@ -45,7 +45,8 @@ module.exports = {
         // scripts to transpile into ES5, we include them here along with any
         // namespace prefixed @folio which presumably will contain Stripes
         // modules.
-        include:  [path.join(__dirname, 'src'), /stripes-connect/, /@folio/, /@stripes-experiments/]
+        include:  [path.join(__dirname, 'src'), /@folio/]
+        //exclude: [/node_modules/]
       },
       {
         test: /\.json$/,

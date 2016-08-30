@@ -1,11 +1,9 @@
 {
-  "name": "stripes-core",
+  "name": "@folio/stripes-core",
   "version": "0.0.1-test",
   "description": "The starting point for Stripes applications",
   "license": "UNLICENSED",
-  "repository": {
-    "private": true
-  },
+  "repository": "folio-org/stripes-experiments",
   "publishConfig" : {
     "registry" : "https://folio-nexus.indexdata.com/repository/npm-folio/"
   },
