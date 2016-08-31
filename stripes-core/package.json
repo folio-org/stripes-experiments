@@ -1,6 +1,6 @@
 {
   "name": "@folio/stripes-core",
-  "version": "0.0.1-test",
+  "version": "0.0.2-test",
   "description": "The starting point for Stripes applications",
   "license": "UNLICENSED",
   "repository": "folio-org/stripes-experiments",
@@ -65,7 +65,7 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
-    "stripes-loader":"^0.0.1-test",
-    "stripes-connect":"^0.0.0-test"
+    "@folio/stripes-loader":"^0.0.1-test",
+    "@folio/stripes-connect":"^0.0.0-test"
   }
 }
