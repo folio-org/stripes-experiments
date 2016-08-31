@@ -122,6 +122,7 @@ const renderRoutingEntries = ({ fields }) => (
           title="Remove routing"
           onClick={() => fields.remove(index)}/>
         <h4>Route #{index + 1}</h4>
+        <FieldArray name={`${fld}.methods`} component="renderMethods"/>
         <Field
           name={`${fld}.path`}
           type="text"
@@ -145,6 +146,28 @@ const renderRoutingEntries = ({ fields }) => (
   </ul>
 )
 
+const renderMethods = ({ fields }) => (
+  <ul>
+    <li>
+      <button type="button" onClick={() => fields.push({})}>Add Method</button>
+    </li>
+    {fields.map((fld, index) =>
+      <li key={index}>
+        <button
+          type="button"
+          title="Remove method"
+          onClick={() => fields.remove(index)}/>
+        <h4>Method #{index + 1}</h4>
+        <Field
+          name={fld}
+          type="text"
+          component="input"
+          placeholder="HTTP method"/>
+        <br/>
+      </li>
+    )}
+  </ul>
+)
 
 
 export default reduxForm(
