@@ -6,10 +6,10 @@ import PatronForm from './PatronForm';
 class PatronEdit extends Component {
 
   // The manifest is provided in components by the module developer and consumed by 'stripes connect'
-  static manifest = { 'apis/patrons': { type: 'okapi',
+  static manifest = { 'patrons': { type: 'okapi',
                                         pk: '_id',  // The primary key of records from this end-point
                                                     //  (when it's not the default, "id")
-                                        path: ':patronid' // request parameter, provided by router
+                                        path: 'apis/patrons/:patronid' // request parameter, provided by router
                                       }};
 
   static contextTypes = {
@@ -19,7 +19,7 @@ class PatronEdit extends Component {
   // Invokes the mutator provided by stripes connect to perform a PUT
   // Uses router object to navigate back to list
   updatePatron(data) {
-    this.props.mutator['apis/patrons'].update(data);
+    this.props.mutator['patrons'].update(data);
     this.context.router.push('/patrons/list');
   }
 
@@ -29,7 +29,7 @@ class PatronEdit extends Component {
 
   render() { 
       let patronid = this.props.params.patronid;
-      let patrons = this.props.data['apis/patrons']
+      let patrons = this.props.data['patrons']
       let patron = patrons.find((patron) =>  { return patron._id === patronid });
 
       return <PatronForm onSubmit={this.updatePatron.bind(this)} 
