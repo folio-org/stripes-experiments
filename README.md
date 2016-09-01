@@ -1,3 +1,12 @@
+# stripes-experiments
+
+Copyright (C) 2016 The Open Library Foundation
+
+This software is distributed under the terms of the Apache License,
+Version 2.0. See the file "[LICENSE](LICENSE)" for more information.
+
+## Introduction
+
 Here you will find a prototype we're using to explore how a framework to build a UI for Folio might look. For the moment, we're calling it "Stripes". This preliminary effort is being undertaken by a small team while requirements gathering and UX design are underway.
 
 Directories here each contain NPM modules, as things solidify they will be split into separate git repositories.
