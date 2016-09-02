@@ -6,12 +6,13 @@ import { Link } from 'react-router';
 class PatronList extends Component {
 
   // The manifest is provided in components by the module developer and consumed by 'stripes connect'
-  static manifest = { 'apis/patrons': { type: 'okapi',
-                                        pk: '_id',  // The primary key of records from this end-point
-                                                    //  (when it's not the default, "id")
-                                        records: 'patrons' // The name of the property in the JSON response
-                                                           // that holds the records 
-                                      }};
+  static manifest = { 'patrons': { type: 'okapi',
+                                   pk: '_id',  // The primary key of records from this end-point
+                                               //  (when it's not the default, "id")
+                                   records: 'patrons', // The name of the property in the JSON response
+                                                           // that holds the records
+                                   path: 'apis/patrons' 
+                                  }};
 
   // Accesses patrons data and one mutator function, passed in by 'stripes connect' according to the manifest
   // A Link to patrons form based on path in routes.json
@@ -19,11 +20,11 @@ class PatronList extends Component {
   render() {
 
     
-    if (!('apis/patrons' in this.props.data)) return null;
-    var patronNodes = this.props.data['apis/patrons'].map((patron) => {
+    if (!('patrons' in this.props.data)) return <div/>;
+    var patronNodes = this.props.data['patrons'].map((patron) => {
       return (
         <li key={patron.id}>
-          {patron.patron_name} [<a onClick={() => this.props.mutator['apis/patrons'].delete(patron)}>delete</a>]
+          {patron.patron_name} [<a onClick={() => this.props.mutator['patrons'].delete(patron)}>delete</a>]
                                &nbsp;[<Link to={'patrons/edit/' + patron._id}>edit</Link>]
         </li>
       );

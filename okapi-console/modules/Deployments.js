@@ -25,31 +25,26 @@ export class Deployments extends Component {
   }
 
   addDeploy (data) {
-    let node = this.props.data['discovery_nodes'].find( (node) => node.nodeId == data.nodeId )
-    this.props.mutator['deployment_modules'].create(data);
-    this.props.refreshRemote(this.props);
-    //TODO: We lack Promises: we need to wait for deployment update to finish before fetching discovery_modules
-    //      but we can't do like this now:
-    //let promise = this.props.dispatch(okapicrud.create('deployment_modules', data, { okapiurl: node.url}));
-    //promise.then(() =>  { this.props.dispatch(okapicrud.fetch('discovery_modules')); });
+    this.props.mutator['deployment_modules'].create(data).then(() =>
+      this.props.refreshRemote(this.props)
+    );
   }
 
   deleteDeploy (data) {
-    let node = this.props.data['discovery_nodes'].find( (node) => node.nodeId == data.nodeId )
-    this.props.mutator['deployment_modules'].delete(data);
-    this.props.refreshRemote(this.props);
-    //TODO: We lack Promises: we need to wait for deployment update to finish before fetching discovery_modules
-    //      but we can't do like this now:
-    //let promise = this.props.dispatch(okapicrud.delete('deployment_modules',data, { okapiurl: node.url }));
-    //promise.then(() => { this.props.dispatch(okapicrud.fetch('discovery_modules')); });
+    this.props.mutator['deployment_modules'].delete(data).then(() =>
+      this.props.refreshRemote(this.props)
+    );
   }
 
   render () {
 
     const srvcId = this.props.srvcId;
-    const { discovery_modules, discovery_nodes } = this.props.data;
     
-    let nextindex=discovery_modules.length;
+    let nextindex=this.props.data['discovery_modules'].length;
+    let discoveryNodes = this.props.data['discovery_nodes'];
+    if (discoveryNodes.length==0) {
+      return <div/>
+    }
     return (
      <div>
      {discovery_modules.map((deployment, index) =>
@@ -57,7 +52,7 @@ export class Deployments extends Component {
          return (
         <DeploymentForm
           key={index}
-          deployNodes={discovery_nodes}
+          deployNodes={discoveryNodes}
           formKey={index.toString()}
           initialValues={deployment}
           onSubmit={this.deleteDeploy.bind(this)}
@@ -67,7 +62,7 @@ export class Deployments extends Component {
      <br/>
      <DeploymentForm 
        key={nextindex}
-       deployNodes={discovery_nodes}
+       deployNodes={discoveryNodes}
        formKey={nextindex.toString()}
        initialValues={ {srvcId: srvcId} }
        onSubmit={this.addDeploy.bind(this)}

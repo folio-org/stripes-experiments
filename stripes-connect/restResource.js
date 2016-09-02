@@ -23,9 +23,9 @@ export default class restResource {
 
   getMutator(dispatch) {
     return { 
-      'delete': record => { dispatch(this.deleteAction(record)) },
-      'update': record => { dispatch(this.updateAction(record)) },
-      'create': record => { dispatch(this.createAction(record)) }
+      'delete': record => { return dispatch(this.deleteAction(record)) },
+      'update': record => { return dispatch(this.updateAction(record)) },
+      'create': record => { return dispatch(this.createAction(record)) }
     };
   }
 

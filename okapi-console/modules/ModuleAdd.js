@@ -15,15 +15,14 @@ class ModuleAdd extends Component {
 
   create(data) {
     removeEmpty(data);
-    this.props.mutator['modules'].create(data);
-    this.context.router.push('/okapi-console/modules/list');
+    this.props.mutator['modules'].create(data).then(() =>
+      this.context.router.push('/okapi-console/modules/list')
+    );
   }
 
   cancel(data) {
     this.context.router.push('/okapi-console/modules/list');
   }
-
-
 
   render() {
     return (

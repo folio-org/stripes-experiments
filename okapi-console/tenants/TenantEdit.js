@@ -18,8 +18,9 @@ class TenantEdit extends Component {
   }
 
   update(data) {
-    this.props.mutator['tenants'].update(data);
-    this.context.router.push('/okapi-console/tenants/list');
+    this.props.mutator['tenants'].update(data).then (() =>
+      this.context.router.push('/okapi-console/tenants/list')
+      );
   }
 
   render() {
