@@ -7,12 +7,12 @@ class PatronList extends Component {
 
   // The manifest is provided in components by the module developer and consumed by 'stripes connect'
   static manifest = { 'patrons': { type: 'okapi',
-                                        pk: '_id',  // The primary key of records from this end-point
-                                                    //  (when it's not the default, "id")
-                                        records: 'patrons', // The name of the property in the JSON response
+                                   pk: '_id',  // The primary key of records from this end-point
+                                               //  (when it's not the default, "id")
+                                   records: 'patrons', // The name of the property in the JSON response
                                                            // that holds the records
-                                        path: 'apis/patrons' 
-                                      }};
+                                   path: 'apis/patrons' 
+                                  }};
 
   // Accesses patrons data and one mutator function, passed in by 'stripes connect' according to the manifest
   // A Link to patrons form based on path in routes.json
@@ -20,7 +20,7 @@ class PatronList extends Component {
   render() {
 
     
-    if (!('patrons' in this.props.data)) return null;
+    if (!('patrons' in this.props.data)) return <div/>;
     var patronNodes = this.props.data['patrons'].map((patron) => {
       return (
         <li key={patron.id}>
