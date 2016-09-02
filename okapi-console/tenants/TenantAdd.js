@@ -13,8 +13,9 @@ class TenantAdd extends Component {
                     };
 
   create(data) {
-    this.props.mutator['tenants'].create(data);
-    this.context.router.push('/okapi-console/tenants/list');
+    this.props.mutator['tenants'].create(data).then(() =>
+      this.context.router.push('/okapi-console/tenants/list')
+      );
   }
 
   cancel(data) {
