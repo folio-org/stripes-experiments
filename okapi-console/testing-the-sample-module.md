@@ -35,7 +35,7 @@ For that the steps to fetch and build Okapi and the UI can be skipped.
 
 In a shell window, run:
 
-    shell1$ git clone git@github.com:sling-incubator/okapi.git
+    shell1$ git clone git@github.com:folio-org/okapi.git
     shell1$ cd okapi
     shell1$ mvn install
     shell1$ mvn exec:exec
@@ -46,7 +46,7 @@ UI to run against a known state.
 
 ## Fetch and build the POC UI locally
 
-    shell2$ git clone git@github.com:sling-incubator/stripes-experiments.git
+    shell2$ git clone git@github.com:folio-org/stripes-experiments.git
     shell2$ cd stripes-experiments
 
 Then follow the instructions in `README.md`, which are currently in flux.
