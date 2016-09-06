@@ -12,13 +12,13 @@ module.exports = {
     fallback: [
       path.resolve('src'),
       path.join(__dirname, 'node_modules'),
-      path.join(__dirname, 'node_modules/@stripes-experiments')
+      path.join(__dirname, 'node_modules/@folio')
     ]
   },
   resolveLoader: {
     fallback: [
       path.join(__dirname, 'node_modules'),
-      path.join(__dirname, 'node_modules/@stripes-experiments')
+      path.join(__dirname, 'node_modules/@folio')
     ]
   },
   sassLoader: {
@@ -41,13 +41,12 @@ module.exports = {
               require.resolve("babel-preset-react")
           ]
         },
-        // On MS Windows:
-        //  ENABLE the below 'include' and DISABLE the 'exclude' if you followed
-        //  the README.md on how to install stripes-experiments on platforms
-        //  without symlink support
-        //
-        //include:  [path.join(__dirname, 'src'), /@stripes-experiments/]
-        exclude: [/node_modules/]
+        // We use ES6 for Stripes and rather than have every project include NPM
+        // scripts to transpile into ES5, we include them here along with any
+        // namespace prefixed @folio which presumably will contain Stripes
+        // modules.
+        include:  [path.join(__dirname, 'src'), /@folio/, path.join(__dirname, '../dev')]
+        //exclude: [/node_modules/]
       },
       {
         test: /\.json$/,

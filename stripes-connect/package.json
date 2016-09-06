@@ -1,19 +1,20 @@
 {
-  "name": "stripes-connect",
-  "version": "0.0.0",
+  "name": "@folio/stripes-connect",
+  "version": "0.0.0-test",
   "description": "A module connect to enable pluggable Redux applications.",
-  "repository": {
-    "private": true
+  "repository": "folio-org/stripes-experiments",
+  "publishConfig" : {
+    "registry" : "https://folio-nexus.indexdata.com/repository/npm-folio/"
   },
   "main": "connect.js",
   "author": "Index Data",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "redux-crud": "^1.0.0",
     "node-uuid": "1.4.7"
-  },
-  "engines": {
-    "node": ">=4.0.0"
   }
 }
