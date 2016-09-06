@@ -1,42 +1,73 @@
 import React from 'react'
 import { Field, FieldArray, reduxForm } from 'redux-form'
+import validate from './validate'
 
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type} placeholder={label}/>
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+)
 
-const renderProvides = ({ fields }) => (
+const renderMembers = ({ fields }) => (
   <ul>
     <li>
-      <button type="button" onClick={() => fields.push({})}>Add Provides</button>
+      <button type="button" onClick={() => fields.push({})}>Add Member</button>
     </li>
-    {fields.map((fld, index) =>
+    {fields.map((member, index) =>
       <li key={index}>
         <button
           type="button"
-          title="Remove Provision"
+          title="Remove Member"
           onClick={() => fields.remove(index)}/>
-        <h4>Provision #{index + 1}</h4>
+        <h4>Member #{index + 1}</h4>
         <Field
-          name={`${fld}.id`}
+          name={`${member}.firstName`}
           type="text"
-          component="input"
-          placeholder="Module ID"/>
-        <br/>
+          component={renderField}
+          label="First Name"/>
         <Field
-          name={`${fld}.version`}
+          name={`${member}.lastName`}
           type="text"
-          component="input"
-          placeholder="Version"/>
+          component={renderField}
+          label="Last Name"/>
+        <FieldArray name={`${member}.hobbies`} component={renderHobbies}/>
       </li>
     )}
   </ul>
 )
 
+const renderHobbies = ({ fields, meta: { error } }) => (
+  <ul>
+    <li>
+      <button type="button" onClick={() => fields.push()}>Add Hobby</button>
+    </li>
+    {fields.map((hobby, index) =>
+      <li key={index}>
+        <button
+          type="button"
+          title="Remove Hobby"
+          onClick={() => fields.remove(index)}/>
+        <Field
+          name={hobby}
+          type="text"
+          component={renderField}
+          label={`Hobby #${index + 1}`}/>
+      </li>
+    )}
+    {error && <li className="error">{error}</li>}
+  </ul>
+)
+
 const FieldArraysForm = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props
-  console.log("provides: ",props.initialValues.provides);
   return (
     <form onSubmit={handleSubmit}>
-      <Field name="name" type="text" component="input" />
-      <FieldArray name="provides" component={renderProvides}/>
+      <Field name="clubName" type="text" component={renderField} label="Club Name"/>
+      <FieldArray name="members" component={renderMembers}/>
       <div>
         <button type="submit" disabled={submitting}>Submit</button>
         <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
@@ -46,5 +77,6 @@ const FieldArraysForm = (props) => {
 }
 
 export default reduxForm({
-  form: 'fieldArrays'     // a unique identifier for this form  
+  form: 'fieldArrays',     // a unique identifier for this form
+  validate
 })(FieldArraysForm)
