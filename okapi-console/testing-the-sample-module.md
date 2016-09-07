@@ -1,5 +1,11 @@
 # Testing the Okapi sample module from the POC UI
 
+This is the old Proof-Of-Concept (POC) Okapi Console, retrofitted to
+work over Stripes. You can get it running by following the steps in
+[../README.md](../README.md).
+Then you can follow these steps to set up some tenants and modules on
+your local Okapi.
+
 <!-- ../../okapi/doc/md2toc testing-the-sample-module.md -->
 * [Testing the Okapi sample module from the POC UI](#testing-the-okapi-sample-module-from-the-poc-ui)
     * [Introduction](#introduction)
