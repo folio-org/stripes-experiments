@@ -6,7 +6,9 @@ https://github.com/npm/npm/issues/3055
     cd ..
     cd stripes-core
     npm install
-    cd node_modules/stripes-loader
+    cd node_modules
+    test -d stripes-loader || git clone git@github.com:sling-incubator/stripes-loader.git
+    cd stripes-loader
     npm install
     npm run build
     cd ../..
