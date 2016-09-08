@@ -6,10 +6,10 @@
 * [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
 * [Run the Okapi Console locally](#run-the-okapi-console-locally)
     * [Add the sample module](#add-the-sample-module)
-        * [Clustered version](#clustered-version)
     * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
     * [Run the sample module](#run-the-sample-module)
     * [Check the health of the running module](#check-the-health-of-the-running-module)
+* [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
 
 ## Introduction
 
@@ -22,7 +22,9 @@ is possible to run the UI in a browser.
 Alternatively it's possible to run an existing UI and Okapi in a CI
 installation on an AWS cluster by pointing a browser to
 [`http://redux-okapi-test-aws.indexdata.com/`](http://redux-okapi-test-aws.indexdata.com/)
-For that the steps to fetch and build Okapi and the UI can be skipped.
+For that the steps to fetch and build Okapi and the UI can be
+skipped. See the Appendix for how module deployment is done in this
+context.
 
 ## Fetch, build and run Okapi and its modules locally
 
@@ -52,11 +54,6 @@ which are currently in flux.
 ## Run the Okapi Console locally
 
 Point your browser to [`http://localhost:3000`](http://localhost:3000)
-to see the Okapi Console home page.
-
-Alternatively, run the Okapi Console remotely, in the AWS cluster (see below
-for how to configure the cluster). To do this, point your browser to
-[`http://redux-okapi-test-aws.indexdata.com/`](http://redux-okapi-test-aws.indexdata.com/)
 to see the Okapi Console home page.
 
 
@@ -92,28 +89,6 @@ Now deploy the module locally to the running Okapi node:
 * Press the **Submit** button at bottom right. (Another empty
   deployment entry appears below the one you filled in. Ignore it.)
 
-#### Clustered version
-
-Alternatively, deploy the module remotely to the three nodes of the AWS cluster:
-
-* Pull down the **Node** dropdown, and select one of the nodes, for example
-  the one labelled `http://okapi-test1.aws.indexdata.com:9130`.
-* Fill in the **Start command** entry with the following command-line, which
-  Okapi will use to start the sample module. Substitute PASSWORD with the
-  actual password to use:
-  `docker login -u indexdata -p PASSWORD -e ' ' docker.indexdata.com:5000 && docker run -d --cidfile=/tmp/docker.%p.cid -p %p:8080 docker.indexdata.com:5000/okapi-sample-module:0.3`
-* Fill in the **Stop command** entry with the following command-line, which
-  Okapi will use to stop the sample module:
-  ``docker stop `cat /tmp/docker.%p.cid` && docker rm `cat /tmp/docker.%p.cid` && rm -f /tmp/docker.%p.cid``
-* Press the **Submit** button at bottom right. An orange **Delete** button
-  and another empty deployment entry appear below the one you filled in.
-* In this new entry, select one of the other two nodes in the **Node** dropwdown, 
-  for example the one labelled `http://okapi-test2.aws.indexdata.com:9130`. 
-  Fill in the Start command and Stop command with the same values as for the 
-  first node.
-* Press the **Submit** for this second entry and a third empty entry appears.
-* Fill in the third entry like the first two and press the **Submit** button.
-
 ### Create the tenant and deploy the module to it:
 
 * Click the **Okapi Tenants** menu item at the top of the page. You will see
@@ -145,4 +120,30 @@ The caption by the testing link changed from **Not tested yet** to
 
 * Click the **Okapi Health** menu item at the top of the page. You will see
   a list of running modules, currently only the Sample Module.
+
+
+## Appendix: deploying modules on clustered Okapi
+
+Instead of building and running Okapi and the modules locally, it is
+possible to use the continuous-integration clustered Okapi instance,
+deploying the module remotely to the three nodes of the AWS
+cluster. In the **Okapi Modules** tab:
+
+* Pull down the **Node** dropdown, and select one of the nodes, for example
+  the one labelled `http://okapi-test1.aws.indexdata.com:9130`.
+* Fill in the **Start command** entry with the following command-line, which
+  Okapi will use to start the sample module. Substitute PASSWORD with the
+  actual password to use:
+  `docker login -u indexdata -p PASSWORD -e ' ' docker.indexdata.com:5000 && docker run -d --cidfile=/tmp/docker.%p.cid -p %p:8080 docker.indexdata.com:5000/okapi-sample-module:0.3`
+* Fill in the **Stop command** entry with the following command-line, which
+  Okapi will use to stop the sample module:
+  ``docker stop `cat /tmp/docker.%p.cid` && docker rm `cat /tmp/docker.%p.cid` && rm -f /tmp/docker.%p.cid``
+* Press the **Submit** button at bottom right. An orange **Delete** button
+  and another empty deployment entry appear below the one you filled in.
+* In this new entry, select one of the other two nodes in the **Node** dropwdown, 
+  for example the one labelled `http://okapi-test2.aws.indexdata.com:9130`. 
+  Fill in the Start command and Stop command with the same values as for the 
+  first node.
+* Press the **Submit** for this second entry and a third empty entry appears.
+* Fill in the third entry like the first two and press the **Submit** button.
 
