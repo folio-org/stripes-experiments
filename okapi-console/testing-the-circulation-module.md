@@ -13,18 +13,19 @@
 
 ## Introduction
 
-Two pieces of software are involved here: Okapi (with its modules,
-including the sample module); and the proof-of-concept user
-interface. To exercise the sample module from the Okapi Console, it's
-necessary to install, build and run both pieces of software. Then it
-is possible to run the UI in a browser.
+Two sets of software are involved here: on the server side, Okapi with
+its modules, including the circulation module); and on the the client
+side, the Stripes-based Okapi Console. To exercise the circulation
+module from the Okapi Console, it's necessary to install, build and
+run both pieces of software. Then it is possible to run the UI in a
+browser.
 
-Alternatively it's possible to run an existing UI and Okapi in a CI
+(Alternatively it's possible to run an existing UI and Okapi in a CI
 installation on an AWS cluster by pointing a browser to
 [`http://redux-okapi-test-aws.indexdata.com/`](http://redux-okapi-test-aws.indexdata.com/)
 For that the steps to fetch and build Okapi and the UI can be
 skipped. See the Appendix for how module deployment is done in this
-context.
+context.)
 
 ## Fetch, build and run Okapi and its modules locally
 
