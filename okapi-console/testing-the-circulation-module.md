@@ -50,7 +50,11 @@ allows the Okapi Console to run against a known state.
 
 These are needed to build the circulation module.
 
-XXX to be done
+    shell1$ git clone git@github.com:folio-org/raml-module-builder.git
+    shell1$ cd raml-module-builder
+    shell1$ mvn install
+
+XXX is that enough?
 
 ### Fetch, build and run the circulation module
 
