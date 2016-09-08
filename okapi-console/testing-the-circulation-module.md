@@ -1,16 +1,15 @@
 # Testing the FOLIO circulation module from the Okapi Console
 
-<!-- ../../okapi/doc/md2toc testing-the-circulation-module.md -->
-* [Testing the FOLIO circulation module from the Okapi Console](#testing-the-folio-circulation-module-from-the-okapi-console)
-    * [Introduction](#introduction)
-    * [Fetch, build and run Okapi and its modules locally](#fetch-build-and-run-okapi-and-its-modules-locally)
-    * [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
-    * [Run the Okapi Console locally](#run-the-okapi-console-locally)
-        * [Add the sample module](#add-the-sample-module)
-            * [Clustered version](#clustered-version)
-        * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
-        * [Run the sample module](#run-the-sample-module)
-        * [Check the health of the running module](#check-the-health-of-the-running-module)
+<!-- ../../okapi/doc/md2toc -l 2 testing-the-circulation-module.md -->
+* [Introduction](#introduction)
+* [Fetch, build and run Okapi and its modules locally](#fetch-build-and-run-okapi-and-its-modules-locally)
+* [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
+* [Run the Okapi Console locally](#run-the-okapi-console-locally)
+    * [Add the sample module](#add-the-sample-module)
+        * [Clustered version](#clustered-version)
+    * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
+    * [Run the sample module](#run-the-sample-module)
+    * [Check the health of the running module](#check-the-health-of-the-running-module)
 
 ## Introduction
 
