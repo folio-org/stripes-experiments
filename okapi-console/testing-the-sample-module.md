@@ -10,7 +10,7 @@ your local Okapi.
 * [Testing the Okapi sample module from the POC UI](#testing-the-okapi-sample-module-from-the-poc-ui)
     * [Introduction](#introduction)
     * [Fetch, build and run Okapi and its modules locally](#fetch-build-and-run-okapi-and-its-modules-locally)
-    * [Fetch, build and run the POC UI locally](#fetch-build-and-run-the-poc-ui-locally)
+    * [Fetch and build the POC UI locally](#fetch-and-build-the-poc-ui-locally)
     * [Run the POC UI locally](#run-the-poc-ui-locally)
         * [Add the sample module](#add-the-sample-module)
             * [Clustered version](#clustered-version)
@@ -44,7 +44,7 @@ Re-running Okapi in this way (`mvn exec:exec`) gives a new instance of
 Okapi with no state left over from earlier runs. This allows the POC
 UI to run against a known state.
 
-## Fetch, build and run the POC UI locally
+## Fetch and build the POC UI locally
 
     shell2$ git clone git@github.com:sling-incubator/jsui-experiments.git
     shell2$ jsui-experiments/redux
