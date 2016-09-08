@@ -1,10 +1,4 @@
-# Testing the Okapi sample module from the POC UI
-
-This is the old Proof-Of-Concept (POC) Okapi Console, retrofitted to
-work over Stripes. You can get it running by following the steps in
-[../README.md](../README.md).
-Then you can follow these steps to set up some tenants and modules on
-your local Okapi.
+# Testing the FOLIO circulation module from the Okapi Console
 
 <!-- ../../okapi/doc/md2toc testing-the-sample-module.md -->
 * [Testing the Okapi sample module from the POC UI](#testing-the-okapi-sample-module-from-the-poc-ui)
@@ -22,7 +16,7 @@ your local Okapi.
 
 Two pieces of software are involved here: Okapi (with its modules,
 including the sample module); and the proof-of-concept user
-interface. To exercise the sample module from the POC UI, it's
+interface. To exercise the sample module from the Okapi Console, it's
 necessary to install, build and run both pieces of software. Then it
 is possible to run the UI in a browser.
 
@@ -41,25 +35,30 @@ In a shell window, run:
     shell1$ mvn exec:exec
 
 Re-running Okapi in this way (`mvn exec:exec`) gives a new instance of
-Okapi with no state left over from earlier runs. This allows the POC
-UI to run against a known state.
+Okapi with no state left over from earlier runs. This allows the Okapi
+Console to run against a known state.
 
-## Fetch and build the POC UI locally
+## Fetch and build the Okapi Console locally
+
+This is the old Proof-Of-Concept (POC) UI Console, retrofitted to
+work over Stripes.
 
     shell2$ git clone git@github.com:folio-org/stripes-experiments.git
     shell2$ cd stripes-experiments
 
-Then follow the instructions in `README.md`, which are currently in flux.
+Then follow the instructions in its
+[../README.html](`README.md`),
+which are currently in flux.
 
-## Run the POC UI locally
+## Run the Okapi Console locally
 
 Point your browser to [`http://localhost:3000`](http://localhost:3000)
-to see the POC UI home page.
+to see the Okapi Console home page.
 
-Alternatively, run the POC UI remotely, in the AWS cluster (see below
+Alternatively, run the Okapi Console remotely, in the AWS cluster (see below
 for how to configure the cluster). To do this, point your browser to
 [`http://redux-okapi-test-aws.indexdata.com/`](http://redux-okapi-test-aws.indexdata.com/)
-to see the POC UI home page.
+to see the Okapi Console home page.
 
 
 ### Add the sample module
