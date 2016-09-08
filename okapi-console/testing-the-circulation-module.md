@@ -41,9 +41,9 @@ In a shell window, run:
     shell1$ mvn install
     shell1$ mvn exec:exec
 
-Re-running Okapi in this way (`mvn exec:exec`) gives a new instance of
-Okapi with no state left over from earlier runs. This allows the Okapi
-Console to run against a known state.
+Stopping and re-running Okapi in this way (`mvn exec:exec`) gives a
+new instance of Okapi with no state left over from earlier runs. This
+allows the Okapi Console to run against a known state.
 
 ### Fetch, build and run the circulation module
 
