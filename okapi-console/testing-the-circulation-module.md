@@ -2,13 +2,16 @@
 
 <!-- ../../okapi/doc/md2toc -l 2 testing-the-circulation-module.md -->
 * [Introduction](#introduction)
-* [Fetch, build and run Okapi and its modules locally](#fetch-build-and-run-okapi-and-its-modules-locally)
-* [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
-* [Run the Okapi Console locally](#run-the-okapi-console-locally)
-    * [Add the sample module](#add-the-sample-module)
-    * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
-    * [Run the sample module](#run-the-sample-module)
-    * [Check the health of the running module](#check-the-health-of-the-running-module)
+* [Server side](#server-side)
+    * [Fetch, build and run Okapi](#fetch-build-and-run-okapi)
+    * [Fetch, build and run the circulation module](#fetch-build-and-run-the-circulation-module)
+* [Client side](#client-side)
+    * [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
+    * [Run the Okapi Console locally](#run-the-okapi-console-locally)
+        * [Add the sample module](#add-the-sample-module)
+        * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
+        * [Run the sample module](#run-the-sample-module)
+        * [Check the health of the running module](#check-the-health-of-the-running-module)
 * [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
 
 ## Introduction
@@ -27,7 +30,9 @@ For that the steps to fetch and build Okapi and the UI can be
 skipped. See the Appendix for how module deployment is done in this
 context.)
 
-## Fetch, build and run Okapi and its modules locally
+## Server side
+
+### Fetch, build and run Okapi
 
 In a shell window, run:
 
@@ -40,7 +45,13 @@ Re-running Okapi in this way (`mvn exec:exec`) gives a new instance of
 Okapi with no state left over from earlier runs. This allows the Okapi
 Console to run against a known state.
 
-## Fetch and build the Okapi Console locally
+### Fetch, build and run the circulation module
+
+XXX to be done
+
+## Client side
+
+### Fetch and build the Okapi Console locally
 
 This is the old Proof-Of-Concept (POC) UI Console, retrofitted to
 work over Stripes.
@@ -52,13 +63,13 @@ Then follow the instructions in its
 [../README.html](`README.md`),
 which are currently in flux.
 
-## Run the Okapi Console locally
+### Run the Okapi Console locally
 
 Point your browser to [`http://localhost:3000`](http://localhost:3000)
 to see the Okapi Console home page.
 
 
-### Add the sample module
+#### Add the sample module
 
 First, fill in the **module proxy** section:
 
@@ -90,7 +101,7 @@ Now deploy the module locally to the running Okapi node:
 * Press the **Submit** button at bottom right. (Another empty
   deployment entry appears below the one you filled in. Ignore it.)
 
-### Create the tenant and deploy the module to it:
+#### Create the tenant and deploy the module to it:
 
 * Click the **Okapi Tenants** menu item at the top of the page. You will see
   the list of tenants, which is presently empty.
@@ -104,7 +115,7 @@ Now deploy the module locally to the running Okapi node:
 * Click the **Enable** link next to Sample Module. The link changes to
   **[X]**.
 
-### Run the sample module
+#### Run the sample module
 
 XXX Note: this facility seems to have gone away in the present console.
 
@@ -117,7 +128,7 @@ XXX Note: this facility seems to have gone away in the present console.
 The caption by the testing link changed from **Not tested yet** to
 **It works**.
 
-### Check the health of the running module
+#### Check the health of the running module
 
 * Click the **Okapi Health** menu item at the top of the page. You will see
   a list of running modules, currently only the Sample Module.
