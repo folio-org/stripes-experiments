@@ -46,10 +46,10 @@ UI to run against a known state.
 
 ## Fetch and build the POC UI locally
 
-    shell2$ git clone git@github.com:sling-incubator/jsui-experiments.git
-    shell2$ jsui-experiments/redux
-    shell2$ npm install
-    shell2$ npm start
+    shell2$ git clone git@github.com:sling-incubator/stripes-experiments.git
+    shell2$ cd stripes-experiments
+
+Then follow the instructions in `README.md`, which are currently in flux.
 
 ## Run the POC UI locally
 
@@ -66,7 +66,7 @@ to see the POC UI home page.
 
 First, fill in the **module proxy** section:
 
-* Click the **Modules** menu item at the top of the page.
+* Click the **Okapi Modules** menu item at the top of the page.
 * Click **Add module**.
 * Fill in the **Name** textbox with `Sample Module` (or any name).
 * Click the **+Add entry** button next to the **Routing** heading.
@@ -85,11 +85,12 @@ First, fill in the **module proxy** section:
 
 Now deploy the module locally to the running Okapi node:
 
-* Pull down the **Node** dropdown, and select the only value that is
-  presented, `http://localhost:3000/`.
+* Pull down the **Node** dropdown (below the **Service ID** and **Inst ID** read-only textboxes), and select the only value that is
+  presented, `http://localhost:9130/`.
 * Fill in the **Exec** entry with the following command-line, which
   Okapi will use to start the sample module:
   `java -Dport=%p -jar okapi-sample-module/target/okapi-sample-module-fat.jar`
+* You can ignore the **Start command** and **Stop command** entries in this scenario.
 * Press the **Submit** button at bottom right. (Another empty
   deployment entry appears below the one you filled in. Ignore it.)
 
@@ -117,7 +118,7 @@ Alternatively, deploy the module remotely to the three nodes of the AWS cluster:
 
 ### Create the tenant and deploy the module to it:
 
-* Click the **Tenants** menu item at the top of the page. You will see
+* Click the **Okapi Tenants** menu item at the top of the page. You will see
   the list of tenants, which is presently empty.
 * Click **Add tenant**.
 * Fill in the **Name** textbox with `Our Library` (or any name).
@@ -131,6 +132,8 @@ Alternatively, deploy the module remotely to the three nodes of the AWS cluster:
 
 ### Run the sample module
 
+XXX Note: this facility seems to have gone away in the present console.
+
 * Click the **Sample Module** menu item at the top of the page. You
   will see the list of tenants for which to run the module, currently
   consisting of only one entry for Our Library.
@@ -142,6 +145,6 @@ The caption by the testing link changed from **Not tested yet** to
 
 ### Check the health of the running module
 
-* Click the **Health** menu item at the top of the page. You will see
+* Click the **Okapi Health** menu item at the top of the page. You will see
   a list of running modules, currently only the Sample Module.
 
