@@ -4,6 +4,7 @@
 * [Introduction](#introduction)
 * [Server side](#server-side)
     * [Fetch, build and run Okapi](#fetch-build-and-run-okapi)
+    * [Fetch and build the RAML tools](#fetch-and-build-the-raml-tools)
     * [Fetch, build and run the circulation module](#fetch-build-and-run-the-circulation-module)
 * [Client side](#client-side)
     * [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
@@ -44,6 +45,12 @@ In a shell window, run:
 Stopping and re-running Okapi in this way (`mvn exec:exec`) gives a
 new instance of Okapi with no state left over from earlier runs. This
 allows the Okapi Console to run against a known state.
+
+### Fetch and build the RAML tools
+
+These are needed to build the circulation module.
+
+XXX to be done
 
 ### Fetch, build and run the circulation module
 
