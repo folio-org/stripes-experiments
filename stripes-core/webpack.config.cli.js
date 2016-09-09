@@ -14,9 +14,9 @@ module.exports = {
     okapi: { 'url':'http://localhost:9130' },
     modules: {
       '@folio-sample-modules/trivial': {},
-      '@folio-sample-modules/trivial-okapi': {},
-      '@folio-sample-modules/okapi-console': {},
-      '@folio-sample-modules/patrons': {}
+      //'@folio-sample-modules/trivial-okapi': {},
+      //'@folio-sample-modules/okapi-console': {},
+      //'@folio-sample-modules/patrons': {}
 
     }
   }
