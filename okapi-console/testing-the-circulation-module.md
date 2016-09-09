@@ -75,7 +75,7 @@ work over Stripes.
     shell2$ cd stripes-experiments
 
 Then follow the instructions in its
-[`README`](../README.html),
+[`README`](../README.md),
 which are currently in flux.
 
 ### Run the Okapi Console locally
