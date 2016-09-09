@@ -99,7 +99,7 @@ First, fill in the **module proxy** section:
 * Click the **+** button to the right of this box. (Another
   empty **HTTP method** box appears below the one you filled in. Ignore it.)
 * Fill in the three elements of the routing entry as follows:
-    * Request path: `/sample`
+    * Request path: `/apis/patrons`
     * Priority level: `30`
     * Type: `request-response`
 * Click the **+** button to the right of the routing entry. (Another
@@ -108,11 +108,12 @@ First, fill in the **module proxy** section:
 
 Now deploy the module locally to the running Okapi node:
 
+* Click the **Edit** link for the newly-added patrons module.
 * Pull down the **Node** dropdown (below the **Service ID** and **Inst ID** read-only textboxes), and select the only value that is
   presented, `http://localhost:9130/`.
 * Fill in the **Exec** entry with the following command-line, which
   Okapi will use to start the sample module:
-  `java -Dport=%p -jar okapi-sample-module/target/okapi-sample-module-fat.jar`
+  `java -Dhttp.port=%p -jar ../mod-circulation/target/circulation-fat.jar embed_mongo=true`
 * You can ignore the **Start command** and **Stop command** entries in this scenario.
 * Press the **Submit** button at bottom right. (Another empty
   deployment entry appears below the one you filled in. Ignore it.)
