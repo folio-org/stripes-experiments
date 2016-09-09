@@ -5,7 +5,7 @@
 * [Server side](#server-side)
     * [Fetch, build and run Okapi](#fetch-build-and-run-okapi)
     * [Fetch and build the RAML tools](#fetch-and-build-the-raml-tools)
-    * [Fetch, build and run the circulation module](#fetch-build-and-run-the-circulation-module)
+    * [Fetch and build the circulation module](#fetch-and-build-the-circulation-module)
 * [Client side](#client-side)
     * [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
     * [Run the Okapi Console locally](#run-the-okapi-console-locally)
@@ -48,17 +48,21 @@ allows the Okapi Console to run against a known state.
 
 ### Fetch and build the RAML tools
 
-These are needed to build the circulation module.
+These tools are needed to build the circulation module.
 
-    shell1$ git clone git@github.com:folio-org/raml-module-builder
-    shell1$ cd raml-module-builder
-    shell1$ mvn install
+    shell2$ git clone git@github.com:folio-org/raml-module-builder
+    shell2$ cd raml-module-builder
+    shell2$ mvn install
+    shell2$ cd ..
 
-XXX is that enough?
+### Fetch and build the circulation module
 
-### Fetch, build and run the circulation module
+We just build this: Okapi will start it for us when needed.
 
-XXX to be done
+    shell2$ git clone git@github.com:folio-org/mod-circulation
+    shell2$ cd mod-circulation
+    shell2$ mvn install
+    shell2$ cd ..
 
 ## Client side
 
