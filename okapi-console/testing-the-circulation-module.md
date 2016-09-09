@@ -9,7 +9,7 @@
 * [Client side](#client-side)
     * [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
     * [Run the Okapi Console locally](#run-the-okapi-console-locally)
-        * [Add the sample module](#add-the-sample-module)
+        * [Add the circulation module](#add-the-circulation-module)
         * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
         * [Run the sample module](#run-the-sample-module)
         * [Check the health of the running module](#check-the-health-of-the-running-module)
@@ -84,13 +84,14 @@ Point your browser to [`http://localhost:3000`](http://localhost:3000)
 to see the Okapi Console home page.
 
 
-#### Add the sample module
+#### Add the circulation module
 
 First, fill in the **module proxy** section:
 
 * Click the **Okapi Modules** menu item at the top of the page.
 * Click **Add module**.
-* Fill in the **Name** textbox with `Sample Module` (or any name).
+* Fill in the **Name** textbox with `Circulation` (or any name).
+* You can ignore the **Provides** and **Requires** entries for our present purposes.
 * Click the **+Add entry** button next to the **Routing** heading.
 * Click the new **+Add entry** button that has appeared to the right
   of the new **Methods** caption.
