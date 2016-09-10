@@ -1,40 +1,14 @@
-Currently, stripes-loader is loaded from github so will need to be built manually rather than via prepublish script because of this:
-https://github.com/npm/npm/issues/3055
+# stripes-experiments
 
-    cd stripes-connect
-    npm install
-    cd ..
-    cd stripes-core
-    npm install
-    cd node_modules/stripes-loader
-    npm install
-    npm run build
-    cd ../..
-    ln -s ../.. node_modules/@stripes-experiments  #(see notes regarding OS'es without symlink)
-    npm start
+Copyright (C) 2016 The Open Library Foundation
 
-Note: node.js version 6.x is required for running stripes-experiments. Older node.js 
-versions are likely to fail due changes in react/redux
+This software is distributed under the terms of the Apache License,
+Version 2.0. See the file "[LICENSE](LICENSE)" for more information.
 
+## Introduction
 
+Here you will find a prototype we're using to explore how a framework to build a UI for Folio might look. For the moment, we're calling it "Stripes" [(here's an overview)](stripes-core/doc/overview.md). This preliminary effort is being undertaken by a small team while requirements gathering and UX design are underway.
 
-* Note for OS without symlinks (MS Windows): 
+Directories here each contain NPM modules, as things solidify they will be split into separate git repositories.
 
-  For installing on an OS that does not support symbolic links,
-  this bash script (or equivalent) can be used instead of the line
-    'ln -s ../.. node_modules/@stripes-experiments' 
-  assuming that Git bash or cygwin or similar is used. 
-  It should be run in the project root (stripes-experiments/)
-  You would furthermore need to change a line in ./stripes-core/webpack.config.base.js,
-  please follow the comments regarding include and exclude in that file. 
-
-   if [ ! -e "stripes-core/node_modules/\@stripes-experiments" ]; then
-     mkdir stripes-core/node_modules/\@stripes-experiments
-   fi
-   for d in */ ; do
-     dir=$(basename "$d")
-     if [ "stripes-core" != $dir ]; then
-       rm -r stripes-core/node_modules/\@stripes-experiments/$d
-       cp -r $d stripes-core/node_modules/\@stripes-experiments/.
-     fi
-   done
+For more information and a quick-start guide to test it out, please see [stripes-core](stripes-core).

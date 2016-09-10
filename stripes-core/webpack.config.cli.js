@@ -13,10 +13,11 @@ module.exports = {
   stripesLoader: {
     okapi: { 'url':'http://localhost:9130' },
     modules: {
-      '@stripes-experiments/trivial': {},
-      '@stripes-experiments/trivial-okapi': {},
-      '@stripes-experiments/patrons': {},
-      '@stripes-experiments/okapi-console': {}
+      '@folio-sample-modules/trivial': {},
+      //'@folio-sample-modules/trivial-okapi': {},
+      //'@folio-sample-modules/okapi-console': {},
+      //'@folio-sample-modules/patrons': {}
+
     }
   }
 };
