@@ -50,4 +50,4 @@ After following build instructions in the [Okapi repository](https://github.com/
 ## For Stripes developers
 
 See
-[the separate instructions](doc/for-developers.md)
+[the separate instructions](doc/for-people-who-are-developing-stripes-itself-not-just-modules.md)
