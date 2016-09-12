@@ -25,8 +25,9 @@ export class Deployments extends Component {
   }
 
   addDeploy (data) {
-    this.props.mutator['deployment_modules'].create(data).then(() =>
+    this.props.mutator['deployment_modules'].create(data).then(() => {
       this.props.refreshRemote(this.props)
+    }
     );
   }
 
@@ -51,9 +52,8 @@ export class Deployments extends Component {
        {if (deployment.srvcId===srvcId) {
          return (
         <DeploymentForm
-          key={index}
+          form={'dep-' + index.toString()}
           deployNodes={discoveryNodes}
-          formKey={index.toString()}
           initialValues={deployment}
           onSubmit={this.deleteDeploy.bind(this)}
           disable={true} />);
@@ -61,9 +61,8 @@ export class Deployments extends Component {
       )}
      <br/>
      <DeploymentForm 
-       key={nextindex}
+       form={'dep-' + nextindex.toString()}
        deployNodes={discoveryNodes}
-       formKey={nextindex.toString()}
        initialValues={ {srvcId: srvcId} }
        onSubmit={this.addDeploy.bind(this)}
        disable={false}/>
