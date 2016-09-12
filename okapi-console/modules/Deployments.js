@@ -47,7 +47,7 @@ export class Deployments extends Component {
     }
     return (
      <div>
-     {discovery_modules.map((deployment, index) =>
+     {this.props.data['discovery_modules'].map((deployment, index) =>
        {if (deployment.srvcId===srvcId) {
          return (
         <DeploymentForm

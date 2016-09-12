@@ -23,34 +23,41 @@ class ModuleForm extends Component {
       reset,
       submitting,
       cancelForm, 
-      submitLabel
+      submitLabel,
+      initialValues
     } = this.props;
 
+    console.log("ModuleForm this.props",this.props);
+    let id = (initialValues ? initialValues.id : '');
     return (
-      <Form inline>
-            <h3>{(submitLabel==='Add' ? 'Add ' :
-                   (submitLabel==='Save' ? 'Edit ' :
-                     (submitLabel === 'Delete' ? 'Delete ' : '') : '') : '')} module proxy</h3>
-            <Row>
-              <Col componentClass={ControlLabel} sm={2}>
-                Name
-              </Col>
-              <Col sm={10}>
-                <Field name="name" component="input" type='text' placeholder='Module name' />
-              </Col>
-            </Row>
-            <br/>
-            <FieldArray name="provides" component={renderProvides} />
-            <br/>
-            <FieldArray name="requires" component={renderRequires} />
-            <br/>
-            <FieldArray name="routingEntries" component={renderRoutingEntries} />
-            <ButtonGroup className='pull-right'>
-              <Button type='submit' bsStyle='primary' disabled={submitting||(pristine)} onClick={handleSubmit}>{submitLabel} module proxy</Button>
-              <Button type='reset' disabled={submitting||pristine} onClick={reset}>Reset</Button>
-              <Button type='button' disabled={submitting} onClick={cancelForm}>{pristine? 'Go back' : 'Cancel'}</Button>
-            </ButtonGroup>
-      </Form>)  
+      <div>
+        <Form inline>
+              <h3>{(submitLabel==='Add' ? 'Add ' :
+                     (submitLabel==='Save' ? 'Edit ' :
+                       (submitLabel === 'Delete' ? 'Delete ' : '') : '') : '')} module proxy</h3>
+              <Row>
+                <Col componentClass={ControlLabel} sm={2}>
+                  Name
+                </Col>
+                <Col sm={10}>
+                  <Field name="name" component="input" type='text' placeholder='Module name' />
+                </Col>
+              </Row>
+              <br/>
+              <FieldArray name="provides" component={renderProvides} />
+              <br/>
+              <FieldArray name="requires" component={renderRequires} />
+              <br/>
+              <FieldArray name="routingEntries" component={renderRoutingEntries} />
+              <ButtonGroup className='pull-right'>
+                <Button type='submit' bsStyle='primary' disabled={submitting||(pristine)} onClick={handleSubmit}>{submitLabel} module proxy</Button>
+                <Button type='reset' disabled={submitting||pristine} onClick={reset}>Reset</Button>
+                <Button type='button' disabled={submitting} onClick={cancelForm}>{pristine? 'Go back' : 'Cancel'}</Button>
+              </ButtonGroup>
+        </Form>
+        <br/><br/>
+        <Deployments srvcId={id ? id : ''} />
+      </div>)  
   }
 }
 
