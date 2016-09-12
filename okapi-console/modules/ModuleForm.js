@@ -122,7 +122,7 @@ const renderRoutingEntries = ({ fields }) => (
           title="Remove routing"
           onClick={() => fields.remove(index)}/>
         <h4>Route #{index + 1}</h4>
-        <FieldArray name={`${fld}.methods`} component="renderMethods"/>
+        <FieldArray name={`${fld}.methods`} component={renderMethods}/>
         <Field
           name={`${fld}.path`}
           type="text"
@@ -149,7 +149,7 @@ const renderRoutingEntries = ({ fields }) => (
 const renderMethods = ({ fields }) => (
   <ul>
     <li>
-      <button type="button" onClick={() => fields.push({})}>Add Method</button>
+      <button type="button" onClick={() => fields.push()}>Add Method</button>
     </li>
     {fields.map((fld, index) =>
       <li key={index}>
