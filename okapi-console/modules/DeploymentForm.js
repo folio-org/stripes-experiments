@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
-import {reduxForm} from 'redux-form';
-
+import React, { Component, PropTypes } from 'react'
+import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap'
+import { Field, FieldArray, reduxForm } from 'redux-form'
 
 class DeploymentForm extends Component {
   static propTypes = {
@@ -14,11 +13,10 @@ class DeploymentForm extends Component {
 
   render() {
     const {
-      fields: {srvcId, instId, nodeId, descriptor},
       deployNodes,
-      handleSubmit,       
+      handleSubmit,
       resetForm,
-      handleDelete,       
+      handleDelete,
       submitting,
       disable
     } = this.props;
@@ -29,7 +27,7 @@ class DeploymentForm extends Component {
             Service ID
           </Col>
           <Col sm={10}>
-            <FormControl type="text" disabled={true} placeholder="Service/module ID  " {...srvcId} />
+            <Field name="srvcId" type="text" component="input" placeholder="Service/module ID  " disabled={true} />
           </Col>
         </FormGroup>
         <FormGroup>
@@ -37,22 +35,20 @@ class DeploymentForm extends Component {
             Inst ID
           </Col>
           <Col sm={10}>
-            <FormControl type="text" disabled={true} placeholder="Instance ID  " {...instId} />
+            <Field name="instId" type="text" component="input" placeholder="Instance ID  " disabled={true} />
           </Col>
         </FormGroup>
-
         <FormGroup>
           <Col componentClass={ControlLabel} sm={2}>
             Node
           </Col>
           <Col sm={10}>
-            <FormControl componentClass="select" placeholder="select deployment node" {...nodeId}
-              value={nodeId.value || ''} disabled={disable}>
+            <Field name="nodeId" component="select" placeholder="select deployment node" disabled={disable} >
               <option></option>
               {deployNodes.map((aNode,index) => 
                 <option value={aNode.nodeId} key={aNode.nodeId}>{aNode.url}</option>
               )}
-            </FormControl>            
+            </Field>
           </Col>
         </FormGroup>
         <FormGroup>
@@ -60,7 +56,7 @@ class DeploymentForm extends Component {
             Exec
           </Col>
           <Col sm={10}>
-            <FormControl type="text" placeholder="Exec " {...(descriptor.exec)} disabled={disable}/>
+            <Field name="descriptor.exec" component="input" type="text" placeholder="Exec " disabled={disable}/>
           </Col>
         </FormGroup>
         <FormGroup>
@@ -68,7 +64,7 @@ class DeploymentForm extends Component {
             Start command
           </Col>
           <Col sm={10}>
-            <FormControl type="text" placeholder="Command line start " {...(descriptor.cmdlineStart)} disabled={disable}/>
+            <Field name="descriptor.cmdlineStart" component="input" type="text" placeholder="Command line start " disabled={disable}/>
           </Col>
         </FormGroup>
         <FormGroup>
@@ -76,7 +72,7 @@ class DeploymentForm extends Component {
             Stop command
           </Col>
           <Col sm={10}>
-            <FormControl type="text" placeholder="Command line stop " {...(descriptor.cmdlineStop)} disabled={disable}/>
+            <Field name="descriptor.cmdlineStop" component="input" type="text" placeholder="Command line stop " disabled={disable}/>
           </Col>
         </FormGroup>
         { disable ?
@@ -97,9 +93,6 @@ class DeploymentForm extends Component {
 
 export default reduxForm(
   {
-    form: 'deploymentForm',
-    fields: ['srvcId', 'instId', 'nodeId', 
-             'descriptor', 
-              'descriptor.cmdlineStart', 'descriptor.cmdlineStop', 'descriptor.exec' ]
+    form: 'deploymentForm'
   },
 )(DeploymentForm);

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'stripes-connect';
 import TenantForm from './TenantForm';
 
+
 class TenantEdit extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
@@ -12,7 +13,7 @@ class TenantEdit extends Component {
                                  }
                     };
 
-  cancel (data, dispatch, e) {
+  cancel (data) {
     this.context.router.push('/okapi-console/tenants/list'); 
   }
 
@@ -23,8 +24,10 @@ class TenantEdit extends Component {
   }
 
   render() {
-      let tenantid = this.props.params.tenantid;
-      let tenants = this.props.data['tenants']
+      const { params, data } = this.props;
+
+      let tenantid = params.tenantid;
+      let tenants = data['tenants']
       let tenant = tenants.find((tenant) =>  { return tenant.id === tenantid });
 
       return <TenantForm onSubmit={this.update.bind(this)}

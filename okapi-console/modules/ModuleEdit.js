@@ -3,8 +3,8 @@ import { connect } from 'stripes-connect';
 import ModuleForm from './ModuleForm';
 import { removeEmpty } from '../utils/removeEmptyObjectsFromArrays';
 
-class ModuleEdit extends Component {
 
+class ModuleEdit extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
@@ -25,16 +25,14 @@ class ModuleEdit extends Component {
     this.context.router.push('/okapi-console/modules/list');
   }
 
-  
   render() {
     let moduleid = this.props.params.moduleid;
     let modules = this.props.data['modules']
     let module = modules.find((module) =>  { return module.id === moduleid });
-
-    return <ModuleForm onSubmit={this.update.bind(this)} 
-                       cancelForm={this.cancel.bind(this)} 
-                       submitLabel='Save'
-                       initialValues={module} />
+    if (!module || !module.provides) {
+      return <div/>;
+    }
+    return <ModuleForm initialValues={module} onSubmit={this.update.bind(this)} cancelForm={this.cancel.bind(this)} />
   }
 }
 

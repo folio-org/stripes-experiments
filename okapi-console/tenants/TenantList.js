@@ -12,12 +12,12 @@ class TenantList extends Component {
     const { data, mutator } = this.props;
 
     if (!('tenants' in data)) return null;
-    var tenantNodes = data['tenants'].map((tenant) => {
+    var tenantNodes = data.tenants.map((tenant) => {
       return (
         <li key={tenant.id}>
           {tenant.name}&nbsp;ID: {tenant.id}&nbsp; 
           [<Link to={'/okapi-console/tenants/edit/' + tenant.id}>Edit</Link>]
-          [<a onClick={() => mutator['tenants'].delete(tenant)}>delete</a>]
+          [<a onClick={() => mutator.tenants.delete(tenant)}>delete</a>]
         </li>
       );
     });

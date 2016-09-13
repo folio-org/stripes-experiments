@@ -1,17 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
-import {reduxForm} from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import ModuleList from '../modules/ModuleList';
 import ModuleSelector from './ModuleSelector';
 
 class TenantForm extends Component {
   static propTypes = {
-    fields: PropTypes.object.isRequired,
-    initializeForm: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     cancelForm: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired,
     submitLabel: PropTypes.string,
     disableFields: PropTypes.bool
   };
@@ -24,15 +20,16 @@ class TenantForm extends Component {
 
   render() {
     const {
-      fields: {id, name, description},      
-      handleSubmit, 
-      cancelForm, 
-      resetForm, 
+      handleSubmit,
+      pristine,
       submitting,
+      reset, 
+      cancelForm, 
       submitLabel, 
       disableFields
     } = this.props;
-    let tenantid = (this.props.fields ? this.props.fields.id.value : null);
+    console.log("this.props",this.props);
+    let tenantid = (this.props.initialValues ? this.props.initialValues.id : null);
     return (
       <div>
         <Form inline>
@@ -45,7 +42,7 @@ class TenantForm extends Component {
               Name
             </Col>
             <Col sm={10}>
-              <FormControl type='text' disabled={disableFields} placeholder="Tenant's name" {...name} />
+              <Field name="name" component="input" type='text' disabled={disableFields} placeholder="Tenant's name" />
             </Col>
           </Row>
           <br/>
@@ -54,13 +51,13 @@ class TenantForm extends Component {
               Description
             </Col>
             <Col sm={10}>
-              <FormControl type='text' disabled={disableFields} placeholder='Description of this tenant' {...description} />
+              <Field name="description" component="input" type='text' disabled={disableFields} placeholder='Description of this tenant' />
             </Col>
           </Row>
           <br/>
           <ButtonGroup>
-            <Button bsStyle='primary' disabled={submitting} onClick={handleSubmit}>{submitLabel} Tenant</Button>
-            <Button disabled={submitting||disableFields} onClick={resetForm}>Reset</Button>
+            <Button bsStyle='primary' disabled={pristine || submitting} onClick={handleSubmit}>{submitLabel} Tenant</Button>
+            <Button disabled={ pristine || submitting } onClick={reset}>Reset</Button>
             <Button disabled={submitting} onClick={cancelForm}>Cancel</Button>  
           </ButtonGroup>
         </Form>
@@ -74,7 +71,6 @@ class TenantForm extends Component {
 
 export default reduxForm(
   {
-    form: 'tenantForm',
-    fields: ['id','name','description']
+    form: 'tenantForm'
   }
 )(TenantForm);

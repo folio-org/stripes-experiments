@@ -59,7 +59,9 @@ export default class restResource {
       }
       this.options.path = sections.join("/");
     }
+    console.log("Refresh fetch");
     dispatch(this.fetchAction());
+    console.log("Refresh done");
   }
 
   createAction(record) {
@@ -160,9 +162,11 @@ export default class restResource {
           } else {
             response.json().then(json => {
               // TODO: This should only be done when fetching all, but how to know?
-              dispatch({ type: 'CLEAR_'+key.toUpperCase()});
+              // dispatch({ type: 'CLEAR_'+key.toUpperCase()});
               let data = (records ? json[records] : json);
+              console.log("Fetch Action succeeded for ", url);              
               dispatch(crudActions.fetchSuccess(data));
+              console.log("FetchSuccess dispatched with data: ",data);
             });
           }
         });
