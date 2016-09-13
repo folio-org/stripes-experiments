@@ -160,7 +160,7 @@ export default class restResource {
           } else {
             response.json().then(json => {
               // TODO: This should only be done when fetching all, but how to know?
-              // dispatch({ type: 'CLEAR_'+key.toUpperCase()});
+              dispatch({ type: 'CLEAR_'+key.toUpperCase()});
               let data = (records ? json[records] : json);
               dispatch(crudActions.fetchSuccess(data));
             });
