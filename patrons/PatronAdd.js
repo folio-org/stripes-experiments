@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'stripes-connect';
 import PatronForm from './PatronForm';
+import { actionTypes } from './PatronForm';
 
 // One of multiple stripes-connected components in the patrons module
 class PatronAdd extends Component {
@@ -31,7 +32,7 @@ class PatronAdd extends Component {
   render() {
       return <PatronForm onSubmit={this.createPatron.bind(this)}
                          cancelForm={this.cancel.bind(this)}
-                         action={PatronForm.actionTypes['create']}/>
+                         action={actionTypes['create']}/>
   }
 }
 

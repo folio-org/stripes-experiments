@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
-import {reduxForm} from 'redux-form';
+import { Field, reduxForm} from 'redux-form';
 
+
+export const actionTypes = {'create' : { title: 'Add Patron', submitLabel: 'Save Patron'},
+                      'update' : { title: 'Edit Patron', submitLabel: 'Save Changes'}};
 
 // Patrons form for adding or editing patron data
 // Uses redux-form (and older version) but that's expected to change.
@@ -11,26 +14,21 @@ import {reduxForm} from 'redux-form';
 class PatronForm extends Component {
 
   static propTypes = {
-    fields: PropTypes.object.isRequired,
-    initializeForm: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     cancelForm: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired
   };
 
-  static actionTypes = {'create' : { title: 'Add Patron', submitLabel: 'Save Patron'},
-                        'update' : { title: 'Edit Patron', submitLabel: 'Save Changes'}};
 
   render() {
     const {
-      fields: {_id,patron_name,patron_code,
-              contact_info,total_fines_paid,total_loans,status,patron_barcode,total_fines,patron_local_id},
       handleSubmit, 
+      pristine,
+      reset,
       cancelForm, 
-      resetForm, 
       submitting,
-      action
+      action,
+      initialValues
     } = this.props;
     return (
       <div>
@@ -41,7 +39,7 @@ class PatronForm extends Component {
               Name
             </Col>
             <Col sm={9}>
-              <FormControl type='text' placeholder="Patron's name" {...patron_name} />
+              <Field component="input" type='text' placeholder="Patron's name" name="patron_name" />
             </Col>
           </Row>
           <br/>
@@ -50,7 +48,7 @@ class PatronForm extends Component {
               Status
             </Col>
             <Col sm={9}>
-              <FormControl type='text' placeholder="Patron's status" {...status} />
+              <Field component="input" type='text' placeholder="Patron's status" name="status" />
             </Col>
           </Row>
           <br/>
@@ -62,7 +60,7 @@ class PatronForm extends Component {
               Line 1
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="First line of local address" {...contact_info.patron_address_local.line1} />
+              <Field component="input" type='text' placeholder="First line of local address" name="contact_info.patron_address_local.line1" />
             </Col>
           </Row>
           <Row>
@@ -72,7 +70,7 @@ class PatronForm extends Component {
               Line 2
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Second line" {...contact_info.patron_address_local.line2} />
+              <Field component="input" type='text' placeholder="Second line" name="contact_info.patron_address_local.line2" />
             </Col>
           </Row>
           <Row>
@@ -82,7 +80,7 @@ class PatronForm extends Component {
               City
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="City" {...contact_info.patron_address_local.city} />
+              <Field component="input" type='text' placeholder="City" name="contact_info.patron_address_local.city" />
             </Col>
           </Row>
           <Row>
@@ -92,7 +90,7 @@ class PatronForm extends Component {
               State or province
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="State or province" {...contact_info.patron_address_local.state_province} />
+              <Field component="input" type='text' placeholder="State or province" name="contact_info.patron_address_local.state_province" />
             </Col>
           </Row>
           <Row>
@@ -102,7 +100,7 @@ class PatronForm extends Component {
               Postal code
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Postal code" {...contact_info.patron_address_local.postal_code} />
+              <Field component="input" type='text' placeholder="Postal code" name="contact_info.patron_address_local.postal_code" />
             </Col>
           </Row>
           <Row>
@@ -112,7 +110,7 @@ class PatronForm extends Component {
               Note
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Address note" {...contact_info.patron_address_local.address_note} />
+              <Field component="input" type='text' placeholder="Address note" name="contact_info.patron_address_local.address_note" />
             </Col>
           </Row>
           <Row>
@@ -122,7 +120,7 @@ class PatronForm extends Component {
               Start date
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="State date" {...contact_info.patron_address_local.start_date} />
+              <Field component="input" type='text' placeholder="State date" name="contact_info.patron_address_local.start_date" />
             </Col>
           </Row>
           <br/>
@@ -134,7 +132,7 @@ class PatronForm extends Component {
               Line 1
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="First line of home address" {...contact_info.patron_address_home.line1} />
+              <Field component="input" type='text' placeholder="First line of home address" name="contact_info.patron_address_home.line1" />
             </Col>
           </Row>
           <Row>
@@ -144,7 +142,7 @@ class PatronForm extends Component {
               Line 2
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Second line" {...contact_info.patron_address_home.line2} />
+              <Field component="input" type='text' placeholder="Second line" name="contact_info.patron_address_home.line2" />
             </Col>
           </Row>
           <Row>
@@ -154,7 +152,7 @@ class PatronForm extends Component {
               City
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="City" {...contact_info.patron_address_local.city} />
+              <Field component="input" type='text' placeholder="City" name="contact_info.patron_address_local.city" />
             </Col>
           </Row>
           <Row>
@@ -164,7 +162,7 @@ class PatronForm extends Component {
               State or province
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="State or province" {...contact_info.patron_address_home.state_province} />
+              <Field component="input" type='text' placeholder="State or province" name="contact_info.patron_address_home.state_province" />
             </Col>
           </Row>
           <Row>
@@ -174,7 +172,7 @@ class PatronForm extends Component {
               Postal code
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Postal code" {...contact_info.patron_address_home.postal_code} />
+              <Field component="input" type='text' placeholder="Postal code" name="contact_info.patron_address_home.postal_code" />
             </Col>
           </Row>
           <Row>
@@ -184,7 +182,7 @@ class PatronForm extends Component {
               Note
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Address note" {...contact_info.patron_address_home.address_note} />
+              <Field component="input" type='text' placeholder="Address note" name="contact_info.patron_address_home.address_note" />
             </Col>
           </Row>
           <Row>
@@ -194,7 +192,7 @@ class PatronForm extends Component {
               Start date
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="State date" {...contact_info.patron_address_home.start_date} />
+              <Field component="input" type='text' placeholder="State date" name="contact_info.patron_address_home.start_date" />
             </Col>
           </Row>
           <br/>
@@ -206,7 +204,7 @@ class PatronForm extends Component {
               Line 1
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="First line of work address" {...contact_info.patron_address_work.line1} />
+              <Field component="input" type='text' placeholder="First line of work address" name="contact_info.patron_address_work.line1" />
             </Col>
           </Row>
           <Row>
@@ -216,7 +214,7 @@ class PatronForm extends Component {
               Line 2
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Second line" {...contact_info.patron_address_work.line2} />
+              <Field component="input" type='text' placeholder="Second line" name="contact_info.patron_address_work.line2" />
             </Col>
           </Row>
           <Row>
@@ -226,7 +224,7 @@ class PatronForm extends Component {
               City
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="City" {...contact_info.patron_address_work.city} />
+              <Field component="input" type='text' placeholder="City" name="contact_info.patron_address_work.city" />
             </Col>
           </Row>
           <Row>
@@ -236,7 +234,7 @@ class PatronForm extends Component {
               State or province
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="State or province" {...contact_info.patron_address_work.state_province} />
+              <Field component="input" type='text' placeholder="State or province" name="contact_info.patron_address_work.state_province" />
             </Col>
           </Row>
           <Row>
@@ -246,7 +244,7 @@ class PatronForm extends Component {
               Postal code
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Postal code" {...contact_info.patron_address_work.postal_code} />
+              <Field component="input" type='text' placeholder="Postal code" name="contact_info.patron_address_work.postal_code" />
             </Col>
           </Row>
           <Row>
@@ -256,7 +254,7 @@ class PatronForm extends Component {
               Note
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Address note" {...contact_info.patron_address_work.address_note} />
+              <Field component="input" type='text' placeholder="Address note" name="contact_info.patron_address_work.address_note" />
             </Col>
           </Row>
           <Row>
@@ -266,7 +264,7 @@ class PatronForm extends Component {
               Start date
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="State date" {...contact_info.patron_address_work.start_date} />
+              <Field component="input" type='text' placeholder="State date" name="contact_info.patron_address_work.start_date" />
             </Col>
           </Row>
           <br/>
@@ -278,7 +276,7 @@ class PatronForm extends Component {
               Email
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Patron's email" {...contact_info.patron_email} />
+              <Field component="input" type='text' placeholder="Patron's email" name="contact_info.patron_email" />
             </Col>
           </Row>
           <Row>
@@ -288,7 +286,7 @@ class PatronForm extends Component {
               Alternative email
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Alternative email" {...contact_info.patron_email_alternative} />
+              <Field component="input" type='text' placeholder="Alternative email" name="contact_info.patron_email_alternative" />
             </Col>
           </Row>
           <Row>
@@ -298,7 +296,7 @@ class PatronForm extends Component {
               Cell phone
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Cell phone #" {...contact_info.patron_phone_cell} />
+              <Field component="input" type='text' placeholder="Cell phone #" name="contact_info.patron_phone_cell" />
             </Col>
           </Row>
           <Row>
@@ -308,7 +306,7 @@ class PatronForm extends Component {
               Home phone
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Home phone #" {...contact_info.patron_home_phone} />
+              <Field component="input" type='text' placeholder="Home phone #" name="contact_info.patron_home_phone" />
             </Col>
           </Row>
           <Row>
@@ -318,7 +316,7 @@ class PatronForm extends Component {
               Work phone
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Work phone #" {...contact_info.patron_work_phone} />
+              <Field component="input" type='text' placeholder="Work phone #" name="contact_info.patron_work_phone" />
             </Col>
           </Row>
           <Row>
@@ -328,7 +326,7 @@ class PatronForm extends Component {
               Primary contact
             </Col>
             <Col sm={6}>
-              <FormControl type='text' placeholder="Primary contact info" {...contact_info.patron_primary_contact_info} />
+              <Field component="input" type='text' placeholder="Primary contact info" name="contact_info.patron_primary_contact_info" />
             </Col>
           </Row>
           <br/>
@@ -337,7 +335,7 @@ class PatronForm extends Component {
               Loans
             </Col>
             <Col sm={9}>
-              <FormControl type='text' placeholder="Total loans" {...total_loans} />
+              <Field component="input" type='text' placeholder="Total loans" name="total_loans" />
             </Col>
           </Row>
           <br/>
@@ -346,7 +344,7 @@ class PatronForm extends Component {
               Fines
             </Col>
             <Col sm={9}>
-              <FormControl type='text' placeholder="Total fines" {...total_fines} />
+              <Field component="input" type='text' placeholder="Total fines" name="total_fines" />
             </Col>
           </Row>
           <Row>
@@ -354,7 +352,7 @@ class PatronForm extends Component {
               Fines paid
             </Col>
             <Col sm={9}>
-              <FormControl type='text' placeholder="Total fines paid" {...total_fines_paid} />
+              <Field component="input" type='text' placeholder="Total fines paid" name="total_fines_paid" />
             </Col>
           </Row>
           <br/>
@@ -363,7 +361,7 @@ class PatronForm extends Component {
               Barcode
             </Col>
             <Col sm={9}>
-              <FormControl type='text' placeholder="Patron's barcode" {...patron_barcode} />
+              <Field component="input" type='text' placeholder="Patron's barcode" name="patron_barcode" />
             </Col>
           </Row>
           <br/>
@@ -372,26 +370,25 @@ class PatronForm extends Component {
               Local ID
             </Col>
             <Col sm={9}>
-              <FormControl type='text' placeholder="Patron's local ID" {...patron_local_id} />
+              <Field component="input" type='text' placeholder="Patron's local ID" name="patron_local_id" />
             </Col>
           </Row>
           <br/>
-
           <Row>
             <Col componentClass={ControlLabel} sm={3}>
               Patron code
             </Col>
             <Col sm={3}>
-              <FormControl type='text' placeholder="Code" {...patron_code.value} />
+              <Field component="input" type='text' placeholder="Code" name="patron_code.value" />
             </Col>
             <Col sm={3}>
-              <FormControl type='text' placeholder="Description" {...patron_code.description} />
+              <Field component="input" type='text' placeholder="Description" name="patron_code.description" />
             </Col>
           </Row>
           <br/>
           <ButtonGroup>
-            <Button bsStyle='primary' disabled={submitting} onClick={handleSubmit}>{action ? action.submitLabel : 'Save'}</Button>
-            <Button disabled={submitting} onClick={resetForm}>Reset</Button>
+            <Button bsStyle='primary' disabled={submitting||pristine} onClick={handleSubmit}>{action ? action.submitLabel : 'Save'}</Button>
+            <Button disabled={submitting||pristine} onClick={reset}>Reset</Button>
             <Button disabled={submitting} onClick={cancelForm}>Cancel</Button>  
           </ButtonGroup>
         </Form>
@@ -404,31 +401,7 @@ class PatronForm extends Component {
 
 export default reduxForm(
   {
-    form: 'patronForm',
-    fields: ['_id','patron_name',
-             'patron_code.value', 'patron_code.description',
-             'contact_info.patron_address_local.line1',
-               'contact_info.patron_address_local.line2',
-               'contact_info.patron_address_local.city', 
-               'contact_info.patron_address_local.state_province',
-               'contact_info.patron_address_local.postal_code',
-               'contact_info.patron_address_local.address_note',
-               'contact_info.patron_address_local.start_date',
-             'contact_info.patron_address_home.line1', 
-               'contact_info.patron_address_home.line2',
-               'contact_info.patron_address_home.city', 
-               'contact_info.patron_address_home.state_province',
-               'contact_info.patron_address_home.postal_code',
-               'contact_info.patron_address_home.address_note',
-               'contact_info.patron_address_home.start_date',
-             'contact_info.patron_address_work.line1',
-               'contact_info.patron_address_work.line2',
-               'contact_info.patron_address_work.city', 
-               'contact_info.patron_address_wokr.state_province',
-               'contact_info.patron_address_work.postal_code',
-               'contact_info.patron_address_work.address_note',
-               'contact_info.patron_address_work.start_date',
-             'total_fines_paid','total_loans','status','patron_barcode','total_fines','patron_local_id']
+    form: 'patronForm'
   }
 )(PatronForm);
 
