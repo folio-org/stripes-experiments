@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
+import { Grid, Container, Row, Col, Form, FormGroup, ControlLabel, Input, Button, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import { Field, reduxForm} from 'redux-form';
 
 
 export const actionTypes = {'create' : { title: 'Add Patron', submitLabel: 'Save Patron'},
-                      'update' : { title: 'Edit Patron', submitLabel: 'Save Changes'}};
+                            'update' : { title: 'Edit Patron', submitLabel: 'Save Changes'}};
 
 // Patrons form for adding or editing patron data
 // Uses redux-form (and older version) but that's expected to change.

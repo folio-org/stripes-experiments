@@ -28,7 +28,6 @@ class TenantForm extends Component {
       submitLabel, 
       disableFields
     } = this.props;
-    console.log("this.props",this.props);
     let tenantid = (this.props.initialValues ? this.props.initialValues.id : null);
     return (
       <div>

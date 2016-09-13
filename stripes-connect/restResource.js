@@ -162,9 +162,7 @@ export default class restResource {
               // TODO: This should only be done when fetching all, but how to know?
               // dispatch({ type: 'CLEAR_'+key.toUpperCase()});
               let data = (records ? json[records] : json);
-              console.log("Fetch Action succeeded for ", url);              
               dispatch(crudActions.fetchSuccess(data));
-              console.log("FetchSuccess dispatched with data: ",data);
             });
           }
         });
