@@ -59,9 +59,7 @@ export default class restResource {
       }
       this.options.path = sections.join("/");
     }
-    console.log("Refresh fetch");
     dispatch(this.fetchAction());
-    console.log("Refresh done");
   }
 
   createAction(record) {
