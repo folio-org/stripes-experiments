@@ -16,7 +16,7 @@ class ModuleEdit extends Component {
 
   update(data) {
     removeEmpty(data);
-    this.props.mutator['modules'].update(data).then(()=>
+    this.props.mutator['modules'].PUT(data).then(()=>
       this.context.router.push('/okapi-console/modules/list')
     )
   }

@@ -15,7 +15,7 @@ class ModuleAdd extends Component {
 
   create(data) {
     removeEmpty(data);
-    this.props.mutator['modules'].create(data).then(() =>
+    this.props.mutator['modules'].POST(data).then(() =>
       this.context.router.push('/okapi-console/modules/list')
     );
   }

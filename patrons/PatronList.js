@@ -24,7 +24,7 @@ class PatronList extends Component {
     var patronNodes = this.props.data['patrons'].map((patron) => {
       return (
         <li key={patron._id}>
-          {patron.patron_name} [<a onClick={() => this.props.mutator['patrons'].delete(patron)}>delete</a>]
+          {patron.patron_name} [<a onClick={() => this.props.mutator['patrons'].DELETE(patron)}>delete</a>]
                                &nbsp;[<Link to={'patrons/edit/' + patron._id}>edit</Link>]
         </li>
       );

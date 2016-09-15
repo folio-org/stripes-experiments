@@ -17,7 +17,7 @@ class ModuleList extends Component {
         <li key={amodule.id}>
           {amodule.name}&nbsp;
           [<Link to={'/okapi-console/modules/edit/' + amodule.id}>Edit</Link>]
-          [<a onClick={() => mutator['modules'].delete(amodule)}>delete</a>]
+          [<a onClick={() => mutator['modules'].DELETE(amodule)}>delete</a>]
         </li>
       );
     });

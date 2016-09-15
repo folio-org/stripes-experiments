@@ -17,14 +17,14 @@ class ModuleSelector extends Component {
     let data = {
       id: moduleId
     };
-    this.props.mutator['enabledmodules'].create(data);
+    this.props.mutator['enabledmodules'].POST(data);
   }
 
   disableModule(moduleId) {
     let data = {
       id: moduleId
     };
-    this.props.mutator['enabledmodules'].delete(data);
+    this.props.mutator['enabledmodules'].DELETE(data);
   }
 
   render() {

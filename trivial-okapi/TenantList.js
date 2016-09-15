@@ -13,7 +13,7 @@ class TenantList extends Component {
     var tenantNodes = this.props.data['_/proxy/tenants'].map((tenant) => {
       return (
         <li key={tenant.id}>
-          {tenant.name} [<a onClick={() => this.props.mutator['_/proxy/tenants'].delete(tenant)}>delete</a>]
+          {tenant.name} [<a onClick={() => this.props.mutator['_/proxy/tenants'].DELETE(tenant)}>delete</a>]
           [<Link to={'/trivial-okapi/edit/' + tenant.id}>Edit</Link>] 
         </li>
       );

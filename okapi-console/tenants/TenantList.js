@@ -17,7 +17,7 @@ class TenantList extends Component {
         <li key={tenant.id}>
           {tenant.name}&nbsp;ID: {tenant.id}&nbsp; 
           [<Link to={'/okapi-console/tenants/edit/' + tenant.id}>Edit</Link>]
-          [<a onClick={() => mutator.tenants.delete(tenant)}>delete</a>]
+          [<a onClick={() => mutator.tenants.DELETE(tenant)}>delete</a>]
         </li>
       );
     });

@@ -20,7 +20,7 @@ class PatronEdit extends Component {
   // Invokes the mutator provided by stripes connect to perform a PUT
   // Uses router object to navigate back to list
   updatePatron(data) {
-    this.props.mutator['patrons'].update(data);
+    this.props.mutator['patrons'].PUT(data);
     this.context.router.push('/patrons/list');
   }
 

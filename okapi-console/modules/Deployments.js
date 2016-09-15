@@ -25,14 +25,14 @@ export class Deployments extends Component {
   }
 
   addDeploy (data) {
-    this.props.mutator['deployment_modules'].create(data).then(() => {
+    this.props.mutator['deployment_modules'].POST(data).then(() => {
       this.props.refreshRemote(this.props)
     }
     );
   }
 
   deleteDeploy (data) {
-    this.props.mutator['deployment_modules'].delete(data).then(() =>
+    this.props.mutator['deployment_modules'].DELETE(data).then(() =>
       this.props.refreshRemote(this.props)
     );
   }
