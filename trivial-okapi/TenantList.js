@@ -9,7 +9,7 @@ class TenantList extends Component {
   };
 
   render() {
-    if (!('_/proxy/tenants' in this.props.data)) return null;
+    if (!this.props.data['_/proxy/tenants']) return null;
     var tenantNodes = this.props.data['_/proxy/tenants'].map((tenant) => {
       return (
         <li key={tenant.id}>

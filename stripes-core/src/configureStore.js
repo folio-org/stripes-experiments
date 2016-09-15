@@ -1,7 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { setUpdateTrigger, getReducer } from './reducerRegistry';
+import { combineReducers } from 'redux';
+import initialReducers from './initialReducers';
 
 let store;
 
@@ -11,10 +12,8 @@ export default function configureStore(initialState) {
     applyMiddleware(createLogger()),
   )(createStore);
 
-  store = finalCreateStore(getReducer(), initialState);
-  setUpdateTrigger(function() {
-    store.replaceReducer(getReducer()); 
-  });
+  const reducer = combineReducers(initialReducers);
+  const store = finalCreateStore(reducer, initialState);
 
   return store;
 }

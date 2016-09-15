@@ -4,15 +4,6 @@ import { connect as reduxConnect } from 'react-redux';
 import okapiResource from './okapiResource';
 import restResource from './restResource';
 import localResource from './localResource';
-import Wrapping from './ComponentWrapping';
-
-
-// TODO: This config/init should move to provider or store somehow
-//
-// Current keys:
-//   addReducer(<state key>, <reducer function>)
-let config = {};
-export const init = newConfig => Object.assign(config, newConfig);
 
 const defaultType = 'local';
 const types = {
@@ -21,21 +12,40 @@ const types = {
   'rest': restResource
 }
 
-export const connect = (Component, module) => {
-  if (!config.addReducer) {
-    throw new Error('stripes-connect not configured---please call init() first');
-  }
-  const addReducer = config.addReducer;
-  const manifest = Component.manifest;
+const wrap = (Wrapped, module) => {
   let resources = [];
-
-  _.forOwn(manifest, (query, name) => {
+  _.forOwn(Wrapped.manifest, (query, name) => {
     const resource = new types[query.type || defaultType](name, query, module);
-    addReducer(resource.stateKey(), resource.reducer);
     resources.push(resource);
   });
+  class Wrapper extends React.Component {
+    constructor(props, context) {
+      super();
+      if (!(context.addReducer)) {
+        throw new Error("No addReducer function available in component context");
+      }
+      resources.forEach(resource => {
+        context.addReducer(resource.stateKey(), resource.reducer);
+      });
+    }
 
-  const mapStateToProps = (state) => {
+    componentDidMount() {
+      this.props.refreshRemote({...this.props.params});
+    }
+
+    render () {
+      return (
+        <Wrapped {...this.props} />
+      );
+    }
+
+  };
+
+  Wrapper.contextTypes = {
+    addReducer: React.PropTypes.func
+  };
+
+  Wrapper.mapState = function(state) {
     return {
       data: resources.reduce((result, resource) => {
         result[resource.name] = _.get(state, [resource.stateKey()], null);
@@ -44,7 +54,7 @@ export const connect = (Component, module) => {
     };
   }
 
-  const mapDispatchToProps = (dispatch) => {
+  Wrapper.mapDispatch = function(dispatch) {
     return {
       mutator: resources.reduce((result, resource) => {
         result[resource.name] = resource.getMutator(dispatch);
@@ -59,8 +69,13 @@ export const connect = (Component, module) => {
       }
     };
   }
-  let WrappedComponent = Wrapping(Component);
-  const connectedComponent = reduxConnect(mapStateToProps, mapDispatchToProps)(WrappedComponent);
-  return connectedComponent;
+
+  return Wrapper;
+}
+
+export const connect = (Component, module) => {
+  const Wrapper = wrap(Component, module);
+  const Connected = reduxConnect(Wrapper.mapState, Wrapper.mapDispatch)(Wrapper);
+  return Connected;
 };
 
