@@ -11,49 +11,45 @@ Now make a first simple attempt to build and run the UI:
 
 This fails with:
 
-	ERROR in ./~/@folio/stripes-loader/dist!
-	Module build failed: Error: Cannot find module '@folio-sample-modules/trivial/package.json'
+	npm ERR! 404 Not found : @folio/stripes-connect
 
-Evidently some form of stripes-loader is being found -- presumably
-from the @folio space. So the first thing to learn is that we're using
-the wrong @stripes-loader. Replace it with the git checkout and build
-it. (This assumes that stripes-loader is checked out alongside
-stripes-experiments.)
+Usually, the version of stripes-connect in the @folio NPM registry
+will be used, but we deconfigured that registry so we could use the
+one in our git checkout instead. We need to add a symbolic link to
+our local stripes-connect and build it:
 
+	mkdir -p node_modules/@folio
 	cd node_modules/@folio
-	rm -rf stripes-loader
-	ln -s ../../../../stripes-loader
-	cd stripes-loader
-	npm install
-	cd ..
-
-While we're there, we may as well also fix it to use the most recenty stripes-connect:
-
-	rm -rf stripes-connect
 	ln -s ../../../stripes-connect
 	cd stripes-connect
 	npm install
 	cd ../../..
+	
+We will also to make need stripes-loader available in a similar way,
+otherwise our next attempt to npm install will fail:
 
-Now we can try again to run the UI server:
+	cd node_modules/@folio
+	ln -s ../../../../stripes-loader
+	cd stripes-loader
+	npm install
+	cd ../../..
 
+Now we can install stripes-core and start it:
+
+	npm install
 	npm run start
 
-Once more this fails with:
+It now fails with:
 
 	ERROR in /home/mike/git/work/stripes-loader/dist
 	Module build failed: Error: Cannot find module '@folio-sample-modules/trivial/package.json'
 
-But at least now it's the right version of stripes-loader that is failing.
-XXX Should it concern us that "stripes-loader/dist" is now reported without an exclamation mark?
-
 So we wire the trival module into place:
 
-	cd node_modules
-	mkdir @folio-sample-modules
-	cd @folio-sample-modules
+	mkdir -p node_modules/@folio-sample-modules
+	cd node_modules/@folio-sample-modules
 	ln -s ../../../trivial
-	XXX Do we need to npm build the trivial module? Apparently not: npm build in trivial seems to no-op.
+	// We don't need to npm build the trivial module, and the build just no-ops.
 	cd ../..
 
 And try again to run the UI server:
@@ -67,16 +63,14 @@ Once more this fails in exactly the same way:
 
 That makes no sense, as the necessary file is present:
 
-	cd node_modules
-	ls -l @folio-sample-modules/trivial/package.json
-	cd ..
+	ls -l node_modules/@folio-sample-modules/trivial/package.json
 
 Perhaps the trivial module needs to be present not in stripes-core's
 node_modules area, but in that of stripes-loader?
 
 	rm -rf node_modules/@folio-sample-modules
 	cd ../../stripes-loader/node_modules
-	mkdir @folio-sample-modulesg
+	mkdir @folio-sample-modules
 	cd @folio-sample-modules
 	ln -s ../../../stripes-experiments/trivial
 	cd ../../../stripes-experiments/stripes-core
