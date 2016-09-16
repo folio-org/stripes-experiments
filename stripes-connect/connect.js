@@ -30,7 +30,7 @@ const wrap = (Wrapped, module) => {
     }
 
     componentDidMount() {
-      this.props.refreshRemote({...this.props.params});
+      this.props.refreshRemote({...this.props});
     }
 
     render () {
