@@ -87,4 +87,25 @@ This time we get a different error, which I think indicates progress:
 	Module parse failed: /home/mike/git/work/stripes-experiments/trivial/About.js Unexpected token (4:18)
 	You may need an appropriate loader to handle this file type.
 
-XXX Does this mean that Babel is not translating this from JS6?
+This is because Babel is not translating the trivial from JS6. The
+rules that tell WebPack which files to transpile are found in
+`webpack.config.base.js`, These rules do do say to transpile files
+within the `@folio` area. Unfortunately, WebPack resolves symbolic
+links before making this check, so the modules that we linked into
+`@folio` are instead seen as being in their physical location, and
+transpilation is skipped.
+
+The fix is to edit `webpack.config.base.js`, commenting out the
+`include:` line and uncommenting the `exclude:` line that follows it,
+thus:
+
+	//include:  [path.join(__dirname, 'src'), /@folio/, path.join(__dirname, '../dev')]
+	exclude: [/node_modules/]
+
+*WARNING: do not commit this change*. If it gets pushed into the
+ master repo, it will prevent modules from the NPM registry from
+ working correctly.
+
+Once this change has been made, `npm run start` will finally work, and
+you can view the running UI on `http://localhost:3000/
+
