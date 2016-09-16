@@ -3,19 +3,12 @@ import { Grid, Container, Row, Col, Form, FormGroup, FormControl, ControlLabel, 
 import { Field, FieldArray, reduxForm } from 'redux-form'
 
 class DeploymentForm extends Component {
-  static propTypes = {
-    fields: PropTypes.object.isRequired,
-    initializeForm: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,  
-    resetForm: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired
-  };
 
   render() {
     const {
       deployNodes,
       handleSubmit,
-      resetForm,
+      reset,
       handleDelete,
       submitting,
       disable
@@ -82,7 +75,7 @@ class DeploymentForm extends Component {
            :
             <ButtonGroup className="pull-right">
                 <Button bsStyle="primary" disabled={submitting} onClick={handleSubmit}>Submit</Button>
-                <Button disabled={submitting} onClick={resetForm}>Reset</Button>
+                <Button disabled={submitting} onClick={reset}>Reset</Button>
             </ButtonGroup>
         }
         <br/><br/>
