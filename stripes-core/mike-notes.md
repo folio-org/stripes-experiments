@@ -1,3 +1,5 @@
+# Running the Stripes UI from git checkouts (for core developers)
+
 Begin by tidying up: remove NPM's existing ideas of where to get
 Stripes modules:
 
