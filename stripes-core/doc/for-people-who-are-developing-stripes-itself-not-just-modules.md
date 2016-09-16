@@ -10,44 +10,44 @@ instead of from the package repository. You do this by subverting the
 First, remove any NPM configuration you may already have telling where
 to download the production versions of these packages from:
 
-     $ npm config delete @folio:registry
-     $ npm config delete @folio-sample-modules:registry
+	$ npm config delete @folio:registry
+	$ npm config delete @folio-sample-modules:registry
 
 Now prepopulate the Stripes core code's node modules are with symbolic
 links to the code you want to work on:
 
-     $ mkdir -p node_modules/@folio
-     $ cd node_modules/@folio
-     $ ln -s ../../../stripes-connect
-     $ cd stripes-connect
-     $ npm install
-     $ cd ../../..
+	$ mkdir -p node_modules/@folio
+	$ cd node_modules/@folio
+	$ ln -s ../../../stripes-connect
+	$ cd stripes-connect
+	$ npm install
+	$ cd ../../..
 
 We will also to make need stripes-loader available in a similar way,
 otherwise our next attempt to npm install will fail:
 
-     $ cd node_modules/@folio
-     $ ln -s ../../../../stripes-loader
-     $ cd stripes-loader
-     $ npm install
-     $ npm run build
-     $ cd ../../..
+	$ cd node_modules/@folio
+	$ ln -s ../../../../stripes-loader
+	$ cd stripes-loader
+	$ npm install
+	$ npm run build
+	$ cd ../../..
 
 Next, we wire the trival module into place: so that `stripes-loader`
 (not `stripes-core`) can see it:
 
-     $ cd ../../stripes-loader/node_modules
-     $ mkdir @folio-sample-modules
-     $ cd @folio-sample-modules
-     $ ln -s ../../../stripes-experiments/trivial
-     $ cd ../../../stripes-experiments/stripes-core
+	$ cd ../../stripes-loader/node_modules
+	$ mkdir @folio-sample-modules
+	$ cd @folio-sample-modules
+	$ ln -s ../../../stripes-experiments/trivial
+	$ cd ../../../stripes-experiments/stripes-core
 
 You don't need to build the modules, as they get pulled into the
 Stripes UI by WebPack when it is build. So now you are ready to build
 and run the service that provides the UI:
 
-     $ npm install
-     $ npm run start
+	$ npm install
+	$ npm run start
 
 This may fail with:
 
