@@ -2,8 +2,8 @@
 
 If you are working not just on Stripes _modules_ but on Stripes
 itself, you will want to use your own git checkouts of the various
-Stripes packages (stripes-connect, etc.) To do this, you basically
-have to trick NPM into pulling in these package from your checkout
+Stripes packages (`stripes-connect`, etc.) To do this, you basically
+have to trick NPM into pulling in these packages from your checkout
 instead of from the package repository. You do this by subverting the
 `@folio` scope as follows.
 
@@ -33,19 +33,9 @@ otherwise our next attempt to npm install will fail:
      $ npm run build
      $ cd ../../..
 
-Next, we wire the trival module into place:
+Next, we wire the trival module into place: so that `stripes-loader`
+(not `stripes-core`) can see it:
 
-     $ mkdir -p node_modules/@folio-sample-modules
-     $ cd node_modules/@folio-sample-modules
-     $ ln -s ../../../trivial
-     $ // We don't need to npm build the trivial module, and the build just no-ops.
-     $ cd ../..
-
-Perhaps the trivial module needs to be present not in stripes-core's
-node_modules area, but in that of stripes-loader?
-*XXX check this*
-
-     $ rm -rf node_modules/@folio-sample-modules
      $ cd ../../stripes-loader/node_modules
      $ mkdir @folio-sample-modules
      $ cd @folio-sample-modules
@@ -53,9 +43,10 @@ node_modules area, but in that of stripes-loader?
      $ cd ../../../stripes-experiments/stripes-core
 
 You don't need to build the modules, as they get pulled into the
-Stripes UI by WebPack when it is build. So now you are ready to run
-the service that provides the UI:
+Stripes UI by WebPack when it is build. So now you are ready to build
+and run the service that provides the UI:
 
+     $ npm install
      $ npm run start
 
 This may fail with:
