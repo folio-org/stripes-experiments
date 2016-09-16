@@ -44,7 +44,7 @@ export class Deployments extends Component {
           } = this.props;
 
     if (! discovery_modules || ! discovery_nodes  ) return <div/>;
-    let modulesBySrvcId = discover_modules.filter(
+    let modulesBySrvcId = discovery_modules.filter(
                (depl,index,arr) => { return depl.srvcId===srvcId;})
     let nextindex=modulesBySrvcId.length;
     return (
