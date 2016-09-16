@@ -1,9 +1,15 @@
-Simple approach:
+Begin by tidying up: remove NPM's existing ideas of where to get
+Stripes modules:
+
+	npm config delete @folio:registry
+	npm config delete @folio-sample-modules:registry
+
+Now make a first simple attempt to build and run the UI:
 
 	npm install
 	npm run start
 
-Fails with:
+This fails with:
 
 	ERROR in ./~/@folio/stripes-loader/dist!
 	Module build failed: Error: Cannot find module '@folio-sample-modules/trivial/package.json'
