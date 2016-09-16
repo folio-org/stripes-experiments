@@ -18,13 +18,13 @@ class PatronList extends Component {
   // A Link to patrons form based on path in routes.json
   // A Link to form based on another path in routes.json  
   render() {
+    const { data: {patrons}, mutator } = this.props;
 
-    
-    if (!('patrons' in this.props.data)) return <div/>;
-    var patronNodes = this.props.data['patrons'].map((patron) => {
+    if (!patrons) return <div/>;
+    var patronNodes = patrons.map((patron) => {
       return (
         <li key={patron._id}>
-          {patron.patron_name} [<a onClick={() => this.props.mutator['patrons'].DELETE(patron)}>delete</a>]
+          {patron.patron_name} [<a onClick={() => mutator['patrons'].DELETE(patron)}>delete</a>]
                                &nbsp;[<Link to={'patrons/edit/' + patron._id}>edit</Link>]
         </li>
       );

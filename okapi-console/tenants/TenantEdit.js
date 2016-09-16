@@ -24,10 +24,9 @@ class TenantEdit extends Component {
   }
 
   render() {
-      const { params, data } = this.props;
+      const { params, data: {tenants} } = this.props;
 
       let tenantid = params.tenantid;
-      let tenants = data['tenants']
       let tenant = tenants.find((tenant) =>  { return tenant.id === tenantid });
 
       return <TenantForm onSubmit={this.update.bind(this)}

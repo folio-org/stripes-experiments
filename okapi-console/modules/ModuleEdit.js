@@ -26,8 +26,9 @@ class ModuleEdit extends Component {
   }
 
   render() {
+    const { data: {modules}, mutator } = this.props;
+
     let moduleid = this.props.params.moduleid;
-    let modules = this.props.data['modules']
     let module = modules.find((module) =>  { return module.id === moduleid });
     if (!module || !module.provides) {
       return <div/>;
