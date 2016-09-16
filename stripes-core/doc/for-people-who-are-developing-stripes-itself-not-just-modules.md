@@ -13,7 +13,7 @@ to download the production versions of these packages from:
 	$ npm config delete @folio:registry
 	$ npm config delete @folio-sample-modules:registry
 
-Now prepopulate the Stripes core code's node modules are with symbolic
+Now prepopulate the Stripes core code's node_modules area with symbolic
 links to the code you want to work on:
 
 	$ mkdir -p node_modules/@folio
@@ -23,8 +23,7 @@ links to the code you want to work on:
 	$ npm install
 	$ cd ../../..
 
-We will also to make need stripes-loader available in a similar way,
-otherwise our next attempt to npm install will fail:
+We will also need to make need stripes-loader available in a similar way:
 
 	$ cd node_modules/@folio
 	$ ln -s ../../../../stripes-loader
@@ -43,7 +42,7 @@ Next, we wire the trival module into place: so that `stripes-loader`
 	$ cd ../../../stripes-experiments/stripes-core
 
 You don't need to build the modules, as they get pulled into the
-Stripes UI by WebPack when it is build. So now you are ready to build
+Stripes UI by WebPack when it is built. So now you are ready to build
 and run the service that provides the UI:
 
 	$ npm install
@@ -70,10 +69,10 @@ thus:
 	//include:  [path.join(__dirname, 'src'), /@folio/, path.join(__dirname, '../dev')]
 	exclude: [/node_modules/]
 
-*WARNING: do not commit this change*. If it gets pushed into the
- master repo, it will prevent modules from the NPM registry from
- working correctly.
+**WARNING: do not commit this change**. If it gets pushed into the
+master repo, it will prevent modules from the NPM registry from
+working correctly.
 
 Once this change has been made, `npm run start` will finally work, and
-you can view the running UI on `http://localhost:3000/
+you can view the running UI on http://localhost:3000/.
 
