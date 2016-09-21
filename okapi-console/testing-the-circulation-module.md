@@ -9,6 +9,7 @@
     * [Fetch and build the circulation module](#fetch-and-build-the-circulation-module)
 * [Client side](#client-side)
     * [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
+    * [Configure the Okapi Console](#configure-the-okapi-console)
     * [Run the Okapi Console locally](#run-the-okapi-console-locally)
         * [Add the circulation module](#add-the-circulation-module)
         * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
