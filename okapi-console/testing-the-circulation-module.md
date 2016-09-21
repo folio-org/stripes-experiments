@@ -97,8 +97,18 @@ configuration element:
     '@folio-sample-modules/okapi-console': {},
     '@folio-sample-modules/patrons': {}
 
-And re-run the UI server in the `stripes-core` directory, so that it
-rebuilds the package with the freshly uncommented modules included:
+You will also need to ensure that the relevant modules are visible to
+`stripes-loader` in the `@folio-sample-modules` namespace:
+
+    shell2$ cd ../../stripes-loader/node_modules/@folio-sample-modules
+    shell2$ ln -s ../../../stripes-experiments/trivial-okapi
+    shell2$ ln -s ../../../stripes-experiments/okapi-console
+    shell2$ ln -s ../../../stripes-experiments/patrons
+    shell2$ cd ../../../stripes-experiments/stripes-core
+
+Now you can re-run the UI server in the `stripes-core` directory, so
+that it rebuilds the package with the freshly uncommented modules
+included:
 
     shell2$ npm run start
 
