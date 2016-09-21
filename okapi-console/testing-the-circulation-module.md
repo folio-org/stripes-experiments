@@ -64,6 +64,10 @@ We just build this: Okapi will start it for us when needed.
     shell2$ mvn install
     shell2$ cd ..
 
+The most important output is
+`mod-circulation/target/circulation-fat.jar`, which we will later be
+asking Okapi to run for us.
+
 ## Client side
 
 ### Fetch and build the Okapi Console locally
@@ -76,7 +80,27 @@ work over Stripes.
 
 Then follow the instructions in its
 [`README`](../README.md),
-which are currently in flux.
+(which are currently somewhat in flux) or, if you are a devleoper
+running the Stripes code from a git checkout, use the instructions in
+[the Developer Guide](../stripes-core/doc/for-people-who-are-developing-stripes-itself-not-just-modules.md).
+
+### Configure the Okapi Console
+
+You will need to enable additional Stripes modules besides the
+default `trivial` module. Edit
+`stripes-experiments/stripes-core/webpack.config.cli.js`
+to uncomment the commented-out modules in the `stripesLoader/modules`
+configuration element:
+
+    '@folio-sample-modules/trivial': {},
+    '@folio-sample-modules/trivial-okapi': {},
+    '@folio-sample-modules/okapi-console': {},
+    '@folio-sample-modules/patrons': {}
+
+And re-run the UI server in the `stripes-core` directory, so that it
+rebuilds the package with the freshly uncommented modules included:
+
+    shell2$ npm run start
 
 ### Run the Okapi Console locally
 
