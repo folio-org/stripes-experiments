@@ -1,5 +1,6 @@
 # Testing the FOLIO circulation module from the Okapi Console
 
+<!-- pandoc -f markdown_github-hard_line_breaks testing-the-circulation-module.md > testing-the-circulation-module.html -->
 <!-- ../../okapi/doc/md2toc -l 2 testing-the-circulation-module.md -->
 * [Introduction](#introduction)
 * [Server side](#server-side)
