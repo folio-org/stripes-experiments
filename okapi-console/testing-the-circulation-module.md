@@ -128,8 +128,8 @@ First, fill in the **module proxy** section:
 * Click **Add module**.
 * Fill in the **Name** textbox with `Circulation` (or any name).
 * You can ignore the **Provides** and **Requires** entries for our present purposes.
-* Click the **+Add entry** button next to the **Routing** heading.
-* Click the new **+Add entry** button that has appeared to the right
+* Click the **+Add route** button next to the **Routing** heading.
+* Click the new **+Add HTTP method** button that has appeared to the right
   of the new **Methods** caption.
 * Type `GET` into the **HTTP method** box.
 * Click the **+** button to the right of this box. (Another
