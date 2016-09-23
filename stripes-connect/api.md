@@ -83,26 +83,26 @@ addition to '`type`:`rest`':
 
 XXX tidy this up
 
-* `url` - base url of the site
-* `path` - path for this resource
-* `params` - JS object for parameters to serialise and append with ?
-* `headers` - JS object with header values
-* `records` - key in the returned JSON that contains records
-* `pk` - key in the returned JSON (or individual record) that contains
+* `url` -- the base URL of the service that persists the data. (XXX is this right? The code seems to use `root`.)
+* `path` -- the path for this resource below the specified root
+* `params` -- JS object for parameters to serialise and append with ?
+* `headers` -- JS object with header values
+* `records` -- key in the returned JSON that contains records
+* `pk` -- key in the returned JSON (or individual record) that contains
   the primary key (defaults to id for both restResource and
   okapiResource)
-* `clientGeneratePk` - a boolean indicating if the client can generate
+* `clientGeneratePk` -- a boolean indicating if the client can generate
   a private key or must accept one
-* `GET`/`POST`/`PUT`/`DELETE`/`PATCH` - values for some or all of the
+* `GET`/`POST`/`PUT`/`DELETE`/`PATCH` -- values for some or all of the
   above (at minimum, `url`/`path`/`params` but maybe just everything?)
   that take precendence when operating with a particular HTTP verb.
 
 The operation of this is also important to document---there are two props
 passed to the wrapped component:
 
-* `data` - contains either data associated with a resource or null if
+* `data` -- contains either data associated with a resource or null if
   the data is pending and not currently fetched
-* `mutator` - has properties named after each resource with methods
+* `mutator` -- 	      has properties named after each resource with methods
   for a selection of HTTP verbs that may optionally take an id to
   append to the contents of "path" which may wind up with duplication
   if you, for example, run mutators.someResource.DELETE(124) on
