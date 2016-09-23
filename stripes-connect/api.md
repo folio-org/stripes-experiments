@@ -44,10 +44,10 @@ be managed, and the corresponding values are objects specifying how to
 deal with them:
 
         static manifest = {
-	  'name': { /* ... */ },
-	  'address': { /* ... */ },
-	  'jobTitle': { /* ... */ }
-	};
+          'name': { /* ... */ },
+          'address': { /* ... */ },
+          'jobTitle': { /* ... */ }
+        };
 
 ### Resource types
 
@@ -73,8 +73,8 @@ A local resource needs no configuration items -- not even an explicit
 simply be specified as an empty object:
 
         static manifest = {
-	  'someLocalResource': {}
-	}
+          'someLocalResource': {}
+        }
 
 ### REST resources
 
