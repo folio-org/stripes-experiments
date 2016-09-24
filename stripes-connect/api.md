@@ -9,9 +9,9 @@
     * [REST resources](#rest-resources)
     * [Okapi resources](#okapi-resources)
         * [Example](#example)
-* [Operation](#operation)
 * [Connecting the component](#connecting-the-component)
-* [Appendix: unresolved issues](#appendix-unresolved-issues)
+* [Appendix A: operation](#appendix-a-operation)
+* [Appendix B: unresolved issues](#appendix-b-unresolved-issues)
     * [How to not fetch](#how-to-not-fetch)
     * [One vs. Many](#one-vs-many)
     * [Metadata](#metadata)
@@ -160,22 +160,6 @@ the manifest must specify this.
         };
 
 
-## Operation
-
-XXX tidy up
-
-The operation of this is also important to document---there are two props
-passed to the wrapped component:
-
-* `data`: contains either data associated with a resource or null if
-  the data is pending and not currently fetched
-* `mutator`: has properties named after each resource with methods
-  for a selection of HTTP verbs that may optionally take an id to
-  append to the contents of "path" which may wind up with duplication
-  if you, for example, run mutators.someResource.DELETE(124) on
-  /patrons/124 rather than just DELETE().
-
-
 ## Connecting the component
 
 React components are classes that extend `React.Component`.  Instead
@@ -209,7 +193,26 @@ the Stripes module that contains the connect component. We hope the
 remove this requirement in future.)
 
 
-## Appendix: unresolved issues
+## Appendix A: operation
+
+XXX tidy up
+
+The operation of this is also important to document---there are two props
+passed to the wrapped component:
+
+* `data`: contains either data associated with a resource or null if
+  the data is pending and not currently fetched
+* `mutator`: has properties named after each resource with methods
+  for a selection of HTTP verbs that may optionally take an id to
+  append to the contents of "path" which may wind up with duplication
+  if you, for example, run mutators.someResource.DELETE(124) on
+  /patrons/124 rather than just DELETE().
+
+
+
+## Appendix B: unresolved issues
+
+XXX tidy up
 
 (This section is only for developers working on Stripes itself. Those
 workingv on _using_ Stripes to build a UI can ignore it.)
