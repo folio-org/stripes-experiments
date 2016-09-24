@@ -79,38 +79,94 @@ simply be specified as an empty object:
 ### REST resources
 
 REST resources are configured by the following additional keys in
-addition to '`type`:`rest`':
+addition to `'type':'rest'`:
 
-XXX tidy this up
+* `url`: the base URL of the service that persists the data. (XXX Is
+  this right? The code seems to use `root`.)
 
-* `url` -- the base URL of the service that persists the data. (XXX is this right? The code seems to use `root`.)
-* `path` -- the path for this resource below the specified root
-* `params` -- JS object for parameters to serialise and append with ?
-* `headers` -- JS object with header values
-* `records` -- key in the returned JSON that contains records
-* `pk` -- key in the returned JSON (or individual record) that contains
-  the primary key (defaults to id for both restResource and
-  okapiResource)
-* `clientGeneratePk` -- a boolean indicating if the client can generate
-  a private key or must accept one
-* `GET`/`POST`/`PUT`/`DELETE`/`PATCH` -- values for some or all of the
-  above (at minimum, `url`/`path`/`params` but maybe just everything?)
-  that take precendence when operating with a particular HTTP verb.
+* `path`: the path for this resource below the specified root. The
+  path consists of one or more `/`-separated components: each
+  component may be a literal, or a placeholder of the form `:`_name_,
+  which is replaced at run-time by the value of the named property.
+
+* `params`: A JavaScript object containing named parameters to be
+  supplied as part of the URL. These are joined with `&` and appended
+  to the path with a `?`.
+  The root, path and parames together make up the URL that is
+  addressed to maintain the resource.
+
+* `headers`: A JavaScript object containing HTTP headers: the keys are
+  the header names and the values are their content. XXX in the
+  present code, `headers` contains a map of HTTP verbs to sets of
+  headers: is that how we plan to keep this, or will it change?
+
+* `records`: The name of the key in the returned JSON that contains
+  the records. Typically the JSON response from a web service is not
+  itself an arrau of records, but an object containing metadata abaout
+  the result (result-count, etc.) and a sub-array that contains the
+  actual records. The `records` item specifies the name of that
+  sub-array within the top-level response object.
+
+* `pk`: The name of the key in the returned records that contains
+  the primary key. (Defaults to `id` for both REST and Okapi
+  resources.)
+
+* `clientGeneratePk`: a boolean indicating whether the client must
+  generate a "suffiently unique" private key for newly created
+  records, or must accept one that is supplied by the service in
+  response to a create request. Defaults to `true`.
+
+In addition to these principal pieces of configuration, which apply to
+all operations on the resource, these values can be overridden for
+specific HTTP operations: the entries `GET`, `POST`, `PUT`, `DELETE`
+and `PATCH`, if supplied, are objects containing configuration (using
+the same keys as described above) that apply only when the specified
+operation is used.
+
+### Okapi resources
+
+  If `url` is not specified, it
+  defaults to a globally configured address pointing to an Okapi
+  instance.
+
+XXX todo type='okapi' sets some defaults for many of them.
+
+#### Example
+
+This manifest (from the Okapi Console component that displays the
+health of running modules) defines two Okapi resources, `health` and
+`modules`, providing paths for both of them that are interpreted
+relative to the default root. In the modules response, the primary key
+is the default, `id`; but in the health response, it is `srvcId`, and
+the manifest must specify this.
+
+        static manifest = {
+          'health': {
+            type: 'okapi',
+            pk:   'srvcId',
+            path: '_/discovery/health'
+          },
+          'modules': {
+            type: 'okapi',
+            path: '_/proxy/modules'
+          }
+        };
+
+
+## Operation
+
+XXX tidy up
 
 The operation of this is also important to document---there are two props
 passed to the wrapped component:
 
-* `data` -- contains either data associated with a resource or null if
+* `data`: contains either data associated with a resource or null if
   the data is pending and not currently fetched
-* `mutator` -- 	      has properties named after each resource with methods
+* `mutator`: has properties named after each resource with methods
   for a selection of HTTP verbs that may optionally take an id to
   append to the contents of "path" which may wind up with duplication
   if you, for example, run mutators.someResource.DELETE(124) on
   /patrons/124 rather than just DELETE().
-
-### Okapi resources
-
-XXX todo type='okapi' sets some defaults for many of them.
 
 
 ## Connecting the component
