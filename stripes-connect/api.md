@@ -99,9 +99,9 @@ addition to `'type':'rest'`:
   addressed to maintain the resource.
 
 * `headers`: A JavaScript object containing HTTP headers: the keys are
-  the header names and the values are their content. XXX in the
+  the header names and the values are their content. (XXX In the
   present code, `headers` contains a map of HTTP verbs to sets of
-  headers: is that how we plan to keep this, or will it change?
+  headers: is that how we plan to keep this, or will it change?)
 
 * `records`: The name of the key in the returned JSON that contains
   the records. Typically the JSON response from a web service is not
@@ -128,11 +128,15 @@ operation is used.
 
 ### Okapi resources
 
-  If `url` is not specified, it
-  defaults to a globally configured address pointing to an Okapi
-  instance.
+Okapi resources are REST resources, but with defaults set to make
+connecting to Okapi convenient:
 
-XXX todo type='okapi' sets some defaults for many of them.
+* `url`: defaults to a globally configured address pointing to an
+  Okapi instance.
+
+* `headers`: are set appropriately for each HTTP operation to send the
+  tenant-ID, specify that the POSTed or PUT body is JSON and expect
+  JSON in response.
 
 #### Example
 
