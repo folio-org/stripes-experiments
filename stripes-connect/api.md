@@ -193,22 +193,25 @@ the Stripes module that contains the connect component. We hope the
 remove this requirement in future.)
 
 
-## Appendix A: operation
+## Appendix A: some implementation details
 
-XXX tidy up
+When a connected component is invoked, two properties are passed to
+the wrapped component:
 
-The operation of this is also important to document---there are two props
-passed to the wrapped component:
+* `data`: contains either data associated with a resource (as a
+  JavaScript object whose keys are the names of resources defined in
+  the manifest) or null if the data is pending and has not yet been
+  fetched.
 
-* `data`: contains either data associated with a resource or null if
-  the data is pending and not currently fetched
-* `mutator`: has properties named after each resource with methods
-  for a selection of HTTP verbs that may optionally take an id to
-  append to the contents of "path" which may wind up with duplication
-  if you, for example, run mutators.someResource.DELETE(124) on
-  /patrons/124 rather than just DELETE().
-
-
+* `mutator`: a JavaScript object with properties named after each
+  resource. The corresponding values are themselves objects whose keys
+  are HTTP methods and whose values are methods that XXX do what
+  exactly?
+  These methods optionally take an ID to append to the value of the
+  `path` configuration. This result in duplication if you, for
+  example, run `mutators.someResource.DELETE(124)` on `/patrons/124`
+  rather than just `DELETE()`.
+  
 
 ## Appendix B: unresolved issues
 
