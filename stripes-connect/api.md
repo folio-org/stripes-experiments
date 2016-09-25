@@ -10,7 +10,7 @@
     * [Okapi resources](#okapi-resources)
         * [Example](#example)
 * [Connecting the component](#connecting-the-component)
-* [Appendix A: operation](#appendix-a-operation)
+* [Appendix A: some implementation details](#appendix-a-some-implementation-details)
 * [Appendix B: unresolved issues](#appendix-b-unresolved-issues)
     * [How to not fetch](#how-to-not-fetch)
     * [One vs. Many](#one-vs-many)
