@@ -205,8 +205,8 @@ the wrapped component:
 
 * `mutator`: a JavaScript object with properties named after each
   resource. The corresponding values are themselves objects whose keys
-  are HTTP methods and whose values are methods that XXX do what
-  exactly?
+  are HTTP methods and whose values are methods (XXX that do what
+  exactly?)
   These methods optionally take an ID to append to the value of the
   `path` configuration. This result in duplication if you, for
   example, run `mutators.someResource.DELETE(124)` on `/patrons/124`
@@ -215,51 +215,54 @@ the wrapped component:
 
 ## Appendix B: unresolved issues
 
-XXX tidy up
-
 (This section is only for developers working on Stripes itself. Those
-workingv on _using_ Stripes to build a UI can ignore it.)
+working on _using_ Stripes to build a UI can ignore it.)
 
 ### How to not fetch
 
-Sometimes we only want a mutator, maybe we're making the
-add form. One suggestion is that we not have any path at all at the top
-level in this case, only POST.path to indicate the desired subset of
-functionality. I like the minimalism of that but feel it might be a bit
-opaque. Perhaps a
-boolean of mutatorOnly or noFetch is more explicit?
+Sometimes we only want a mutator, for example when creating an Add
+Record form. One possibility would be to not have any path at all at
+the top level in this case, only POST.path to indicate the desired
+subset of functionality. This is appealingly minimalist, but it might
+be a bit opaque. Perhaps a boolean configuration item of `mutatorOnly`
+or `noFetch` is more explicit?
 
 ### One vs. Many
 
-Right now there is no clear standard as to what data is
-returned by things, I think? eg. a single record by id gives you a single
-record; a query that matches a single record gives you an array with one
-element. Or does it always? I don't know if we can say that reliably as
-isn't it up to the remote API?
+Right now there is no clear standard as to what data is returned by
+Okapi services -- for example, a single record by `id` yields a single
+record; but a query that matches a single record yields an array with
+one element.
 
 ### Metadata
 
-We use this "redux-crud" library to, among other things, generate
-actions. It causes a number of compromises such as our needing to clear out
-the redux state at times because it is designed for a slightly different
-universe where there is more data re-use. As part of that, it prefers to
-treat the responses as lists of records it can merge into its local store
-which makes having a top level of metadata with an array property "patrons"
-or similar a bit incompatible. We currently pass it a key from the manifest
-if it needs to dig deeper to find the records. But that means we just
-discard the top level metadata. It may soon come time to reimplement
-redux-crud ourselves and take full control of how data is being shuffled
-around. Among other things, it would give the option to let our API be more
-true to intent and transparently expose the data returned by the REST request.
+We use the Redux Crud library to, among other things, generate
+actions. It causes a number of compromises such as our needing to
+clear out the Redux state at times because it is designed for a
+slightly different universe where there is more data re-use.
+
+As part of that, it prefers to treat the responses as lists of records
+that it can merge into its local store which makes having a top level
+of metadata with an array property `patrons` or similar a bit
+incompatible.
+
+We currently pass it a key from the manifest (`records`) if it needs
+to dig deeper to find the records. But that means we just discard the
+top level metadata. It may soon be time to reimplement Redux Crud
+ourselves and take full control of how data is being shuffled
+around. Among other things, it would give the option to let our API be
+more true to intent and transparently expose the data returned by the
+REST request.
 
 ### Errors
 
-Right now we have no real error handling, do we? Maybe we can have
-props.data.someResource.error be a special key with an object describing the
-error? Or... something? We need to surface the HTTP error somewhere anyhow.
+Right now we have no real error handling. Maybe we can have
+`props.data.someResource.error` be a special key with an object
+describing the error. We need to surface the HTTP error somehow.
 
-### Count
+### Object counts
 
 Can we get a count of holds on an item? How does that API work and
 does our above system mesh with it well enough to provide a pleasant
-developer experience
+developer experience?
+
