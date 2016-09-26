@@ -1,4 +1,4 @@
-# The Stripes Connect API
+ The Stripes Connect API
 
 <!-- pandoc -f markdown_github-hard_line_breaks api.md > api.html -->
 <!-- ../../okapi/doc/md2toc -l 2 api.md -->
@@ -105,9 +105,13 @@ addition to `'type':'rest'`:
   addressed to maintain the resource.
 
 * `headers`: A JavaScript object containing HTTP headers: the keys are
-  the header names and the values are their content. (XXX In the
-  present code, `headers` contains a map of HTTP verbs to sets of
-  headers: is that how we plan to keep this, or will it change?)
+  the header names and the values are their content.
+
+> **Note:** in the present code, `headers` contains a map of HTTP
+> verbs to sets of headers. Once we have implemented the more general
+> mechanism for HTTP operation-specific configuration that is
+> described below, we will use that instead, so that HTTP GET headers
+> are in `GET.headers` rather than in `headers.GET`.
 
 * `records`: The name of the key in the returned JSON that contains
   the records. Typically the JSON response from a web service is not
