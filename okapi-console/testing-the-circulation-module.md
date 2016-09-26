@@ -212,3 +212,15 @@ cluster. In the **Okapi Modules** tab:
 * Press the **Submit** for this second entry and a third empty entry appears.
 * Fill in the third entry like the first two and press the **Submit** button.
 
+## Appendix: temporary oddities
+
+XXX Must provide "Provides" in order for module to be editable.
+
+### Must provides well-known tenant for Patrons:
+
+  curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
+    "id" : "tenant-id",
+    "name" : "T1",
+    "description" : "Tenant 1"
+  }'
+
