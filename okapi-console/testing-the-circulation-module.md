@@ -149,7 +149,7 @@ Now deploy the module locally to the running Okapi node:
   presented, `http://localhost:9130/`.
 * Fill in the **Exec** entry with the following command-line, which
   Okapi will use to start the sample module:
-  `java -Dhttp.port=%p -jar ../mod-circulation/target/circulation-fat.jar embed_mongo=true`
+  `java -jar ../mod-circulation/target/circulation-fat.jar -Dhttp.port=%p embed_mongo=true`
 * You can ignore the **Start command** and **Stop command** entries in this scenario.
 * Press the **Submit** button at bottom right. (Another empty
   deployment entry appears below the one you filled in. Ignore it.)
