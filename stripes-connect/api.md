@@ -215,12 +215,12 @@ the wrapped component:
 
 * `mutator`: a JavaScript object with properties named after each
   resource. The corresponding values are themselves objects whose keys
-  are HTTP methods and whose values are methods (XXX that do what
-  exactly?)
-  These methods optionally take an ID to append to the value of the
+  are HTTP methods and whose values are methods that perform the
+  relevant CRUD operation using HTTP.
+  (These methods optionally take an ID to append to the value of the
   `path` configuration. This result in duplication if you, for
   example, run `mutators.someResource.DELETE(124)` on `/patrons/124`
-  rather than just `DELETE()`.
+  rather than just `DELETE()`.)
   
 
 ## Appendix B: unresolved issues
