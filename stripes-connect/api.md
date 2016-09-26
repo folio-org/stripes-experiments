@@ -3,6 +3,7 @@
 <!-- pandoc -f markdown_github-hard_line_breaks api.md > api.html -->
 <!-- ../../okapi/doc/md2toc -l 2 api.md -->
 * [Introduction](#introduction)
+    * [Note](#note)
 * [The Connection Manifest](#the-connection-manifest)
     * [Resource types](#resource-types)
     * [Local resources](#local-resources)
@@ -16,7 +17,7 @@
     * [One vs. Many](#one-vs-many)
     * [Metadata](#metadata)
     * [Errors](#errors)
-    * [Count](#count)
+    * [Object counts](#object-counts)
 
 
 ## Introduction
@@ -37,6 +38,12 @@ In order to take advantage of Stripes Connect, a component must do two
 things: declare a _manifest_, which describes what data elements it
 wants to manage and how to link them to services; and call the
 `connect()` method on itself.
+
+### Note
+
+This document describes the API as we wish it to be. The present
+version of the code implements something similar to this, but not
+identical. In what follows, additional notes mark such divergences.
 
 
 ## The Connection Manifest
