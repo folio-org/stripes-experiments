@@ -91,8 +91,7 @@ simply be specified as an empty object:
 REST resources are configured by the following additional keys in
 addition to `'type':'rest'`:
 
-* `url`: the base URL of the service that persists the data. (XXX Is
-  this right? The code seems to use `root`.)
+* `root`: the base URL of the service that persists the data.
 
 * `path`: the path for this resource below the specified root. The
   path consists of one or more `/`-separated components: each
@@ -102,7 +101,7 @@ addition to `'type':'rest'`:
 * `params`: A JavaScript object containing named parameters to be
   supplied as part of the URL. These are joined with `&` and appended
   to the path with a `?`.
-  The root, path and parames together make up the URL that is
+  The root, path and params together make up the URL that is
   addressed to maintain the resource.
 
 * `headers`: A JavaScript object containing HTTP headers: the keys are
@@ -138,7 +137,7 @@ operation is used.
 Okapi resources are REST resources, but with defaults set to make
 connecting to Okapi convenient:
 
-* `url`: defaults to a globally configured address pointing to an
+* `root`: defaults to a globally configured address pointing to an
   Okapi instance.
 
 * `headers`: are set appropriately for each HTTP operation to send the
