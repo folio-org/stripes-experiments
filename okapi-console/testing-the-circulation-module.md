@@ -220,9 +220,9 @@ XXX Must provide "Provides" in order for module to be editable.
 
 XXX Must provides well-known tenant for Patrons:
 
-  curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
-    "id" : "tenant-id",
-    "name" : "T1",
-    "description" : "Tenant 1"
-  }'
+    curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
+      "id" : "tenant-id",
+      "name" : "T1",
+      "description" : "Tenant 1"
+    }'
 
