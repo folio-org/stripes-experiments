@@ -1,6 +1,6 @@
 {
   "name": "@folio-sample-modules/trivial",
-  "version": "0.0.0-test",
+  "version": "0.0.1-test",
   "description": "A trivial Stripes module.",
   "repository": "folio-org/stripes-experiments",
   "publishConfig" : {
