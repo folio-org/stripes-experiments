@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
 
 class TenantEdit extends Component {
-  static manifest = { '_proxy/tenants': {type: 'okapi', path: ':tenantid'} };
+  static manifest = {
+    'tenants': {
+      type: 'okapi',
+      path: '_proxy/tenants/:tenantid'
+    }
+  };
 
   render() { 
       return <div>Tenant Edit ID: {this.props.params.tenantid}</div>
