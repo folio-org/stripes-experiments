@@ -16,6 +16,7 @@
         * [Run the sample module](#run-the-sample-module)
         * [Check the health of the running module](#check-the-health-of-the-running-module)
 * [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
+* [Appendix: temporary oddities](#appendix-temporary-oddities)
 
 ## Introduction
 

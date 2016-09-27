@@ -1,8 +1,9 @@
-# The Stripes Connect API
+ The Stripes Connect API
 
 <!-- pandoc -f markdown_github-hard_line_breaks api.md > api.html -->
 <!-- ../../okapi/doc/md2toc -l 2 api.md -->
 * [Introduction](#introduction)
+    * [Note](#note)
 * [The Connection Manifest](#the-connection-manifest)
     * [Resource types](#resource-types)
     * [Local resources](#local-resources)
@@ -16,7 +17,7 @@
     * [One vs. Many](#one-vs-many)
     * [Metadata](#metadata)
     * [Errors](#errors)
-    * [Count](#count)
+    * [Object counts](#object-counts)
 
 
 ## Introduction
@@ -37,6 +38,12 @@ In order to take advantage of Stripes Connect, a component must do two
 things: declare a _manifest_, which describes what data elements it
 wants to manage and how to link them to services; and call the
 `connect()` method on itself.
+
+### Note
+
+This document describes the API as we wish it to be. The present
+version of the code implements something similar to this, but not
+identical. In what follows, additional notes mark such divergences.
 
 
 ## The Connection Manifest
@@ -84,8 +91,7 @@ simply be specified as an empty object:
 REST resources are configured by the following additional keys in
 addition to `'type':'rest'`:
 
-* `url`: the base URL of the service that persists the data. (XXX Is
-  this right? The code seems to use `root`.)
+* `root`: the base URL of the service that persists the data.
 
 * `path`: the path for this resource below the specified root. The
   path consists of one or more `/`-separated components: each
@@ -95,13 +101,17 @@ addition to `'type':'rest'`:
 * `params`: A JavaScript object containing named parameters to be
   supplied as part of the URL. These are joined with `&` and appended
   to the path with a `?`.
-  The root, path and parames together make up the URL that is
+  The root, path and params together make up the URL that is
   addressed to maintain the resource.
 
 * `headers`: A JavaScript object containing HTTP headers: the keys are
-  the header names and the values are their content. (XXX In the
-  present code, `headers` contains a map of HTTP verbs to sets of
-  headers: is that how we plan to keep this, or will it change?)
+  the header names and the values are their content.
+
+> **Note:** in the present code, `headers` contains a map of HTTP
+> verbs to sets of headers. Once we have implemented the more general
+> mechanism for HTTP operation-specific configuration that is
+> described below, we will use that instead, so that HTTP GET headers
+> are in `GET.headers` rather than in `headers.GET`.
 
 * `records`: The name of the key in the returned JSON that contains
   the records. Typically the JSON response from a web service is not
@@ -131,7 +141,7 @@ operation is used.
 Okapi resources are REST resources, but with defaults set to make
 connecting to Okapi convenient:
 
-* `url`: defaults to a globally configured address pointing to an
+* `root`: defaults to a globally configured address pointing to an
   Okapi instance.
 
 * `headers`: are set appropriately for each HTTP operation to send the
@@ -205,12 +215,12 @@ the wrapped component:
 
 * `mutator`: a JavaScript object with properties named after each
   resource. The corresponding values are themselves objects whose keys
-  are HTTP methods and whose values are methods (XXX that do what
-  exactly?)
-  These methods optionally take an ID to append to the value of the
+  are HTTP methods and whose values are methods that perform the
+  relevant CRUD operation using HTTP.
+  (These methods optionally take an ID to append to the value of the
   `path` configuration. This result in duplication if you, for
   example, run `mutators.someResource.DELETE(124)` on `/patrons/124`
-  rather than just `DELETE()`.
+  rather than just `DELETE()`.)
   
 
 ## Appendix B: unresolved issues
