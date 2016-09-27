@@ -30,7 +30,7 @@ class ModuleEdit extends Component {
 
     let moduleid = this.props.params.moduleid;
     let module = modules.find((module) =>  { return module.id === moduleid });
-    if (!module || !module.provides) {
+    if (!module) {
       return <div/>;
     }
     return <ModuleForm initialValues={module} onSubmit={this.update.bind(this)} cancelForm={this.cancel.bind(this)} />
