@@ -11,13 +11,14 @@
     * [Okapi resources](#okapi-resources)
         * [Example](#example)
 * [Connecting the component](#connecting-the-component)
-* [Appendix A: some implementation details](#appendix-a-some-implementation-details)
-* [Appendix B: unresolved issues](#appendix-b-unresolved-issues)
-    * [How to not fetch](#how-to-not-fetch)
-    * [One vs. Many](#one-vs-many)
-    * [Metadata](#metadata)
-    * [Errors](#errors)
-    * [Object counts](#object-counts)
+* [Appendices: for developers](#appendices-for-developers)
+    * [Appendix A: some implementation details](#appendix-a-some-implementation-details)
+    * [Appendix B: unresolved issues](#appendix-b-unresolved-issues)
+        * [How to not fetch](#how-to-not-fetch)
+        * [One vs. Many](#one-vs-many)
+        * [Metadata](#metadata)
+        * [Errors](#errors)
+        * [Object counts](#object-counts)
 
 
 ## Introduction
@@ -203,7 +204,12 @@ the Stripes module that contains the connect component. We hope the
 remove this requirement in future.)
 
 
-## Appendix A: some implementation details
+## Appendices: for developers
+
+These sections are only for developers working on Stripes
+itself. Those working on _using_ Stripes to build a UI can ignore them.
+
+### Appendix A: some implementation details
 
 When a connected component is invoked, two properties are passed to
 the wrapped component:
@@ -225,13 +231,9 @@ the wrapped component:
   DELETE, the record need only contain the `id` field, so that it
   suffices to call `mutator.tenants.DELETE({ id: 43 })`.
   
+### Appendix B: unresolved issues
 
-## Appendix B: unresolved issues
-
-(This section is only for developers working on Stripes itself. Those
-working on _using_ Stripes to build a UI can ignore it.)
-
-### How to not fetch
+#### How to not fetch
 
 Sometimes we only want a mutator, for example when creating an Add
 Record form. One possibility would be to not have any path at all at
@@ -240,14 +242,14 @@ subset of functionality. This is appealingly minimalist, but it might
 be a bit opaque. Perhaps a boolean configuration item of `mutatorOnly`
 or `noFetch` is more explicit?
 
-### One vs. Many
+#### One vs. Many
 
 Right now there is no clear standard as to what data is returned by
 Okapi services -- for example, a single record by `id` yields a single
 record; but a query that matches a single record yields an array with
 one element.
 
-### Metadata
+#### Metadata
 
 We use the Redux Crud library to, among other things, generate
 actions. It causes a number of compromises such as our needing to
@@ -267,13 +269,13 @@ around. Among other things, it would give the option to let our API be
 more true to intent and transparently expose the data returned by the
 REST request.
 
-### Errors
+#### Errors
 
 Right now we have no real error handling. Maybe we can have
 `props.data.someResource.error` be a special key with an object
 describing the error. We need to surface the HTTP error somehow.
 
-### Object counts
+#### Object counts
 
 Can we get a count of holds on an item? How does that API work and
 does our above system mesh with it well enough to provide a pleasant
