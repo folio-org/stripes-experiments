@@ -216,11 +216,14 @@ the wrapped component:
 * `mutator`: a JavaScript object with properties named after each
   resource. The corresponding values are themselves objects whose keys
   are HTTP methods and whose values are methods that perform the
-  relevant CRUD operation using HTTP.
-  (These methods optionally take an ID to append to the value of the
-  `path` configuration. This result in duplication if you, for
-  example, run `mutators.someResource.DELETE(124)` on `/patrons/124`
-  rather than just `DELETE()`.)
+  relevant CRUD operation using HTTP and undate the internal
+  representation of the state to match.
+  The mutator methods optionally take a record as a parameter,
+  represented as a JavaScript object whose keys are fieldnames and
+  whose values contain the corresponding data. These records are used
+  in the obvious way by the POST, PUT and PATCH operations. For
+  DELETE, the record need only contain the `id` field, so that it
+  suffices to call `mutator.tenants.DELETE({ id: 43 })`.
   
 
 ## Appendix B: unresolved issues
