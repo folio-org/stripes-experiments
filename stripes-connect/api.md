@@ -203,6 +203,10 @@ use
 the Stripes module that contains the connect component. We hope the
 remove this requirement in future.)
 
+<br/>
+<br/>
+<hr/>
+
 
 ## Appendices: for developers
 
