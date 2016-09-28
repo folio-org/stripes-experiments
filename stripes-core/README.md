@@ -9,9 +9,9 @@ To run Stripes, you'll need to have [NodeJS](https://nodejs.org/) 6.x installed.
 ### Very quick
 
 ```
-npm config set @folio:registry https://folio-nexus.indexdata.com/repository/npm-folio/
+npm config set @folio:registry https://repository.folio.org/repository/npm-folio/
 npm install
-npm config set @folio-sample-modules:registry https://folio-nexus.indexdata.com/repository/npm-folio/
+npm config set @folio-sample-modules:registry https://repository.folio.org/repository/npm-folio/
 npm install @folio-sample-modules/trivial
 ```
 
@@ -19,7 +19,7 @@ npm install @folio-sample-modules/trivial
  
 Add the Folio NPM registry to your local NPM configuration:
 
-`npm config set @folio:registry https://folio-nexus.indexdata.com/repository/npm-folio/`
+`npm config set @folio:registry https://repository.folio.org/repository/npm-folio/`
 
 Retrieve the necessary dependencies:
 
@@ -31,7 +31,7 @@ At this point you have what you need to run the system. Edit `webpack.config.cli
 
 We have some sample modules to play with in the `@npm-sample-modules` scope on our registry. Run this to let it know where to look:
 
-`npm config set @folio-sample-modules:registry https://folio-nexus.indexdata.com/repository/npm-folio/`
+`npm config set @folio-sample-modules:registry https://repository.folio.org/repository/npm-folio/`
 
 #### trivial
 
