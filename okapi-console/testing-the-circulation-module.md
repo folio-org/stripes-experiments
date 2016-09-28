@@ -1,5 +1,6 @@
 # Testing the FOLIO circulation module from the Okapi Console
 
+<!-- pandoc -f markdown_github-hard_line_breaks testing-the-circulation-module.md > testing-the-circulation-module.html -->
 <!-- ../../okapi/doc/md2toc -l 2 testing-the-circulation-module.md -->
 * [Introduction](#introduction)
 * [Server side](#server-side)
@@ -8,12 +9,14 @@
     * [Fetch and build the circulation module](#fetch-and-build-the-circulation-module)
 * [Client side](#client-side)
     * [Fetch and build the Okapi Console locally](#fetch-and-build-the-okapi-console-locally)
+    * [Configure the Okapi Console](#configure-the-okapi-console)
     * [Run the Okapi Console locally](#run-the-okapi-console-locally)
         * [Add the circulation module](#add-the-circulation-module)
         * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
         * [Run the sample module](#run-the-sample-module)
         * [Check the health of the running module](#check-the-health-of-the-running-module)
 * [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
+* [Appendix: temporary oddities](#appendix-temporary-oddities)
 
 ## Introduction
 
@@ -64,6 +67,10 @@ We just build this: Okapi will start it for us when needed.
     shell2$ mvn install
     shell2$ cd ..
 
+The most important output is
+`mod-circulation/target/circulation-fat.jar`, which we will later be
+asking Okapi to run for us.
+
 ## Client side
 
 ### Fetch and build the Okapi Console locally
@@ -76,7 +83,37 @@ work over Stripes.
 
 Then follow the instructions in its
 [`README`](../README.md),
-which are currently in flux.
+(which are currently somewhat in flux) or, if you are a devleoper
+running the Stripes code from a git checkout, use the instructions in
+[the Developer Guide](../stripes-core/doc/for-people-who-are-developing-stripes-itself-not-just-modules.md).
+
+### Configure the Okapi Console
+
+You will need to enable additional Stripes modules besides the
+default `trivial` module. Edit
+`stripes-experiments/stripes-core/webpack.config.cli.js`
+to uncomment the commented-out modules in the `stripesLoader/modules`
+configuration element:
+
+    '@folio-sample-modules/trivial': {},
+    '@folio-sample-modules/trivial-okapi': {},
+    '@folio-sample-modules/okapi-console': {},
+    '@folio-sample-modules/patrons': {}
+
+You will also need to ensure that the relevant modules are visible to
+`stripes-loader` in the `@folio-sample-modules` namespace:
+
+    shell2$ cd ../../stripes-loader/node_modules/@folio-sample-modules
+    shell2$ ln -s ../../../stripes-experiments/trivial-okapi
+    shell2$ ln -s ../../../stripes-experiments/okapi-console
+    shell2$ ln -s ../../../stripes-experiments/patrons
+    shell2$ cd ../../../stripes-experiments/stripes-core
+
+Now you can re-run the UI server in the `stripes-core` directory, so
+that it rebuilds the package with the freshly uncommented modules
+included:
+
+    shell2$ npm run start
 
 ### Run the Okapi Console locally
 
@@ -92,8 +129,8 @@ First, fill in the **module proxy** section:
 * Click **Add module**.
 * Fill in the **Name** textbox with `Circulation` (or any name).
 * You can ignore the **Provides** and **Requires** entries for our present purposes.
-* Click the **+Add entry** button next to the **Routing** heading.
-* Click the new **+Add entry** button that has appeared to the right
+* Click the **+Add route** button next to the **Routing** heading.
+* Click the new **+Add HTTP method** button that has appeared to the right
   of the new **Methods** caption.
 * Type `GET` into the **HTTP method** box.
 * Click the **+** button to the right of this box. (Another
@@ -113,7 +150,7 @@ Now deploy the module locally to the running Okapi node:
   presented, `http://localhost:9130/`.
 * Fill in the **Exec** entry with the following command-line, which
   Okapi will use to start the sample module:
-  `java -Dhttp.port=%p -jar ../mod-circulation/target/circulation-fat.jar embed_mongo=true`
+  `java -jar ../mod-circulation/target/circulation-fat.jar -Dhttp.port=%p embed_mongo=true`
 * You can ignore the **Start command** and **Stop command** entries in this scenario.
 * Press the **Submit** button at bottom right. (Another empty
   deployment entry appears below the one you filled in. Ignore it.)
@@ -175,4 +212,18 @@ cluster. In the **Okapi Modules** tab:
   first node.
 * Press the **Submit** for this second entry and a third empty entry appears.
 * Fill in the third entry like the first two and press the **Submit** button.
+
+## Appendix: temporary oddities
+
+XXX Commit d63a920a3337214e4c8d81afb1e5d2ec8886b453 is currently the least broken one.
+
+XXX Must provide "Provides" in order for module to be editable.
+
+XXX Must provides well-known tenant for Patrons:
+
+    curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
+      "id" : "tenant-id",
+      "name" : "T1",
+      "description" : "Tenant 1"
+    }'
 

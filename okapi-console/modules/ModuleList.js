@@ -9,10 +9,10 @@ class ModuleList extends Component {
   };
 
   render() {
-    const { data, mutator } = this.props;
-    
-    if (!('modules' in data)) return null;
-    var moduleNodes = data['modules'].map((amodule) => {
+    const { data: {modules}, mutator } = this.props;
+
+    if (!modules) return null;
+    var moduleNodes = modules.map((amodule) => {
       return (
         <li key={amodule.id}>
           {amodule.name}&nbsp;

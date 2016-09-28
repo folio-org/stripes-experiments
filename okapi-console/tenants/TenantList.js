@@ -9,10 +9,10 @@ class TenantList extends Component {
   };
 
   render() {
-    const { data, mutator } = this.props;
+    const { data: {tenants} , mutator } = this.props;
 
-    if (!('tenants' in data)) return null;
-    var tenantNodes = data.tenants.map((tenant) => {
+    if (!tenants) return null;
+    var tenantNodes = tenants.map((tenant) => {
       return (
         <li key={tenant.id}>
           {tenant.name}&nbsp;ID: {tenant.id}&nbsp; 

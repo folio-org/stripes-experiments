@@ -5,15 +5,18 @@ import { Link } from 'react-router';
 class TenantList extends Component {
 
   static manifest = {
-    '_/proxy/tenants': { type: 'okapi' }
+    'tenants': {
+      path: '_/proxy/tenants',
+      type: 'okapi'
+    }
   };
 
   render() {
-    if (!this.props.data['_/proxy/tenants']) return null;
-    var tenantNodes = this.props.data['_/proxy/tenants'].map((tenant) => {
+    if (!this.props.data.tenants) return null;
+    var tenantNodes = this.props.data.tenants.map((tenant) => {
       return (
         <li key={tenant.id}>
-          {tenant.name} [<a onClick={() => this.props.mutator['_/proxy/tenants'].DELETE(tenant)}>delete</a>]
+          {tenant.name} [<a onClick={() => this.props.mutator.tenants.DELETE(tenant)}>delete</a>]
           [<Link to={'/trivial-okapi/edit/' + tenant.id}>Edit</Link>] 
         </li>
       );

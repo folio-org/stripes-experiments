@@ -27,7 +27,6 @@ class ModuleForm extends Component {
       initialValues
     } = this.props;
 
-    console.log("ModuleForm this.props",this.props);
     let id = (initialValues ? initialValues.id : '');
     return (
       <div>

@@ -28,7 +28,9 @@ class ModuleSelector extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data: {modules, enabledmodules } } = this.props;
+
+    if (! modules || ! enabledmodules ) return <div/>;
 
     var styles = {
       bold: {
@@ -39,9 +41,7 @@ class ModuleSelector extends Component {
       }
     };
 
-    var allModules = data['modules'];
-    var enabledModules = data['enabledmodules'];
-    var availableModuleNodes = availableModules(allModules,enabledModules).map((amodule, i) => {
+    var availableModuleNodes = availableModules(modules,enabledmodules).map((amodule, i) => {
       return (
         <li key={amodule.id}><span style={(amodule.enabled ? styles.bold : styles.normal)}>{amodule.name}</span>{' '}{' '}<a key={amodule.id} href='#' 
                onClick={ (e) => {e.preventDefault(); amodule.enabled ? this.disableModule(amodule.id) : this.enableModule(amodule.id);}}>{amodule.enabled ? '[X]' : 'Enable'}</a></li>

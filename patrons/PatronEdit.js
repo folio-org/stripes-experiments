@@ -29,8 +29,8 @@ class PatronEdit extends Component {
   }
 
   render() { 
-      let patronid = this.props.params.patronid;
-      let patrons = this.props.data['patrons']
+      const { data: { patrons }, params: { patronid } } = this.props;
+
       let patron = patrons.find((patron) =>  { return patron._id === patronid });
 
       return <PatronForm onSubmit={this.updatePatron.bind(this)} 
