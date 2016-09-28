@@ -215,10 +215,6 @@ cluster. In the **Okapi Modules** tab:
 
 ## Appendix: temporary oddities
 
-XXX Commit d63a920a3337214e4c8d81afb1e5d2ec8886b453 is currently the least broken one.
-
-XXX Must provide "Provides" in order for module to be editable.
-
 XXX Must provides well-known tenant for Patrons:
 
     curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
