@@ -126,7 +126,10 @@ export default class restResource {
   deleteAction(record) {
     const { root, path, pk, clientGeneratePk, headers } = this.options;
     const crudActions = this.crudActions;
-    const url = [ root, path, record[pk] ].join('/');
+    const url = (path.endsWith(record[pk]) ?
+                   [ root, path ].join('/')
+                   :
+                   [ root, path, record[pk] ].join('/'));
     return function(dispatch) {
       if (record[pk] && !record.id) record.id = record[pk];
       dispatch(crudActions.deleteStart(record));
