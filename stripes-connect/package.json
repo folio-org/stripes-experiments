@@ -4,7 +4,7 @@
   "description": "A module connect to enable pluggable Redux applications.",
   "repository": "folio-org/stripes-experiments",
   "publishConfig" : {
-    "registry" : "https://folio-nexus.indexdata.com/repository/npm-folio/"
+    "registry" : "https://repository.folio.org/repository/npm-folio/"
   },
   "main": "connect.js",
   "author": "Index Data",

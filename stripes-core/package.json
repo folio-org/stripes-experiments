@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "repository": "folio-org/stripes-experiments",
   "publishConfig" : {
-    "registry" : "https://folio-nexus.indexdata.com/repository/npm-folio/"
+    "registry" : "https://repository.folio.org/repository/npm-folio/"
   },
   "scripts": {
     "clean": "rimraf static",

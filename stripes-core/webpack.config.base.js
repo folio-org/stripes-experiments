@@ -53,6 +53,10 @@ module.exports = {
         loader: 'json'
       },
       {
+   	test: /\.(jpg|jpeg|gif|png|ico)$/,
+   	loader:'file-loader?name=img/[path][name].[ext]'
+      },
+      {
         test: /\.sass$/,
         loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!sass-loader")
       }
