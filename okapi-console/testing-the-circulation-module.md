@@ -149,7 +149,7 @@ Now deploy the module locally to the running Okapi node:
 * Pull down the **Node** dropdown (below the **Service ID** and **Inst ID** read-only textboxes), and select the only value that is
   presented, `http://localhost:9130/`.
 * Fill in the **Exec** entry with the following command-line, which
-  Okapi will use to start the sample module:
+  Okapi will use to start the circulation module:
   `java -jar ../mod-circulation/target/circulation-fat.jar -Dhttp.port=%p embed_mongo=true`
 * You can ignore the **Start command** and **Stop command** entries in this scenario.
 * Press the **Submit** button at bottom right. (Another empty
@@ -165,8 +165,8 @@ Now deploy the module locally to the running Okapi node:
   of tenants, which will now have one entry, Our Library.
 * Click the **[Edit]** link next to Our Library. A list of modules
   that are available to the tenant is shown at the bottom, currently
-  consisting of only one entry for the Sample Module.
-* Click the **Enable** link next to Sample Module. The link changes to
+  consisting of only one entry for the Circulation Module.
+* Click the **Enable** link next to Circulation Module. The link changes to
   **[X]**.
 
 #### Run the sample module
@@ -185,7 +185,7 @@ The caption by the testing link changed from **Not tested yet** to
 #### Check the health of the running module
 
 * Click the **Okapi Health** menu item at the top of the page. You will see
-  a list of running modules, currently only the Sample Module.
+  a list of running modules, currently only the Circulation Module.
 
 
 ## Appendix: deploying modules on clustered Okapi
