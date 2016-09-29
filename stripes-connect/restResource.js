@@ -3,7 +3,7 @@ import crud from 'redux-crud';
 import _ from 'lodash';
 import uuid from 'node-uuid';
 
-const defaultDefaults = { pk: 'id', clientGeneratePk: true, fetch: true };
+const defaultDefaults = { pk: 'id', clientGeneratePk: true, fetch: true, clear: true };
 
 export default class restResource { 
 
@@ -46,12 +46,10 @@ export default class restResource {
   refresh(dispatch, props) {
     // shallow copy; we'll need to go deeper once templating params
     this.options = {...this.optionsTemplate};
-    const { path, fetch } = this.options;
-    if (fetch) {
+    if (this.options.fetch) {
       // TODO: still not really implemented
-      if (path) {
-        let path = "";
-        let sections = path.split("/");
+      if (this.options.path) {
+        let sections = this.options.path.split("/");
         for (var i=0; i < sections.length; i++ ) {
           if (sections[i].startsWith(":")) {
             let section = sections[i].substring(1);
@@ -59,7 +57,7 @@ export default class restResource {
             sections[i] = ( (props.params && props.params[section]) ? props.params[section] : props[section]);
           }
         }
-        path = sections.join("/");
+        this.options.path = sections.join("/");
       }
       dispatch(this.fetchAction());
     }
@@ -165,7 +163,7 @@ export default class restResource {
             dispatch(crudActions.fetchError(response));
           } else {
             response.json().then(json => {
-              dispatch({ type: 'CLEAR_'+key.toUpperCase()});
+              if (clear) dispatch({ type: 'CLEAR_'+key.toUpperCase()});
               let data = (records ? json[records] : json);
               dispatch(crudActions.fetchSuccess(data));
             });
