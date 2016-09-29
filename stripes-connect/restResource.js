@@ -3,7 +3,7 @@ import crud from 'redux-crud';
 import _ from 'lodash';
 import uuid from 'node-uuid';
 
-const defaultDefaults = { pk: 'id', clientGeneratePk: true };
+const defaultDefaults = { pk: 'id', clientGeneratePk: true, fetch: true };
 
 export default class restResource { 
 
@@ -32,7 +32,7 @@ export default class restResource {
   reducer(state = [], action) {
     switch (action.type) {
       // extra reducer (beyond redux-crud generated reducers) for clearing a list before populating from new fetch
-      case 'CLEAR_' + this.stateKey().toUpperCase() :
+      case 'CLEAR_' + this.stateKey().toUpperCase():
         return [];
       default:
         return this.crudReducers(state, action);
@@ -46,20 +46,23 @@ export default class restResource {
   refresh(dispatch, props) {
     // shallow copy; we'll need to go deeper once templating params
     this.options = {...this.optionsTemplate};
-    // TODO: still not really implemented
-    if (this.options.path) {
-      let path = "";
-      let sections = this.options.path.split("/");
-      for (var i=0; i < sections.length; i++ ) {
-        if (sections[i].startsWith(":")) {
-          let section = sections[i].substring(1);
-          // Substitute from component's router params, if found, otherwise from component's props
-          sections[i] = ( (props.params && props.params[section]) ? props.params[section] : props[section]);
-        } 
+    const { path, fetch } = this.options;
+    if (fetch) {
+      // TODO: still not really implemented
+      if (path) {
+        let path = "";
+        let sections = path.split("/");
+        for (var i=0; i < sections.length; i++ ) {
+          if (sections[i].startsWith(":")) {
+            let section = sections[i].substring(1);
+            // Substitute from component's router params, if found, otherwise from component's props
+            sections[i] = ( (props.params && props.params[section]) ? props.params[section] : props[section]);
+          }
+        }
+        path = sections.join("/");
       }
-      this.options.path = sections.join("/");
+      dispatch(this.fetchAction());
     }
-    dispatch(this.fetchAction());
   }
 
   createAction(record) {
@@ -149,7 +152,7 @@ export default class restResource {
 
 
   fetchAction() {
-    const { root, path, pk, headers, records } = this.options;
+    const { root, path, pk, headers, records, clear } = this.options;
     const crudActions = this.crudActions;
     const key = this.stateKey();
     // ie. only join truthy elements
@@ -162,7 +165,6 @@ export default class restResource {
             dispatch(crudActions.fetchError(response));
           } else {
             response.json().then(json => {
-              // TODO: This should only be done when fetching all, but how to know?
               dispatch({ type: 'CLEAR_'+key.toUpperCase()});
               let data = (records ? json[records] : json);
               dispatch(crudActions.fetchSuccess(data));
