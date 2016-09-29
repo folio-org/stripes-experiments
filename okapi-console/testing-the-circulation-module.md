@@ -26,11 +26,11 @@ its modules, including the circulation module; and on the the client
 side, the Stripes-based Okapi Console, including the patron
 module. (Patron maintenance is one of the responsibilities of the
 server-side circulation module; a single UI module is dedicated to
-this function.) To
+this function.)
 
-exercise the circulation module from the Okapi Console, it's necessary
-to install, build and run both pieces of software. Then it is possible
-to run the UI in a browser.
+To exercise the circulation module from the Okapi Console, it's
+necessary to install, build and run both pieces of software. Then it
+is possible to run the UI in a browser.
 
 (Alternatively you can an existing UI and Okapi in a CI
 installation on an AWS cluster by pointing a browser to
