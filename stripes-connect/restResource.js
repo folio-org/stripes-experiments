@@ -3,7 +3,7 @@ import crud from 'redux-crud';
 import _ from 'lodash';
 import uuid from 'node-uuid';
 
-const defaultDefaults = { pk: 'id', clientGeneratePk: true, fetch: true };
+const defaultDefaults = { pk: 'id', clientGeneratePk: true, fetch: true, clear: true };
 
 export default class restResource { 
 
@@ -165,7 +165,7 @@ export default class restResource {
             dispatch(crudActions.fetchError(response));
           } else {
             response.json().then(json => {
-              dispatch({ type: 'CLEAR_'+key.toUpperCase()});
+              if (clear) dispatch({ type: 'CLEAR_'+key.toUpperCase()});
               let data = (records ? json[records] : json);
               dispatch(crudActions.fetchSuccess(data));
             });

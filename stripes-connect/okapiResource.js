@@ -7,6 +7,7 @@ const defaults = {
   pk: 'id',
   clientGeneratePk: true,
   fetch: true,
+  clear: true,
   headers : { POST:   { 'Accept': 'application/json',
                         'Content-Type': 'application/json' },
               DELETE: { 'Accept': "text/plain" },
