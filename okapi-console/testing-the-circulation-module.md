@@ -215,7 +215,10 @@ cluster. In the **Okapi Modules** tab:
 
 ## Appendix: temporary oddities
 
-XXX Must provides well-known tenant for Patrons:
+As things stand, the Patrons UI module is hardwired to use the
+tenant-id `tenant-id`. Therefore, we need to hand-install a tenant
+with that ID in order for the module to work. We can do this using the
+command-line HTTP client curl:
 
     curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
       "id" : "tenant-id",
