@@ -13,8 +13,8 @@
     * [Run the Okapi Console locally](#run-the-okapi-console-locally)
         * [Add the circulation module](#add-the-circulation-module)
         * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
-        * [Run the patrons module.](#run-the-patrons-module)
         * [Check the health of the running module](#check-the-health-of-the-running-module)
+        * [Run the patrons module.](#run-the-patrons-module)
 * [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
 * [Appendix: temporary oddities](#appendix-temporary-oddities)
 
@@ -174,6 +174,11 @@ Now deploy the module locally to the running Okapi node:
 * Click the **Enable** link next to Circulation Module. The link changes to
   **[X]**.
 
+#### Check the health of the running module
+
+* Click the **Okapi Health** menu item at the top of the page. You will see
+  a list of running modules, currently only the Circulation Module.
+
 #### Run the patrons module.
 
 [Note: see the **temporary oddities** appendix below on tenants for
@@ -193,11 +198,6 @@ time see the newly-added patron on the list.
 
 XXX At present this does not seem to work: the POST operation that
 should create the new patron is rejected with a 404 Not Found.
-
-#### Check the health of the running module
-
-* Click the **Okapi Health** menu item at the top of the page. You will see
-  a list of running modules, currently only the Circulation Module.
 
 
 ## Appendix: deploying modules on clustered Okapi
