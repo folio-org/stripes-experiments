@@ -13,19 +13,24 @@
     * [Run the Okapi Console locally](#run-the-okapi-console-locally)
         * [Add the circulation module](#add-the-circulation-module)
         * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
-        * [Run the sample module](#run-the-sample-module)
+        * [Run the Patrons module.](#run-the-patrons-module)
         * [Check the health of the running module](#check-the-health-of-the-running-module)
 * [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
 * [Appendix: temporary oddities](#appendix-temporary-oddities)
+
 
 ## Introduction
 
 Two sets of software are involved here: on the server side, Okapi with
 its modules, including the circulation module; and on the the client
-side, the Stripes-based Okapi Console. To exercise the circulation
-module from the Okapi Console, it's necessary to install, build and
-run both pieces of software. Then it is possible to run the UI in a
-browser.
+side, the Stripes-based Okapi Console, including the patron
+module. (Patron maintenance is one of the responsibilities of the
+server-side circulation module; a single UI module is dedicated to
+this function.) To
+
+exercise the circulation module from the Okapi Console, it's necessary
+to install, build and run both pieces of software. Then it is possible
+to run the UI in a browser.
 
 (Alternatively you can an existing UI and Okapi in a CI
 installation on an AWS cluster by pointing a browser to
@@ -169,11 +174,12 @@ Now deploy the module locally to the running Okapi node:
 * Click the **Enable** link next to Circulation Module. The link changes to
   **[X]**.
 
-#### Run the sample module
+#### Run the Patrons module.
 
-XXX Note: this facility seems to have gone away in the present console.
+(Note: see the **temporary oddities** appendix below on tenants for
+the Patrons UI module.)
 
-* Click the **Sample Module** menu item at the top of the page. You
+* Click the **Patrons** menu item at the top of the page. You
   will see the list of tenants for which to run the module, currently
   consisting of only one entry for Our Library.
 * Click the **Invoke sample-module as this tenant** link next to Our
