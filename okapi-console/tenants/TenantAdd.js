@@ -8,7 +8,8 @@ class TenantAdd extends Component {
   };
 
   static manifest = { 'tenants': { type: 'okapi',
-                                   path: '_/proxy/tenants'
+                                   path: '_/proxy/tenants',
+                                   fetch: false
                                  }
                     };
 

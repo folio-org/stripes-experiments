@@ -9,7 +9,8 @@ class ModuleAdd extends Component {
   };
 
   static manifest = { 'modules' : { type: 'okapi',
-                                    path: '_/proxy/modules'
+                                    path: '_/proxy/modules',
+                                    fetch: false
                                   }
                     };
 

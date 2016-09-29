@@ -9,7 +9,8 @@ class TenantEdit extends Component {
   };
 
   static manifest = { 'tenants': { type: 'okapi',
-                                   path: '_/proxy/tenants/:tenantid'
+                                   path: '_/proxy/tenants/:tenantid',
+                                   clear: false
                                  }
                     };
 
