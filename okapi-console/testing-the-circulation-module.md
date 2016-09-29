@@ -176,17 +176,23 @@ Now deploy the module locally to the running Okapi node:
 
 #### Run the patrons module.
 
-(Note: see the **temporary oddities** appendix below on tenants for
-the patrons UI module.)
+[Note: see the **temporary oddities** appendix below on tenants for
+the patrons UI module.]
 
-* Click the **Patrons** menu item at the top of the page. You
-  will see the list of tenants for which to run the module, currently
-  consisting of only one entry for Our Library.
-* Click the **Invoke sample-module as this tenant** link next to Our
-  Library.
+* Click the **Patrons** menu item at the top of the page. You will see
+  a list of existing patrons (currently empty) and an **[add patron]**
+  link.
+* Click the **add patron** link.
+* The **Add Patron** form appears.
+* This form has 36 entries! Fill them all in. (I use the letters
+  `a`..`z` and the digits `0`..`9`.
+* Click the **Save Patron** button at the bottom.
 
-The caption by the testing link changed from **Not tested yet** to
-**It works**.
+The result _should_ be that we return to the patron list, and this
+time see the newly-added patron on the list.
+
+XXX At present this does not seem to work: the POST operation that
+should create the new patron is rejected with a 404 Not Found.
 
 #### Check the health of the running module
 
