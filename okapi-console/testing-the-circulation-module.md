@@ -13,7 +13,7 @@
     * [Run the Okapi Console locally](#run-the-okapi-console-locally)
         * [Add the circulation module](#add-the-circulation-module)
         * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
-        * [Run the Patrons module.](#run-the-patrons-module)
+        * [Run the patrons module.](#run-the-patrons-module)
         * [Check the health of the running module](#check-the-health-of-the-running-module)
 * [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
 * [Appendix: temporary oddities](#appendix-temporary-oddities)
@@ -174,10 +174,10 @@ Now deploy the module locally to the running Okapi node:
 * Click the **Enable** link next to Circulation Module. The link changes to
   **[X]**.
 
-#### Run the Patrons module.
+#### Run the patrons module.
 
 (Note: see the **temporary oddities** appendix below on tenants for
-the Patrons UI module.)
+the patrons UI module.)
 
 * Click the **Patrons** menu item at the top of the page. You
   will see the list of tenants for which to run the module, currently
@@ -221,7 +221,7 @@ cluster. In the **Okapi Modules** tab:
 
 ## Appendix: temporary oddities
 
-As things stand, the Patrons UI module is hardwired to use the
+As things stand, the patrons UI module is hardwired to use the
 tenant-id `tenant-id`. Therefore, we need to hand-install a tenant
 with that ID in order for the module to work. We can do this using the
 command-line HTTP client curl:
