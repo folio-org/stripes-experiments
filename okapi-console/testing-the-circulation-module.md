@@ -13,19 +13,24 @@
     * [Run the Okapi Console locally](#run-the-okapi-console-locally)
         * [Add the circulation module](#add-the-circulation-module)
         * [Create the tenant and deploy the module to it:](#create-the-tenant-and-deploy-the-module-to-it)
-        * [Run the sample module](#run-the-sample-module)
         * [Check the health of the running module](#check-the-health-of-the-running-module)
+        * [Run the patrons module](#run-the-patrons-module)
 * [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
 * [Appendix: temporary oddities](#appendix-temporary-oddities)
+
 
 ## Introduction
 
 Two sets of software are involved here: on the server side, Okapi with
 its modules, including the circulation module; and on the the client
-side, the Stripes-based Okapi Console. To exercise the circulation
-module from the Okapi Console, it's necessary to install, build and
-run both pieces of software. Then it is possible to run the UI in a
-browser.
+side, the Stripes-based Okapi Console, including the patron
+module. (Patron maintenance is one of the responsibilities of the
+server-side circulation module; a single UI module is dedicated to
+this function.)
+
+To exercise the circulation module from the Okapi Console, it's
+necessary to install, build and run both pieces of software. Then it
+is possible to run the UI in a browser.
 
 (Alternatively you can an existing UI and Okapi in a CI
 installation on an AWS cluster by pointing a browser to
@@ -149,7 +154,7 @@ Now deploy the module locally to the running Okapi node:
 * Pull down the **Node** dropdown (below the **Service ID** and **Inst ID** read-only textboxes), and select the only value that is
   presented, `http://localhost:9130/`.
 * Fill in the **Exec** entry with the following command-line, which
-  Okapi will use to start the sample module:
+  Okapi will use to start the circulation module:
   `java -jar ../mod-circulation/target/circulation-fat.jar -Dhttp.port=%p embed_mongo=true`
 * You can ignore the **Start command** and **Stop command** entries in this scenario.
 * Press the **Submit** button at bottom right. (Another empty
@@ -165,27 +170,34 @@ Now deploy the module locally to the running Okapi node:
   of tenants, which will now have one entry, Our Library.
 * Click the **[Edit]** link next to Our Library. A list of modules
   that are available to the tenant is shown at the bottom, currently
-  consisting of only one entry for the Sample Module.
-* Click the **Enable** link next to Sample Module. The link changes to
+  consisting of only one entry for the Circulation Module.
+* Click the **Enable** link next to Circulation Module. The link changes to
   **[X]**.
-
-#### Run the sample module
-
-XXX Note: this facility seems to have gone away in the present console.
-
-* Click the **Sample Module** menu item at the top of the page. You
-  will see the list of tenants for which to run the module, currently
-  consisting of only one entry for Our Library.
-* Click the **Invoke sample-module as this tenant** link next to Our
-  Library.
-
-The caption by the testing link changed from **Not tested yet** to
-**It works**.
 
 #### Check the health of the running module
 
 * Click the **Okapi Health** menu item at the top of the page. You will see
-  a list of running modules, currently only the Sample Module.
+  a list of running modules, currently only the Circulation Module.
+
+#### Run the patrons module
+
+[Note: see the **temporary oddities** appendix below on tenants for
+the patrons UI module.]
+
+* Click the **Patrons** menu item at the top of the page. You will see
+  a list of existing patrons (currently empty) and an **[add patron]**
+  link.
+* Click the **add patron** link.
+* The **Add Patron** form appears.
+* This form has 36 entries! Fill them all in. (I use the letters
+  `a`..`z` and the digits `0`..`9`.
+* Click the **Save Patron** button at the bottom.
+
+The result _should_ be that we return to the patron list, and this
+time see the newly-added patron on the list.
+
+XXX At present this does not seem to work: the POST operation that
+should create the new patron is rejected with a 404 Not Found.
 
 
 ## Appendix: deploying modules on clustered Okapi
@@ -215,11 +227,10 @@ cluster. In the **Okapi Modules** tab:
 
 ## Appendix: temporary oddities
 
-XXX Commit d63a920a3337214e4c8d81afb1e5d2ec8886b453 is currently the least broken one.
-
-XXX Must provide "Provides" in order for module to be editable.
-
-XXX Must provides well-known tenant for Patrons:
+As things stand, the patrons UI module is hardwired to use the
+tenant-id `tenant-id`. Therefore, we need to hand-install a tenant
+with that ID in order for the module to work. We can do this using the
+command-line HTTP client curl:
 
     curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
       "id" : "tenant-id",
