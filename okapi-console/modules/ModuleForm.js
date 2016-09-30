@@ -230,7 +230,8 @@ const renderMethods = ({ fields }) => (
 
 export default reduxForm(
   {
-    form: 'moduleForm'
+    form: 'moduleForm',
+    enableReinitialize: true
   }
 )(ModuleForm);
 
