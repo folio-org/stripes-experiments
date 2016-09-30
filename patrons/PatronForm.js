@@ -7,7 +7,7 @@ export const actionTypes = {'create' : { title: 'Add Patron', submitLabel: 'Save
                             'update' : { title: 'Edit Patron', submitLabel: 'Save Changes'}};
 
 // Patrons form for adding or editing patron data
-// Uses redux-form (and older version) but that's expected to change.
+// Uses redux-form 
 //
 // Not a 'connected' component, thus no manifest; this components gets
 // all it needs from 'connected' parent components. 

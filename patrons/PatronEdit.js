@@ -8,10 +8,10 @@ class PatronEdit extends Component {
 
   // The manifest is provided in components by the module developer and consumed by 'stripes connect'
   static manifest = { 'patrons': { type: 'okapi',
-                                        pk: '_id',  // The primary key of records from this end-point
-                                                    //  (when it's not the default, "id")
-                                        path: 'apis/patrons/:patronid' // request parameter, provided by router
-                                      }};
+                                   pk: '_id',  // The primary key of records from this end-point
+                                               //  (when it's not the default, "id")
+                                   path: 'apis/patrons/:patronid' // request parameter, provided by router
+                                 }};
 
   static contextTypes = {
     router: PropTypes.object.isRequired
