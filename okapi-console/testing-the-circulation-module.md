@@ -136,9 +136,15 @@ First, fill in the **module proxy** section:
 * Click the **+Add route** button next to the **Routing** heading.
 * Click the new **+Add HTTP method** button that has appeared to the right
   of the new **Methods** caption.
-* Type `GET` into the **HTTP method** box.
-* Click the **+** button to the right of this box. (Another
-  empty **HTTP method** box appears below the one you filled in. Ignore it.)
+* Type `GET` into the **Methods** box.
+* Click the **+** button to the right of this box.
+  Another empty **Methods** box appears below the one you filled in.
+* Type `POST` into the new **HTTP method** box.
+  Another empty **Methods** box appears below the one you filled in.
+* Type `PUT` into the new **HTTP method** box.
+  Another empty **Methods** box appears below the one you filled in.
+* Type `DELETE` into the new **HTTP method** box.
+  (Another empty **Methods** box appears below the one you filled in. Ignore it)
 * Fill in the three elements of the routing entry as follows:
     * Request path: `/apis`
     * Priority level: `30`
