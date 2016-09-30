@@ -16,7 +16,6 @@
         * [Check the health of the running module](#check-the-health-of-the-running-module)
         * [Run the patrons module](#run-the-patrons-module)
 * [Appendix: deploying modules on clustered Okapi](#appendix-deploying-modules-on-clustered-okapi)
-* [Appendix: temporary oddities](#appendix-temporary-oddities)
 
 
 ## Introduction
@@ -137,11 +136,17 @@ First, fill in the **module proxy** section:
 * Click the **+Add route** button next to the **Routing** heading.
 * Click the new **+Add HTTP method** button that has appeared to the right
   of the new **Methods** caption.
-* Type `GET` into the **HTTP method** box.
-* Click the **+** button to the right of this box. (Another
-  empty **HTTP method** box appears below the one you filled in. Ignore it.)
+* Type `GET` into the **Methods** box.
+* Click the **+** button to the right of this box.
+  Another empty **Methods** box appears below the one you filled in.
+* Type `POST` into the new **HTTP method** box.
+  Another empty **Methods** box appears below the one you filled in.
+* Type `PUT` into the new **HTTP method** box.
+  Another empty **Methods** box appears below the one you filled in.
+* Type `DELETE` into the new **HTTP method** box.
+  (Another empty **Methods** box appears below the one you filled in. Ignore it)
 * Fill in the three elements of the routing entry as follows:
-    * Request path: `/apis/patrons`
+    * Request path: `/apis`
     * Priority level: `30`
     * Type: `request-response`
 * Click the **+** button to the right of the routing entry. (Another
@@ -162,13 +167,31 @@ Now deploy the module locally to the running Okapi node:
 
 #### Create the tenant and deploy the module to it:
 
+**NOTE.** At present, the patrons UI module is hardwired to use the
+tenant-id `tenant-id`. Therefore, we need to hand-install a tenant
+with that ID in order for the module to work, rather than creating one
+using the Console. We can do this using the command-line HTTP client
+curl:
+
+    curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
+      "id" : "tenant-id",
+      "name" : "T1",
+      "description" : "Tenant 1"
+    }'
+
+In a better world, we would create the tenant as follows:
+
 * Click the **Okapi Tenants** menu item at the top of the page. You will see
   the list of tenants, which is presently empty.
 * Click **Add tenant**.
 * Fill in the **Name** textbox with `Our Library` (or any name).
 * Click the **Add Tenant** button. You will be redirected to the list
   of tenants, which will now have one entry, Our Library.
-* Click the **[Edit]** link next to Our Library. A list of modules
+
+Either way, we now have a tenant list showing a single tenant. To
+enable the module for that tenant follow these steps:
+
+* Click the **[Edit]** link next to the sole tenant. A list of modules
   that are available to the tenant is shown at the bottom, currently
   consisting of only one entry for the Circulation Module.
 * Click the **Enable** link next to Circulation Module. The link changes to
@@ -180,9 +203,6 @@ Now deploy the module locally to the running Okapi node:
   a list of running modules, currently only the Circulation Module.
 
 #### Run the patrons module
-
-[Note: see the **temporary oddities** appendix below on tenants for
-the patrons UI module.]
 
 * Click the **Patrons** menu item at the top of the page. You will see
   a list of existing patrons (currently empty) and an **[add patron]**
@@ -224,17 +244,4 @@ cluster. In the **Okapi Modules** tab:
   first node.
 * Press the **Submit** for this second entry and a third empty entry appears.
 * Fill in the third entry like the first two and press the **Submit** button.
-
-## Appendix: temporary oddities
-
-As things stand, the patrons UI module is hardwired to use the
-tenant-id `tenant-id`. Therefore, we need to hand-install a tenant
-with that ID in order for the module to work. We can do this using the
-command-line HTTP client curl:
-
-    curl -D - -X POST  -H "Content-Type: application/json" http://localhost:9130/_/proxy/tenants -d '{
-      "id" : "tenant-id",
-      "name" : "T1",
-      "description" : "Tenant 1"
-    }'
 
