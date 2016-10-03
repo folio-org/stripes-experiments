@@ -14,7 +14,7 @@ const defaults = {
   pk: 'id',
   clientGeneratePk: true,
   fetch: true,
-  clear: true,
+  clearOnFetch: true,
   headers: { 'X-Okapi-Tenant': 'tenant-id',
              'Authorization': 'x'
            },

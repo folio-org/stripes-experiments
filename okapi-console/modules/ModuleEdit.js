@@ -11,7 +11,7 @@ class ModuleEdit extends Component {
 
   static manifest = { 'modules': { type: 'okapi',
                                    path: '_/proxy/modules/:moduleid',
-                                   clear: false
+                                   clearOnFetch: false
                                  }
                     };
 
