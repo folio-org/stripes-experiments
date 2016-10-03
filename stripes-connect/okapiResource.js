@@ -15,8 +15,8 @@ const defaults = {
   clientGeneratePk: true,
   fetch: true,
   clear: true,
-  headers: { 'X-Okapi-Tenant': 'tenant-idy',
-             'Authorization': 'xy'
+  headers: { 'X-Okapi-Tenant': 'tenant-id',
+             'Authorization': 'x'
            },
   POST:   {
             headers: { 'Accept': 'application/json',
