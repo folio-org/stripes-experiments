@@ -86,6 +86,7 @@ class DeploymentForm extends Component {
 
 export default reduxForm(
   {
-    form: 'deploymentForm'
+    form: 'deploymentForm',
+    enableReinitialize: true
   },
 )(DeploymentForm);
