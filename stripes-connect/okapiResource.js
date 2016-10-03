@@ -1,6 +1,13 @@
 import restResource from './restResource';
 // TODO: pass in config externally, perhaps returning curried functions
-import { system } from 'stripes-loader!';
+// ...the OKAPI_URL via webpack.DefinePlugin is an interim measure to enable
+// standalone components.
+let system;
+if (OKAPI_URL) {
+  system = {okapi: { 'url':'http://localhost:9130' }}
+} else {
+  system = require('stripes-loader!').system;
+}
 
 const defaults = {
   root: system.okapi.url,

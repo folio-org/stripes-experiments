@@ -16,6 +16,9 @@ module.exports = Object.assign({}, base, cli, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin( {
+      'OKAPI_URL': false
+    } ),
     new ExtractTextPlugin("global.css", {
       allChunks: true
     }),

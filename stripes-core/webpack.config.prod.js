@@ -8,6 +8,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
+      'OKAPI_URL': false,
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
