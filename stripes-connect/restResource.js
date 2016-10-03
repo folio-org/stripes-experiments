@@ -64,9 +64,9 @@ export default class restResource {
   }
 
   createAction(record) {
-    const { root, path, pk, clientGeneratePk, headers } = this.options;
+    const { root, path, pk, clientGeneratePk, headers, POST } = this.options;
     const crudActions = this.crudActions;
-    const url = [ root, path ].join('/');
+    const url = [ root, POST.path || path ].join('/');
     return function(dispatch) {
       // Optimistic record creation ('clientRecord')
       const cuuid = uuid();
@@ -79,7 +79,7 @@ export default class restResource {
       // Send remote record ('record')
       return fetch(url, {
         method: 'POST',
-        headers: Object.assign({}, headers.ALL, headers.POST),
+        headers: Object.assign({}, headers, POST.headers),
         body: JSON.stringify(record)
       })
         .then(response => {
@@ -96,16 +96,16 @@ export default class restResource {
   }
 
   updateAction(record) {
-    const { root, path, pk, clientGeneratePk, headers } = this.options;
+    const { root, path, pk, clientGeneratePk, headers, PUT } = this.options;
     const crudActions = this.crudActions;
-    const url = [ root, path ].join('/');
+    const url = [ root, PUT.path || path ].join('/');
     let clientRecord = record;
     if (clientRecord[pk] && !clientRecord.id) clientRecord.id = clientRecord[pk];
     return function(dispatch) {
       dispatch(crudActions.updateStart(clientRecord));
       return fetch(url, {
         method: 'PUT',
-        headers: Object.assign({}, headers.ALL, headers.PUT),
+        headers: Object.assign({}, headers, PUT.headers),
         body: JSON.stringify(record)
       })
         .then(response => {
@@ -125,18 +125,19 @@ export default class restResource {
   }
 
   deleteAction(record) {
-    const { root, path, pk, clientGeneratePk, headers } = this.options;
+    const { root, path, pk, clientGeneratePk, headers, DELETE } = this.options;
     const crudActions = this.crudActions;
-    const url = (path.endsWith(record[pk]) ?
-                   [ root, path ].join('/')
+    const resolvedPath = DELETE.path || path;
+    const url = (resolvedPath.endsWith(record[pk]) ?
+                   [ root, resolvedPath ].join('/')
                    :
-                   [ root, path, record[pk] ].join('/'));
+                   [ root, resolvedPath, record[pk] ].join('/'));
     return function(dispatch) {
       if (record[pk] && !record.id) record.id = record[pk];
       dispatch(crudActions.deleteStart(record));
       return fetch(url, {
         method: 'DELETE',
-        headers: Object.assign({}, headers.ALL, headers.DELETE)
+        headers: Object.assign({}, headers, DELETE.headers)
       })
         .then(response => {
           if (response.status >= 400) {
@@ -150,14 +151,14 @@ export default class restResource {
 
 
   fetchAction() {
-    const { root, path, pk, headers, records, clear } = this.options;
+    const { root, path, pk, headers, GET, records, clear } = this.options;
     const crudActions = this.crudActions;
     const key = this.stateKey();
     // ie. only join truthy elements
     const url = [ root, path ].filter(_.identity).join('/');
     return function(dispatch) {
       dispatch(crudActions.fetchStart());
-      return fetch(url, { headers: Object.assign({}, headers.ALL, headers.GET) })
+      return fetch(url, { headers: Object.assign({}, headers, GET.headers) })
         .then(response => {
           if (response.status >= 400) {
             dispatch(crudActions.fetchError(response));

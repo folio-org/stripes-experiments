@@ -15,16 +15,24 @@ const defaults = {
   clientGeneratePk: true,
   fetch: true,
   clear: true,
-  headers : { POST:   { 'Accept': 'application/json',
-                        'Content-Type': 'application/json' },
-              DELETE: { 'Accept': "text/plain" },
-              GET:    { 'Accept': 'application/json',
-                        'Content-Type': 'application/json' },
-              PUT:    { 'Accept': 'text/plain',
-                        'Content-Type': 'application/json' },
-              ALL:    { 'X-Okapi-Tenant': 'tenant-id',
-                        'Authorization': 'x'}
-            }
+  headers: { 'X-Okapi-Tenant': 'tenant-idy',
+             'Authorization': 'xy'
+           },
+  POST:   {
+            headers: { 'Accept': 'application/json',
+                       'Content-Type': 'application/json' }
+          },
+  DELETE: {
+            headers: { 'Accept': "text/plain" }
+          },
+  GET:    { 
+            headers: { 'Accept': 'application/json',
+                       'Content-Type': 'application/json' }
+          },
+  PUT:    {  
+            headers: { 'Accept': 'text/plain',
+                       'Content-Type': 'application/json' }
+          }
 }
 
 export default class okapiResource extends restResource {
