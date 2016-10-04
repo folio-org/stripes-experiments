@@ -130,6 +130,10 @@ addition to `'type':'rest'`:
   records, or must accept one that is supplied by the service in
   response to a create request. Defaults to `true`.
 
+* `fetch` XXX
+
+* `clear` XXX
+
 In addition to these principal pieces of configuration, which apply to
 all operations on the resource, these values can be overridden for
 specific HTTP operations: the entries `GET`, `POST`, `PUT`, `DELETE`
