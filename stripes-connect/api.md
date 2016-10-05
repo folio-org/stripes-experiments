@@ -134,6 +134,13 @@ addition to `'type':'rest'`:
 usually not need to pre-fetch from that resource. To avoid that, it
 can set this to true. [default: false]
 
+* `clear`: a component that fetches a new record for editing and
+inserts that into a list of similar records in the state would usually
+not need to clear the list first. To avoid that, it can set this to
+true. [default: false] Specifically, if a screen displays a list of
+items as well as a single item for editing, it would be important not
+to clear the list of brief items when fetching the single full item.
+
 In addition to these principal pieces of configuration, which apply to
 all operations on the resource, these values can be overridden for
 specific HTTP operations: the entries `GET`, `POST`, `PUT`, `DELETE`
