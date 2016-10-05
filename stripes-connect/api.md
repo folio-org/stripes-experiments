@@ -249,15 +249,6 @@ the wrapped component:
   
 ### Appendix B: unresolved issues
 
-#### How to not fetch
-
-Sometimes we only want a mutator, for example when creating an Add
-Record form. One possibility would be to not have any path at all at
-the top level in this case, only POST.path to indicate the desired
-subset of functionality. This is appealingly minimalist, but it might
-be a bit opaque. Perhaps a boolean configuration item of `mutatorOnly`
-or `noFetch` is more explicit?
-
 #### One vs. Many
 
 Right now there is no clear standard as to what data is returned by
