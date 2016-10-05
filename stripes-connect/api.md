@@ -134,8 +134,8 @@ addition to `'type':'rest'`:
   usually not need to pre-fetch from that resource. To avoid that, it
   can set this to true. [default: false]
 
-* `clear`: a component that fetches a new record for editing and
-  inserts that into a list of similar records in the state would
+* `clearOnFetch`: a component that fetches a new record for editing
+  and inserts that into a list of similar records in the state would
   usually not need to clear the list first. To avoid that, it can set
   this to true. [default: false] Specifically, if a screen displays a
   list of items as well as a single item for editing, it would be
