@@ -298,3 +298,63 @@ developer experience?
 touched on in this section will be written up properly and merged into
 the main document.]
 
+#### How state is stored
+
+* All state is stored in a single branching structure, the _Redux
+  store_. (Module creators should not need to know about details of
+  Redux, and especially not about reducers, but this idea of a single
+  state store is important nevertheless.)
+
+* Data in this state structure consists of _resources_, each named by
+  a string.
+
+* Rather than each module having its own namespace within the
+  structure, all modules' data is kept together in a single big
+  table.
+
+* To avoid different modules' same-named data from clashing, the code
+  arranges that the keys in this table are composed of the module name
+  and the resource name separated by an underscore:
+  _moduleName_`_`_resourceName_
+
+  * In fact, the code that does this is the `stateKey()` methods of
+    the various resource-types. That means (A) we need to be very
+    careful that new resource-types also remember to do this; and (B)
+    we probably made a mistake, and this should instead by done at a
+    higher level in `stripes-connect/connect.js`.
+
+* A component's resource names are defined by entries in its _data
+  manifest_.
+
+  * XXX But how, exactly? Not from the key, otherwise
+    `manifest = { 'patrons': { path: '/patrons/:patronid' } }`
+    would yield the constant key `patrons` for all patron records,
+    rather than a different key for each record.
+
+* In general, a Stripes module contains multiple connected
+  components. The data manifest is specific per-component. Components
+  may communicate with each other, or share cached data, by usingv the
+  same data keys. It is the module author's responsibility to avoid
+  inadvertent duplication of keys between unrelated components.
+
+* Some components may exist in multiple simultaneous instances: for
+  example, a list-of-records component may be designed such that a
+  user may pop up a more than one full-record component to see the
+  details of several records at once. In this case, the state keys are
+  different because the records' IDs are included (due to the manifest
+  path being of the form `/patrons/:patronid`, containing a
+  placeholder.)
+
+* For local resources, which are not persisted via a REST service such
+  as Okapi, some means must be established whereby each individual
+  datum is individually addressable. Only then can multiple instances
+  of the same component that uses local storage co-exist.
+
+  * For this reason, it may be worthwhile to prioritise the
+    development of a page that has two instances of the Trivial
+    module, and see that they can each maintain their own data.
+
+  * Also to be done: a simple implementation of search preferences, as
+    a model for how two components (SearchForm and SearchPreferneces)
+    can deliberately share data.
+
