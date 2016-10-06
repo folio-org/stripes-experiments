@@ -292,3 +292,9 @@ does our above system mesh with it well enough to provide a pleasant
 developer experience?
 
 
+### Appendix C: things still to be documented
+
+[This section is mostly for Mike's benefit. In time, the material
+touched on in this section will be written up properly and merged into
+the main document.]
+
