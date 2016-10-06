@@ -19,6 +19,7 @@ The Stripes Connect API
         * [Errors](#errors)
         * [Object counts](#object-counts)
     * [Appendix C: things still to be documented](#appendix-c-things-still-to-be-documented)
+        * [How state is stored](#how-state-is-stored)
 
 
 
