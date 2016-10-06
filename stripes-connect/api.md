@@ -21,6 +21,7 @@ The Stripes Connect API
         * [Object counts](#object-counts)
 
 
+
 ## Introduction
 
 Stripes Connect is one of the most important part of the Stripes
@@ -40,11 +41,13 @@ things: declare a _manifest_, which describes what data elements it
 wants to manage and how to link them to services; and call the
 `connect()` method on itself.
 
+
 ### Note
 
 This document describes the API as we wish it to be. The present
 version of the code implements something similar to this, but not
 identical. In what follows, additional notes mark such divergences.
+
 
 
 ## The Connection Manifest
@@ -59,6 +62,7 @@ deal with them:
           'address': { /* ... */ },
           'jobTitle': { /* ... */ }
         };
+
 
 ### Resource types
 
@@ -77,6 +81,7 @@ types are supported:
 which defaults are provided to tailor the RESTful dialgoues in
 accordance with Okapi's conventions.)
 
+
 ### Local resources
 
 A local resource needs no configuration items -- not even an explicit
@@ -86,6 +91,7 @@ simply be specified as an empty object:
         static manifest = {
           'someLocalResource': {}
         }
+
 
 ### REST resources
 
@@ -141,6 +147,7 @@ and `PATCH`, if supplied, are objects containing configuration (using
 the same keys as described above) that apply only when the specified
 operation is used.
 
+
 ### Okapi resources
 
 Okapi resources are REST resources, but with defaults set to make
@@ -173,6 +180,7 @@ the manifest must specify this.
             path: '_/proxy/modules'
           }
         };
+
 
 
 ## Connecting the component
@@ -212,10 +220,12 @@ remove this requirement in future.)
 <hr/>
 
 
+
 ## Appendices: for developers
 
 These sections are only for developers working on Stripes
 itself. Those working on _using_ Stripes to build a UI can ignore them.
+
 
 ### Appendix A: some implementation details
 
@@ -238,6 +248,7 @@ the wrapped component:
   in the obvious way by the POST, PUT and PATCH operations. For
   DELETE, the record need only contain the `id` field, so that it
   suffices to call `mutator.tenants.DELETE({ id: 43 })`.
+
   
 ### Appendix B: unresolved issues
 
@@ -279,4 +290,5 @@ describing the error. We need to surface the HTTP error somehow.
 Can we get a count of holds on an item? How does that API work and
 does our above system mesh with it well enough to provide a pleasant
 developer experience?
+
 
