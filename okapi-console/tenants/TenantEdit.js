@@ -18,15 +18,14 @@ class TenantEdit extends Component {
   }
 
   update(data) {
-    this.props.mutator['tenants'].PUT(data).then (() =>
+    this.props.mutator.tenants.PUT(data).then (() =>
       this.context.router.push('/okapi-console/tenants/list')
       );
   }
 
   render() {
-      const { params, data: {tenants} } = this.props;
+      const { data: {tenants}, params: {tenantid} } = this.props;
 
-      let tenantid = params.tenantid;
       let tenant = tenants.find((tenant) =>  { return tenant.id === tenantid });
 
       return <TenantForm onSubmit={this.update.bind(this)}

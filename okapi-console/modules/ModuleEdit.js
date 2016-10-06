@@ -16,7 +16,7 @@ class ModuleEdit extends Component {
 
   update(data) {
     removeEmpty(data);
-    this.props.mutator['modules'].PUT(data).then(()=>
+    this.props.mutator.modules.PUT(data).then(()=>
       this.context.router.push('/okapi-console/modules/list')
     )
   }
@@ -26,9 +26,11 @@ class ModuleEdit extends Component {
   }
 
   render() {
-    const { data: {modules}, mutator } = this.props;
+    const { data: {modules}, mutator, params: {moduleid} } = this.props;
 
-    let moduleid = this.props.params.moduleid;
+    if (!modules) {
+      return <div/>;
+    }
     let module = modules.find((module) =>  { return module.id === moduleid });
     if (!module) {
       return <div/>;
