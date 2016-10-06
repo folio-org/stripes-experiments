@@ -14,11 +14,11 @@ The Stripes Connect API
 * [Appendices: for developers](#appendices-for-developers)
     * [Appendix A: some implementation details](#appendix-a-some-implementation-details)
     * [Appendix B: unresolved issues](#appendix-b-unresolved-issues)
-        * [How to not fetch](#how-to-not-fetch)
         * [One vs. Many](#one-vs-many)
         * [Metadata](#metadata)
         * [Errors](#errors)
         * [Object counts](#object-counts)
+    * [Appendix C: things still to be documented](#appendix-c-things-still-to-be-documented)
 
 
 
