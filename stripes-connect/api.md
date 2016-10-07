@@ -324,13 +324,11 @@ the main document.]
     we probably made a mistake, and this should instead by done at a
     higher level in `stripes-connect/connect.js`.
 
-* A component's resource names are defined by entries in its _data
-  manifest_.
-
-  * XXX But how, exactly? Not from the key, otherwise
-    `manifest = { 'patrons': { path: '/patrons/:patronid' } }`
-    would yield the constant key `patrons` for all patron records,
-    rather than a different key for each record.
+* A component's resource names are defined by the keys in its _data
+  manifest_. The value associated with each key is tied to the
+  resource specified by its parameters. In general, that value is a
+  list of records: some components will deal only with a single record
+  from that list.
 
 * In general, a Stripes module contains multiple connected
   components. The data manifest is specific per-component. Components
