@@ -1,11 +1,25 @@
 # A component hiearchy example: the "Patrons" module
 
-This document discusses how the components of a "Patrons" fullpage
-module would work on the assumption that modules (rather than
-components) have types. This is motivated by a discussion earlier on
-Slack. A description of what would go into a realistic Patron module
-in the model of the system where each module has a type and nominates
-a single top level component.
+## Introduction
+
+Building a Stripes application consists of plugging Stripes modules
+together. Creating modules is the core development activity in
+Stripes: most UI developers will spend most of their time putting
+together modules that provide an interface to some functionality
+provided on the server-side.
+
+Stripes modules are composed of components. Stripes components are
+[React](https://facebook.github.io/react/) components, wrapped in some
+additional functionality. Most importantly, a _connected component_ is
+one that uses the services of the stripes-connect library to connect
+it to data -- most usually, data maintained via an Okapi-mediated
+FOLIO module, but potentially also other RESTful web-services or even
+purely local (non-persistent) data.
+
+This document illustrates how components can work together as a
+module: in particular, it discusses how the components of a
+hypothetical "Patrons" fullpage module that support search and display
+of patron records and associated data such as holds and loans.
 
 <!-- ../../../okapi/doc/md2toc -l 2 component-hierarchy.md -->
 * [Metadata describing the module](#metadata-describing-the-module)
