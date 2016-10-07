@@ -9,6 +9,7 @@ let tests = [
 
 // The regexp used in webpack.config.base.js to choose which source files get transpiled
 let re = /\/stripes-/;
+let failed = 0;
 
 for (let i = 0; i < tests.length; i++) {
   var test = tests[i];
@@ -18,4 +19,11 @@ for (let i = 0; i < tests.length; i++) {
   print(i + ": '" + string + "': " +
         "expected " + expected + ", got " + result + ": " +
         (result == expected ? "OK" : "FAIL"));
+  if (result != expected) failed++;
+}
+
+let passed = tests.length - failed;
+print("Passed " + passed + " of " + tests.length + " tests");
+if (failed > 0) {
+  print("FAILED " + failed + " of " + tests.length + " tests");
 }
