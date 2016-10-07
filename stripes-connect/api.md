@@ -20,6 +20,7 @@ The Stripes Connect API
         * [Object counts](#object-counts)
     * [Appendix C: things still to be documented](#appendix-c-things-still-to-be-documented)
         * [How state is stored](#how-state-is-stored)
+        * [Work through the example of PatronEdit.js](#work-through-the-example-of-patroneditjs)
 
 
 
@@ -365,4 +366,8 @@ the main document.]
   * Also to be done: a simple implementation of search preferences, as
     a model for how two components (SearchForm and SearchPreferneces)
     can deliberately share data.
+
+#### Work through the example of PatronEdit.js
+
+XXX To be written
 
