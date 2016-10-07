@@ -24,7 +24,7 @@ a single top level component.
         * [Blocks](#blocks)
     * [SearchResults](#searchresults)
         * [SearchResult](#searchresult)
-* [EXTRA! This complexity not discussed](#extra-this-complexity-not-discussed)
+* [Appendix: issues to be discussed](#appendix-issues-to-be-discussed)
 
 
 
