@@ -2,6 +2,17 @@
 
 This is a single-page web application that provides a platform for React components from configured modules according to their "type". (At the moment, the only "type" is "fullpage" and from metadata we glean which routes to display which components on and which of those need menu entries). 
 
+
+## Documentation roadmap
+
+* Quick start guide: read on below
+* [Overview of the Stripes architecture](doc/overview.md)
+* [Running Stripes from git checkouts](doc/for-people-who-are-developing-stripes-itself-not-just-modules.md)
+* [Testing the Okapi Console and circulation module](../okapi-console/testing-the-circulation-module.md)
+* [The stripes-connect API](./stripes-connect/api.md)
+* [A component hiearchy example: the "Patrons" module](doc/component-hierarchy.md)
+
+
 ## Quick start
 
 To run Stripes, you'll need to have [NodeJS](https://nodejs.org/) 6.x installed.
@@ -47,7 +58,3 @@ After following build instructions in the [Okapi repository](https://github.com/
 
 `npm install @folio-sample-modules/trivial-okapi`
 
-## For Stripes developers
-
-See
-[the separate instructions](doc/for-people-who-are-developing-stripes-itself-not-just-modules.md)
