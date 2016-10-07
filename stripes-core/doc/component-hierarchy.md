@@ -45,18 +45,23 @@ of patron records and associated data such as holds and loans.
 
 ## Metadata describing the module
 
+Each Stripes module is described by metadata -- some of it affecting
+how it functions, some merely descriptive. For a Patrons module, the
+metadata might look like this:
+
 ```
 {
-  'name': 'Patrons',		// Human-readable caption used for menus, etc.
-  'type': 'fullpage',		// As opposed to "menubar", “popup”, etc.
-  'route': '/patrons',		// The module runs when a URL ending with this path is used
-  'component': 'Patrons'	// Name of the top-level component loaded for the specified route
+  'name': 'Patrons',      // Human-readable caption used for menus, etc.
+  'type': 'fullpage',     // As opposed to "menubar", “popup”, etc.
+  'route': '/patrons',    // The module runs when a URL ending with this path is used
+  'component': 'Patrons'  // Name of the top-level component loaded for the specified route
 }
 ```
 
-This is aggregated by stripes-loader much in the way of our present
-system, and handled asynchronously so that its code is split and only
-sent to the browser upon visiting that route.
+The metadata of the various modules making up a Stripes application is
+aggregated by stripes-loader. (Code-loading is handled asynchronously
+so that a module's code is sent to the browser sent when visiting a
+route that uses it.)
 
 XXX Describe how local state is owned by the module, and different
 components access it in different CRUDdy capacities, as React’s own
