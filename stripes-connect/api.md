@@ -326,9 +326,18 @@ the main document.]
 
 * A component's resource names are defined by the keys in its _data
   manifest_. The value associated with each key is tied to the
-  resource specified by its parameters. In general, that value is a
-  list of records: some components will deal only with a single record
-  from that list.
+  resource specified by its parameters -- for example, the `root` and
+  `path` of a REST resource. In general, that value is a list of
+  records: some components will deal only with a single record from
+  that list.
+
+  * XXX For example, `PatronEdit.js` deals only with a single record;
+    but it works with the `patrons` resource, which is a list of
+    records, and picks out the one it wants using
+    `patrons.find((p) =>  { return p._id === patronid })`.
+    If I have understoodd this correctly, it looks like a grotesque
+    inefficiency that will quickly become unworkable as we start to
+    use large patron databases.
 
 * In general, a Stripes module contains multiple connected
   components. The data manifest is specific per-component. Components
