@@ -318,7 +318,7 @@ the main document.]
   and the resource name separated by an underscore:
   _moduleName_`_`_resourceName_
 
-  * In fact, the code that does this is the `stateKey()` methods of
+  * XXX In fact, the code that does this is the `stateKey()` methods of
     the various resource-types. That means (A) we need to be very
     careful that new resource-types also remember to do this; and (B)
     we probably made a mistake, and this should instead by done at a
