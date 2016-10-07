@@ -1,11 +1,14 @@
 let tests = [
-  // expect, string to match against
-  [ true, 'foobar' ],
-  [ false, 'foobaz' ],
-  [ true, 'wheelbarrow' ],
+  // what result to expect, string to match against
+  [ true, '/home/mike/git/work/stripes-experiments/stripes-connect' ],
+  [ true, '/home/mike/git/work/stripes-loader/' ],
+  [ true, '/home/mike/git/work/stripes-experiments/okapi-console/' ],
+  [ true, '/home/mike/git/work/stripes-experiments/stripes-core/src/' ],
+  [ false, '/home/mike/git/work/stripes-experiments/stripes-core/node_modules/camelcase' ],
 ];
 
-let re = /bar/;
+// The regexp used in webpack.config.base.js to choose which source files get transpiled
+let re = /\/stripes-/;
 
 for (let i = 0; i < tests.length; i++) {
   var test = tests[i];
