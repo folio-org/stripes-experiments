@@ -1,10 +1,35 @@
-The "Patrons" fullpage module
+# A component hiearchy example: the "Patrons" module
 
-This document discusses how a "Patrons" fullpage module would work on the assumption that modules (rather than components) have types. This is motivated by a discussion earlier on Slack. A description of what would go into a realistic Patron module in the model of the system where each module has a type and nominates a single top level component.
+This document discusses how the components of a "Patrons" fullpage
+module would work on the assumption that modules (rather than
+components) have types. This is motivated by a discussion earlier on
+Slack. A description of what would go into a realistic Patron module
+in the model of the system where each module has a type and nominates
+a single top level component.
 
-[[TOC]]
+<!-- ../../../okapi/doc/md2toc -l 2 component-hierarchy.md -->
+* [Metadata describing the module](#metadata-describing-the-module)
+* [Components](#components)
+    * [Patrons](#patrons)
+    * [PatronRouter](#patronrouter)
+    * [TopBar](#topbar)
+    * [SearchBox](#searchbox)
+        * [SearchSettings](#searchsettings)
+    * [Display](#display)
+        * [Holds](#holds)
+            * [HoldBrief](#holdbrief)
+                * [ItemBrief](#itembrief)
+        * [Loans](#loans)
+            * [LoanBrief](#loanbrief)
+        * [Blocks](#blocks)
+    * [SearchResults](#searchresults)
+        * [SearchResult](#searchresult)
+* [EXTRA! This complexity not discussed](#extra-this-complexity-not-discussed)
 
-# Metadata describing the module
+
+
+
+## Metadata describing the module
 
 **{**
 
@@ -20,15 +45,15 @@ This document discusses how a "Patrons" fullpage module would work on the assump
 
 This is aggregated by stripes-loader much in the way of our present system, and handled asynchronously so that its code is split and only sent to the browser upon visiting that route.
 
-### Describe how local state is owned by the module, and different components access it in different CRUDdy capacities, as React’s own component-local state disappears when the components go away. Note that all state presently lives in one namespace, and that we need to have Stripes disambiguate not only by component, but by component *instance*.
+XXX Describe how local state is owned by the module, and different components access it in different CRUDdy capacities, as React’s own component-local state disappears when the components go away. Note that all state presently lives in one namespace, and that we need to have Stripes disambiguate not only by component, but by component *instance*.
 
-# Components
+## Components
 
 All the components are local, i.e.. part of this module. Things like the brief item display are short and straightforward and it is cleaner to design a brief item component over again to fit the part of the UI you're using it for than to try to have some one-size-fits all brief item that we reuse in disparate locations. However something like the autocompleting search-box will likely subclass or have a child component from within our component library or even a standalone stripes-searchbox repo.
 
 Overdues and Fines are omitted from this overview, as they are implemented in essentially the same way as Holds and Loans.
 
-## Patrons
+### Patrons
 
 The root component, used when the **/patrons** route is in the URL.
 
@@ -38,7 +63,7 @@ The root component, used when the **/patrons** route is in the URL.
 
 * Child components: **TopBar**, **PatronRouter**
 
-## PatronRouter
+### PatronRouter
 
 A react-router component (somehow, syntax TBD but I'm 85% sure we can nest these) that manages the routing for URL fragments *underneath* **/patrons**. The module authors can have some flexibility in how they build this and in a simple module perhaps there are no additional routes, a mediumly complex module might just use the simple JSX syntax, and a more complex one might organise their code however is convenient to the team maintaining it including additional code splitting/async loading.
 
@@ -60,7 +85,7 @@ Questions:
 
 *  how do components grab a reference to the correct router to redirect eg. after edit?
 
-## TopBar
+### TopBar
 
 A bar that goes over the top of the content area for the whole Patron module, linking to various functionality and containing a search box to find particular patrons. Since this is a sibling of **PatronRouter**, it is rendered along with whichever of its subcomponents is selected by that router.
 
@@ -70,7 +95,7 @@ A bar that goes over the top of the content area for the whole Patron module, li
 
 * Child components: **SearchBox**, perhaps also some Links or whatever the component library gives us that we'd use to link within the module
 
-## SearchBox
+### SearchBox
 
 The search box on the **TopBar**, it has a gear beside that drops out a **SearchSettings** panel. Submitting the form redirects to a route that includes **search/:query**.
 
@@ -80,7 +105,7 @@ The search box on the **TopBar**, it has a gear beside that drops out a **Search
 
 * Child components: **SearchSettings**
 
-### SearchSettings
+#### SearchSettings
 
 Settings for patron search, might also include which fields for the search
 
@@ -90,7 +115,7 @@ Settings for patron search, might also include which fields for the search
 
 * Child components: various controls
 
-## Display
+### Display
 
 This displays a patron's profile
 
@@ -100,7 +125,7 @@ This displays a patron's profile
 
 * Child components: **Holds**, **Loans**, **Blocks**
 
-### Holds
+#### Holds
 
 Part of the patron display and styled to fit therein, this component contains a list of the items that the patron has on hold along with a control to add new holds.
 
@@ -114,7 +139,7 @@ Questions:
 
 * we'll need the title from the Item record but do we need anything from the Holdings here eg. maybe the barcode number of the specific instance?
 
-#### HoldBrief
+##### HoldBrief
 
 Used to render a hold passed in through props, passed a reference to the mutator too so it can have a button to delete them.
 
@@ -124,7 +149,7 @@ Used to render a hold passed in through props, passed a reference to the mutator
 
 * Child components: **ItemBrief**
 
-##### ItemBrief
+###### ItemBrief
 
 Renders item title for use in **HoldBrief** and also **LoanBrief** (see below); perhaps other info.
 
@@ -134,7 +159,7 @@ Renders item title for use in **HoldBrief** and also **LoanBrief** (see below); 
 
 * Child components: none
 
-### Loans
+#### Loans
 
 Read only access to this patron's loans (you'd check things back in / renew them somewhere else right? though maybe not, people phone in)
 
@@ -144,7 +169,7 @@ Read only access to this patron's loans (you'd check things back in / renew them
 
 * Child components: **LoanBrief**
 
-#### LoanBrief
+##### LoanBrief
 
 Used to render a loan passed in through props
 
@@ -154,7 +179,7 @@ Used to render a loan passed in through props
 
 * Child components: **ItemBrief**
 
-### Blocks
+#### Blocks
 
 Renders
 
@@ -164,7 +189,7 @@ Renders
 
 * Child components: none
 
-## SearchResults
+### SearchResults
 
 This result list will have selection of multiple or all matching patrons. It'll also pull more matches from the server than it displays on screen -- turns out downloading a few hundred matches is snappier than displaying them so we can out-fetch the pagination and have records ready in advance so scrolling the list / hitting next page can go faster than they might otherwise. That part will leverage something from our component library for the list display, perhaps wrapping: [https://bvaughn.github.io/react-virtualized/](https://bvaughn.github.io/react-virtualized/)
 
@@ -178,7 +203,7 @@ Questions:
 
 * how does the windowed list view fetch additional records? How can we consume that component from the library, perhaps a callback
 
-### SearchResult
+#### SearchResult
 
 Some fields from the patron passed in via props, some controls for edit/delete and also a select toggle for batch operations.
 
@@ -188,7 +213,7 @@ Some fields from the patron passed in via props, some controls for edit/delete a
 
 * Child components: perhaps some controls from the batch operation
 
-# EXTRA! This complexity not discussed
+## EXTRA! This complexity not discussed
 
 * different fields/controls displayed depending on permissions
 
