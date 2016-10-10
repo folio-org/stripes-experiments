@@ -36,6 +36,8 @@ in CamelCase and set in bold, **LikeThis**.
         * [SearchBox](#searchbox)
             * [SearchSettings](#searchsettings)
     * [PatronRouter](#patronrouter)
+    * [SearchResults](#searchresults)
+        * [SearchResult](#searchresult)
     * [Display](#display)
         * [Holds](#holds)
             * [HoldBrief](#holdbrief)
@@ -43,8 +45,6 @@ in CamelCase and set in bold, **LikeThis**.
         * [Loans](#loans)
             * [LoanBrief](#loanbrief)
         * [Blocks](#blocks)
-    * [SearchResults](#searchresults)
-        * [SearchResult](#searchresult)
 * [Appendix: issues to be discussed](#appendix-issues-to-be-discussed)
 
 
