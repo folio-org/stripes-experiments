@@ -114,9 +114,14 @@ Note that in the structural overview of the `patrons` module that
 follows, Overdues and Fines are omitted, as they are implemented in
 essentially the same way as Holds and Loans.
 
+We now consider the individual components in turn, starting with
+high-level components and working down.
+
+
 ### Patrons
 
-The root component, used when the `/patrons` route is in the URL.
+As specified in the module metadata (see above), this is the module's
+root component, used when the the URL's path begins with the `/patrons` route.
 
 * Okapi data: none
 * Local state: none
