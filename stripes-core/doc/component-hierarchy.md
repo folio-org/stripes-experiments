@@ -180,42 +180,51 @@ search, etc.
 
 ### PatronRouter
 
-A react-router component (somehow, syntax TBD but I'm 85% sure we can
-nest these) that manages the routing for URL fragments *underneath*
-`/patrons`. The module authors can have some flexibility in how they
-build this and in a simple module perhaps there are no additional
-routes, a mediumly complex module might just use the simple JSX
-syntax, and a more complex one might organise their code however is
-convenient to the team maintaining it including additional code
-splitting/async loading.
+A react-router component that manages the routing for URL fragments
+*below* `/patrons`. Module authors have some flexibility in how they
+build this. In a simple module perhaps there are no additional routes;
+a fairly complex module might just use the simple JSX syntax; and a
+more complex one might organise the code however is convenient to the
+team maintaining it -- perhaps including additional code
+splitting/asynchronous loading.
+
+> ISSUE: we still need to determine whether react-router 4.x allows us
+> to nest routes.
 
 Here are the routes the patron router will export, and the components
 they map to:
 
-* `:id` -- Display the record whose ID is provided (can we make it
-  distinguish ':id' from 'add' and 'edit'?)
+* `:id` -- Display the record whose ID is provided. Uses the
+  **Display** component.
 * `add` -- Add a new record.
 * `edit/:id` -- Edit the record whose ID is provided.
-* `search/:query` -- Run the specified query. Additional relevant
-  parameters, such as start-record and the number of records to
-  display, would be in the URL’s query parameters or fragment --
-  details to be resolved. Displays the **SearchResults** component
-  when the search result is returned from the server.
+* `search/:query` -- Run the specified query. Displays the
+  **SearchResults** component when the search result is returned from
+  the server.
 
-Questions:
+> ISSUE: can we make the router distinguish routes containing IDs
+> (matching) `:id` from those containing literal `add` and `edit`?
 
-* How do you nest routes/routers? The React Router v4.x API seems to provide solutions to this.
-* How does that work for route parameters? (the parts of the URL after
-  the ‘?’) For example, `/patrons/search/john+doe/45` is a search
-  for John Doe, displaying the 45th hit in the right pane; but
-  `/patrons/search/john+doe/45?sort=name` is a sorted search,
-  displaying the 45th hit in the sorted list. But the **sort=name**
-  applies to the **john+doe**, not the **45**. This feels awkward. It
-  gets even more complex: Inside the **PatronDetail** component we might
-  have a link to add a block. A relative link to **addBlock** would
-  work differently depending on the structure of the URL. There is
-  much to discuss here.
-* How do components grab a reference to the correct router to redirect eg. after edit?
+> ISSUE: when searching, should additional relevant parameters, such
+> as start-record and the number of records to display, be held only
+> in local state? Or should they be included in the route? If so,
+> would it be better to use the URL’s query parameters or the
+> fragment?
+
+> ISSUE: how do route parameters (whether in the URL query or
+> fragment) interact with additional parts of the path?  For example,
+> suppose `/patrons/search/john+doe/45` is a search for John Doe,
+> displaying the 45th hit in the right pane. We might wish
+> `/patrons/search/john+doe/45?sort=name` to be a sorted search,
+> displaying the 45th hit in the sorted list. But the **sort=name**
+> applies to the **john+doe**, not the **45**. This feels awkward. It
+> gets even more complex: inside the **PatronDetail** component we
+> might have a link to add a loan. A relative link to **addBlock**
+> would work differently depending on the structure of the URL. There
+> is much to discuss here.
+
+> ISSUE: how do components determine the correct route to redirect to,
+> for example after submitting an edit?
 
 ### Display
 
