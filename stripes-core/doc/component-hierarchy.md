@@ -226,6 +226,38 @@ they map to:
 > ISSUE: how do components determine the correct route to redirect to,
 > for example after submitting an edit?
 
+### SearchResults
+
+This result list will have selection of multiple or all matching
+patrons. It'll also pull more matches from the server than it displays
+on screen -- turns out downloading a few hundred matches is snappier
+than displaying them so we can out-fetch the pagination and have
+records ready in advance so scrolling the list / hitting next page can
+go faster than they might otherwise. That part will leverage something
+from our component library for the list display, perhaps wrapping:
+[https://bvaughn.github.io/react-virtualized/](https://bvaughn.github.io/react-virtualized/)
+
+* Okapi data: patrons matching **:query** according to `?params`
+  (sort-order, etc.)
+* Local state: none
+* Child components: **SearchResult**, some stuff to enable the batch
+  operations (those components will need mutators for the associated
+  data)
+
+Questions:
+
+* How does the windowed list view fetch additional records? How can we
+  consume that component from the library, perhaps a callback
+
+#### SearchResult
+
+Some fields from the patron passed in via props, some controls for edit/delete and also a select toggle for batch operations.
+
+* Okapi data: none
+* Local state: toggle state indicating which records are to be
+  affected by batch operations
+* Child components: perhaps some controls from the batch operation
+
 ### Display
 
 This displays a patron's profile
@@ -294,38 +326,6 @@ Renders
 * Okapi data: Blocks (CRUD)
 * Local state: none
 * Child components: none
-
-### SearchResults
-
-This result list will have selection of multiple or all matching
-patrons. It'll also pull more matches from the server than it displays
-on screen -- turns out downloading a few hundred matches is snappier
-than displaying them so we can out-fetch the pagination and have
-records ready in advance so scrolling the list / hitting next page can
-go faster than they might otherwise. That part will leverage something
-from our component library for the list display, perhaps wrapping:
-[https://bvaughn.github.io/react-virtualized/](https://bvaughn.github.io/react-virtualized/)
-
-* Okapi data: patrons matching **:query** according to `?params`
-  (sort-order, etc.)
-* Local state: none
-* Child components: **SearchResult**, some stuff to enable the batch
-  operations (those components will need mutators for the associated
-  data)
-
-Questions:
-
-* How does the windowed list view fetch additional records? How can we
-  consume that component from the library, perhaps a callback
-
-#### SearchResult
-
-Some fields from the patron passed in via props, some controls for edit/delete and also a select toggle for batch operations.
-
-* Okapi data: none
-* Local state: toggle state indicating which records are to be
-  affected by batch operations
-* Child components: perhaps some controls from the batch operation
 
 ## Appendix: issues to be discussed
 
