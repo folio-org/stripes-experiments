@@ -161,7 +161,7 @@ to a route that includes `search/:query`, resulting in the
   searches (prioritised in the completions)
 * Child components: **SearchSettings**
 
-> ISSUE: how do we arrange for the **SearchSettings** panel to be
+> **ISSUE.** How do we arrange for the **SearchSettings** panel to be
 > displayed only when the gear symbol is clicked?
 
 ##### SearchSettings
@@ -174,7 +174,7 @@ search, etc.
 * Local state: search settings (per-page, sort order, etc) (CRUD)
 * Child components: various controls
 
-> ISSUE: how do we arrange for the **SearchSettings** panel to be
+> **ISSUE.** How do we arrange for the **SearchSettings** panel to be
 > floated above other content? Where is this display characteristic
 > specified?
 
@@ -188,8 +188,8 @@ more complex one might organise the code however is convenient to the
 team maintaining it -- perhaps including additional code
 splitting/asynchronous loading.
 
-> ISSUE: we still need to determine whether react-router 4.x allows us
-> to nest routes.
+> **ISSUE.** We still need to determine whether react-router 4.x
+> allows us to nest routes.
 
 Here are the routes the patron router will export, and the components
 they map to:
@@ -202,16 +202,16 @@ they map to:
   **SearchResults** component when the search result is returned from
   the server.
 
-> ISSUE: can we make the router distinguish routes containing IDs
+> **ISSUE.** Can we make the router distinguish routes containing IDs
 > (matching) `:id` from those containing literal `add` and `edit`?
 
-> ISSUE: when searching, should additional relevant parameters, such
-> as start-record and the number of records to display, be held only
-> in local state? Or should they be included in the route? If so,
+> **ISSUE.** When searching, should additional relevant parameters,
+> such as start-record and the number of records to display, be held
+> only in local state? Or should they be included in the route? If so,
 > would it be better to use the URL’s query parameters or the
 > fragment?
 
-> ISSUE: how do route parameters (whether in the URL query or
+> **ISSUE.** How do route parameters (whether in the URL query or
 > fragment) interact with additional parts of the path?  For example,
 > suppose `/patrons/search/john+doe/45` is a search for John Doe,
 > displaying the 45th hit in the right pane. We might wish
@@ -223,8 +223,8 @@ they map to:
 > would work differently depending on the structure of the URL. There
 > is much to discuss here.
 
-> ISSUE: how do components determine the correct route to redirect to,
-> for example after submitting an edit?
+> **ISSUE.** How do components determine the correct route to redirect
+> to, for example after submitting an edit?
 
 ### SearchResults
 
@@ -238,7 +238,7 @@ This result list displays many individual results together.
 * Child components: many instances of **SearchResult**; some controls to
   enable batch operations.
 
-> ISSUE: the batch-operation controls will need mutators for the
+> **ISSUE.** The batch-operation controls will need mutators for the
 > associated data.
 
 This component may pull more matches from the server than it displays
@@ -249,8 +249,9 @@ next page can be very fast. That part will leverage something from our
 component library for the list display, perhaps using
 [react-virtualized](https://bvaughn.github.io/react-virtualized/).
 
-> ISSUE: how does the windowed list view fetch additional records? How
-> can we consume that component from the library? Perhaps a callback?
+> **ISSUE.** How does the windowed list view fetch additional records?
+> How can we consume that component from the library? Perhaps a
+> callback?
 
 #### SearchResult
 
@@ -287,11 +288,11 @@ along with a control to add new holds.
 * Local state: probably none
 * Child components: **HoldBrief**
 
-> ISSUE: do we need to support pagination of holds? do people have
+> **ISSUE.** Do we need to support pagination of holds? do people have
 > that many holds? we can probably pull the whole list but use a
 > control to display a subset with a scrollbar.
 
-> ISSUE: we'll need the title from the Item record but do we need
+> **ISSUE.** We'll need the title from the Item record but do we need
 > anything from the Holdings here? Maybe the barcode number of the
 > specific instance?
 
@@ -323,9 +324,9 @@ Renders a read-only list of this patron's loans.
 * Local state: none
 * Child components: **LoanBrief**
 
-> ISSUE: is read-only access enough? Perhaps we would want to be able
-> to renew a user's loans from here? But checking items back in is
-> presumably done somewhere else: it's not necessary to have first
+> **ISSUE.** Is read-only access enough? Perhaps we would want to be
+> able to renew a user's loans from here? But checking items back in
+> is presumably done somewhere else: it's not necessary to have first
 > found the patron before doing this.
 
 ##### LoanBrief
