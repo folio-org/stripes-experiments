@@ -134,6 +134,40 @@ delegate the main area underneath of the patron router.
 * Local state: none
 * Child components: **TopBar**, **PatronRouter**
 
+### TopBar
+
+A bar that goes over the top of the content area for the whole `patron`
+  module, linking to various functionality and containing a search box
+  to find particular patrons. Since this is a sibling of
+  **PatronRouter**, it is rendered along with whichever of its
+  subcomponents is selected by that router.
+
+* Okapi data: none
+* Local state: none
+* Child components: **SearchBox**, perhaps also some Links or whatever
+  the component library gives us that we'd use to link within the
+  module
+
+### SearchBox
+
+The search box on the **TopBar**, it has a gear beside that drops out
+a **SearchSettings** panel. Submitting the form redirects to a route
+that includes `search/:query`.
+
+* Okapi data: search completions past three characters
+* Local state: search settings (per-page, sort order, etc) (R =
+  read-only), recent searches (prioritised in the completions)
+* Child components: **SearchSettings**
+
+#### SearchSettings
+
+Settings for patron search, might also include which fields for the
+search
+
+* Okapi data: none
+* Local state: search settings (per-page, sort order, etc) (CRUD)
+* Child components: various controls
+
 ### PatronRouter
 
 A react-router component (somehow, syntax TBD but I'm 85% sure we can
@@ -171,40 +205,6 @@ Questions:
   work differently depending on the structure of the URL. There is
   much to discuss here.
 * How do components grab a reference to the correct router to redirect eg. after edit?
-
-### TopBar
-
-A bar that goes over the top of the content area for the whole `patron`
-  module, linking to various functionality and containing a search box
-  to find particular patrons. Since this is a sibling of
-  **PatronRouter**, it is rendered along with whichever of its
-  subcomponents is selected by that router.
-
-* Okapi data: none
-* Local state: none
-* Child components: **SearchBox**, perhaps also some Links or whatever
-  the component library gives us that we'd use to link within the
-  module
-
-### SearchBox
-
-The search box on the **TopBar**, it has a gear beside that drops out
-a **SearchSettings** panel. Submitting the form redirects to a route
-that includes `search/:query`.
-
-* Okapi data: search completions past three characters
-* Local state: search settings (per-page, sort order, etc) (R =
-  read-only), recent searches (prioritised in the completions)
-* Child components: **SearchSettings**
-
-#### SearchSettings
-
-Settings for patron search, might also include which fields for the
-search
-
-* Okapi data: none
-* Local state: search settings (per-page, sort order, etc) (CRUD)
-* Child components: various controls
 
 ### Display
 
