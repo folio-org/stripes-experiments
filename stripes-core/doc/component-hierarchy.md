@@ -148,7 +148,7 @@ A bar that goes over the top of the content area for the whole `patron`
   the component library gives us that we'd use to link within the
   module
 
-### SearchBox
+#### SearchBox
 
 The search box on the **TopBar**, it has a gear beside that drops out
 a **SearchSettings** panel. Submitting the form redirects to a route
@@ -159,7 +159,7 @@ that includes `search/:query`.
   read-only), recent searches (prioritised in the completions)
 * Child components: **SearchSettings**
 
-#### SearchSettings
+##### SearchSettings
 
 Settings for patron search, might also include which fields for the
 search
