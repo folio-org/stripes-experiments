@@ -7,7 +7,7 @@ This is a single-page web application that provides a platform for React compone
 
 * Quick start guide: read on below
 * [Overview of the Stripes architecture](doc/overview.md)
-* [Running Stripes from git checkouts](doc/for-people-who-are-developing-stripes-itself-not-just-modules.md)
+* [Running Stripes from git checkouts](doc/building-from-git-checkouts.md)
 * [Testing the Okapi Console and circulation module](../okapi-console/testing-the-circulation-module.md)
 * [The stripes-connect API](../stripes-connect/api.md)
 * [A component hiearchy example: the "Patrons" module](doc/component-hierarchy.md)
