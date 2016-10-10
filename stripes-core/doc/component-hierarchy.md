@@ -90,6 +90,11 @@ state the components of a `patrons` module might access, and the mode of access
 **U** = update,
 **D** = delete).
 
+State may be persisted to a RESTful service (most often, Okapi, the
+FOLIO API gateway) or it may be held locally, within the browser
+session. Below, we will refer to the former as Okapi data and the
+latter as local state.
+
 
 ## Components
 
@@ -121,7 +126,9 @@ high-level components and working down.
 ### Patrons
 
 As specified in the module metadata (see above), this is the module's
-root component, used when the the URL's path begins with the `/patrons` route.
+root component, used when the the URL's path begins with the
+`/patrons` route. Its sole purpose is to display the top bar and
+delegate the main area underneath of the patron router.
 
 * Okapi data: none
 * Local state: none
