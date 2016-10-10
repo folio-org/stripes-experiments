@@ -22,7 +22,10 @@ hypothetical "Patrons" fullpage module that support search and display
 of patron records and associated data such as holds and loans.
 
 <!-- ../../../okapi/doc/md2toc -l 2 component-hierarchy.md -->
-* [Metadata describing the module](#metadata-describing-the-module)
+* [Introduction](#introduction)
+* [The module](#the-module)
+    * [Metadata describing the module](#metadata-describing-the-module)
+    * [State within the module](#state-within-the-module)
 * [Components](#components)
     * [Patrons](#patrons)
     * [PatronRouter](#patronrouter)
@@ -43,7 +46,10 @@ of patron records and associated data such as holds and loans.
 
 
 
-## Metadata describing the module
+## The module
+
+
+### Metadata describing the module
 
 Each Stripes module is described by metadata -- some of it affecting
 how it functions, some merely descriptive. For a Patrons module, the
@@ -63,12 +69,23 @@ aggregated by stripes-loader. (Code-loading is handled asynchronously
 so that a module's code is sent to the browser sent when visiting a
 route that uses it.)
 
-XXX Describe how local state is owned by the module, and different
-components access it in different CRUDdy capacities, as React’s own
-component-local state disappears when the components go away. Note
-that all state presently lives in one namespace, and that we need to
-have Stripes disambiguate not only by component, but by component
-*instance*.
+
+### State within the module
+
+Each stripes module maintains all of its state in a single pool. (See
+[**How state is stored**](../../stripes-connect/api.md#how-state-is-stored)
+for details).
+Each piece of state has a name, and may be accessed by multiple
+components. Often, only one component will be responsible for making
+changes to a given piece of state, while other only inspect it. In
+this case, we might say that the first component "owns" that piece of
+state. In the descriptions that follow, we will note which pieces of
+state the components of a Patron module might access, and the mode of access
+(**C** = create,
+**R** = read,
+**U** = update,
+**D** = delete).
+
 
 ## Components
 
