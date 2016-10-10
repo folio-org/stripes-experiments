@@ -89,17 +89,26 @@ state the components of a Patron module might access, and the mode of access
 
 ## Components
 
-All the components are local, i.e.. part of this module. Things like
-the brief item display are short and straightforward and it is cleaner
-to design a brief item component over again to fit the part of the UI
-you're using it for than to try to have some one-size-fits all brief
-item that we reuse in disparate locations. However something like the
-autocompleting search-box will likely subclass or have a child
-component from within our component library or even a standalone
-stripes-searchbox repo.
+All the components described here are "local", i.e.. part of this
+module. It may also be possible to use components from other modules
+-- most importantly, from utlity modules that act as a library of
+re-usable components. The mechanisms for doing this have yet to be
+specified.
 
-Overdues and Fines are omitted from this overview, as they are
-implemented in essentially the same way as Holds and Loans.
+Since components like ItemBrief (see [below](#itembrief)) are short
+and straightforward, it may be cleaner to design such display
+components repeatedly in the context of different modules, so as best
+to fit them to the part of the UI where they are used; or it may prove
+better to have a component library provide a one-size-fits all
+brief-display component than can be parameterised or subclassed to
+display items, patrons, or other kinds of data, and then reused in
+disparate modules. Something like an autocompleting search-box will
+likely use something from the component library, or even from a
+standalone `stripes-searchbox` module repo.
+
+Note that in the structural overview of the Patron module that
+follows, Overdues and Fines are omitted, as they are implemented in
+essentially the same way as Holds and Loans.
 
 ### Patrons
 
