@@ -1,4 +1,4 @@
-# A component hiearchy example: the "Patrons" module
+# A component hiearchy example: the `patrons` module
 
 ## Introduction
 
@@ -18,8 +18,12 @@ purely local (non-persistent) data.
 
 This document illustrates how components can work together as a
 module: in particular, it discusses how the components of a
-hypothetical "Patrons" fullpage module that support search and display
+hypothetical `patrons` fullpage module that support search and display
 of patron records and associated data such as holds and loans.
+
+Module names are written in all lower-case, with words separated by
+hyphens and set in code font `like-this`. Component names are written
+in CamelCase and set in bold, **LikeThis**.
 
 <!-- ../../../okapi/doc/md2toc -l 2 component-hierarchy.md -->
 * [Introduction](#introduction)
@@ -52,7 +56,7 @@ of patron records and associated data such as holds and loans.
 ### Metadata describing the module
 
 Each Stripes module is described by metadata -- some of it affecting
-how it functions, some merely descriptive. For a Patrons module, the
+how it functions, some merely descriptive. For a `patrons` module, the
 metadata might look like this:
 
 ```
@@ -80,7 +84,7 @@ components. Often, only one component will be responsible for making
 changes to a given piece of state, while other only inspect it. In
 this case, we might say that the first component "owns" that piece of
 state. In the descriptions that follow, we will note which pieces of
-state the components of a Patron module might access, and the mode of access
+state the components of a `patrons` module might access, and the mode of access
 (**C** = create,
 **R** = read,
 **U** = update,
@@ -106,13 +110,13 @@ disparate modules. Something like an autocompleting search-box will
 likely use something from the component library, or even from a
 standalone `stripes-searchbox` module repo.
 
-Note that in the structural overview of the Patron module that
+Note that in the structural overview of the `patrons` module that
 follows, Overdues and Fines are omitted, as they are implemented in
 essentially the same way as Holds and Loans.
 
 ### Patrons
 
-The root component, used when the **/patrons** route is in the URL.
+The root component, used when the `/patrons` route is in the URL.
 
 * Okapi data: none
 * Local state: none
@@ -122,15 +126,15 @@ The root component, used when the **/patrons** route is in the URL.
 
 A react-router component (somehow, syntax TBD but I'm 85% sure we can
 nest these) that manages the routing for URL fragments *underneath*
-**/patrons**. The module authors can have some flexibility in how they
+`/patrons`. The module authors can have some flexibility in how they
 build this and in a simple module perhaps there are no additional
 routes, a mediumly complex module might just use the simple JSX
 syntax, and a more complex one might organise their code however is
 convenient to the team maintaining it including additional code
 splitting/async loading.
 
-For Patron, here are the routes it will export and the components they
-map to:
+Here are the routes the patron router will export, and the components
+they map to:
 
 * **:id** -- Display the record whose ID is provided (can we make it
   distinguish ':id' from 'add' and 'edit'?)
@@ -145,12 +149,12 @@ Questions:
 
 * How do you nest routes/routers? The React Router v4.x API seems to provide solutions to this.
 * How does that work for route parameters? (the parts of the URL after
-  the ‘?’) For example, **/patrons/search/john+doe/45** is a search
+  the ‘?’) For example, `/patrons/search/john+doe/45` is a search
   for John Doe, displaying the 45th hit in the right pane; but
-  **/patrons/search/john+doe/45?sort=name** is a sorted search,
+  `/patrons/search/john+doe/45?sort=name` is a sorted search,
   displaying the 45th hit in the sorted list. But the **sort=name**
   applies to the **john+doe**, not the **45**. This feels awkward. It
-  gets even more complex: Inside the PatronDetail component we might
+  gets even more complex: Inside the **PatronDetail** component we might
   have a link to add a block. A relative link to **addBlock** would
   work differently depending on the structure of the URL. There is
   much to discuss here.
@@ -158,7 +162,7 @@ Questions:
 
 ### TopBar
 
-A bar that goes over the top of the content area for the whole Patron
+A bar that goes over the top of the content area for the whole `patron`
   module, linking to various functionality and containing a search box
   to find particular patrons. Since this is a sibling of
   **PatronRouter**, it is rendered along with whichever of its
@@ -270,7 +274,7 @@ go faster than they might otherwise. That part will leverage something
 from our component library for the list display, perhaps wrapping:
 [https://bvaughn.github.io/react-virtualized/](https://bvaughn.github.io/react-virtualized/)
 
-* Okapi data: Patrons matching **:query** according to `?params`
+* Okapi data: patrons matching **:query** according to `?params`
   (sort-order, etc.)
 * Local state: none
 * Child components: **SearchResult**, some stuff to enable the batch
@@ -296,20 +300,20 @@ Some fields from the patron passed in via props, some controls for edit/delete a
 * Different fields/controls displayed depending on permissions
 * Service discovery -- holds/loans only displayed if the Circulation
   backend is enabled -- libraries that don't circulate still have
-  patrons
+  patrons.
 * Validation + error display -- seeded by backend JSON schema and
   augmented locally for client-side validation, we can also do
   server-side validation where the backend can check it too (eg. is
   this a valid branch name in our 123 branch public library?)
-* Configuration -- maybe the patron module has some settings users can
+* Configuration -- maybe the `patron` module has some settings users can
   persist to a backend like the default sort order? And maybe the
   admin can configure some default-defaults that get used if these
   aren't there?
 * Mechanism for modules that somehow augment patron records with
   additional fields to also surface them in this UI. For example, a
-  Patron Demographics module might want to add sex, ethnicity and
+  `patron-demographics` module might want to add sex, ethnicity and
   religion fields to the patron record.
-* Patrons and Users may potentially be the same entity? If so then
+* Might patrons and users potentially be the same entity? If so then
   we'll need to add permissions/groups
 * Multiple panes mean we're going to need to split state out for
   component instances, just as well really
