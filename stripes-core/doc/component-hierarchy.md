@@ -136,37 +136,47 @@ delegate the main area underneath of the patron router.
 
 ### TopBar
 
-A bar that goes over the top of the content area for the whole `patron`
-  module, linking to various functionality and containing a search box
-  to find particular patrons. Since this is a sibling of
-  **PatronRouter**, it is rendered along with whichever of its
-  subcomponents is selected by that router.
+A bar that goes across the top of the content area for the whole
+`patron` module, linking to various functionality and containing a
+search box to find particular patrons. Since this is a sibling of
+**PatronRouter**, it is rendered along with whichever of that router's
+subcomponents is selected.
 
 * Okapi data: none
 * Local state: none
-* Child components: **SearchBox**, perhaps also some Links or whatever
+* Child components: **SearchBox**; perhaps also some Links or whatever
   the component library gives us that we'd use to link within the
   module
 
 #### SearchBox
 
-The search box on the **TopBar**, it has a gear beside that drops out
-a **SearchSettings** panel. Submitting the form redirects to a route
-that includes `search/:query`.
+The search box on the **TopBar**. It has a gear symbol beside it
+("settings") that drops out a **SearchSettings** panel which is not
+displayed until that symbol is clicked. Submitting the form redirects
+to a route that includes `search/:query`, resulting in the
+**SearchResults** component being displayed by the router.
 
 * Okapi data: search completions past three characters
-* Local state: search settings (per-page, sort order, etc) (R =
-  read-only), recent searches (prioritised in the completions)
+* Local state: search settings (per-page, sort order, etc) (R), recent
+  searches (prioritised in the completions)
 * Child components: **SearchSettings**
+
+> ISSUE: how do we arrange for the **SearchSettings** panel to be
+> displayed only when the gear symbol is clicked?
 
 ##### SearchSettings
 
-Settings for patron search, might also include which fields for the
-search
+Settings for patron search, such as how to sort the search results,
+how many results to show on each page, which fields to includ in the
+search, etc.
 
 * Okapi data: none
 * Local state: search settings (per-page, sort order, etc) (CRUD)
 * Child components: various controls
+
+> ISSUE: how do we arrange for the **SearchSettings** panel to be
+> floated above other content? Where is this display characteristic
+> specified?
 
 ### PatronRouter
 
@@ -189,7 +199,8 @@ they map to:
 * `search/:query` -- Run the specified query. Additional relevant
   parameters, such as start-record and the number of records to
   display, would be in the URL’s query parameters or fragment --
-  details to be resolved.
+  details to be resolved. Displays the **SearchResults** component
+  when the search result is returned from the server.
 
 Questions:
 
