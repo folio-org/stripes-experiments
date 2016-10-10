@@ -136,11 +136,11 @@ splitting/async loading.
 Here are the routes the patron router will export, and the components
 they map to:
 
-* **:id** -- Display the record whose ID is provided (can we make it
+* `:id` -- Display the record whose ID is provided (can we make it
   distinguish ':id' from 'add' and 'edit'?)
-* **add** -- Add a new record.
-* **edit/:id** -- Edit the record whose ID is provided.
-* **search/:query** -- Run the specified query. Additional relevant
+* `add` -- Add a new record.
+* `edit/:id` -- Edit the record whose ID is provided.
+* `search/:query` -- Run the specified query. Additional relevant
   parameters, such as start-record and the number of records to
   display, would be in the URL’s query parameters or fragment --
   details to be resolved.
@@ -177,8 +177,8 @@ A bar that goes over the top of the content area for the whole `patron`
 ### SearchBox
 
 The search box on the **TopBar**, it has a gear beside that drops out
-  a **SearchSettings** panel. Submitting the form redirects to a route
-  that includes **search/:query**.
+a **SearchSettings** panel. Submitting the form redirects to a route
+that includes `search/:query`.
 
 * Okapi data: search completions past three characters
 * Local state: search settings (per-page, sort order, etc) (R =
