@@ -256,43 +256,50 @@ component library for the list display, perhaps using
 
 (Note the singular name of this component.)
 
-Some fields from the patron passed in via props, some controls for edit/delete and also a select toggle for batch operations.
+Displays a single patron. The fields themselves are passed in as React
+component properties. Controls are provided for viewing the full
+record, editing and deleting. There is also "selected" checkbox for
+batch operations.
 
 * Okapi data: none
 * Local state: toggle state indicating which records are to be
   affected by batch operations
-* Child components: perhaps some controls from the batch operation
+* Child components: perhaps controls for the record operations
 
 ### Display
 
-This displays a patron's profile
+This displays a patron's profile in detail, as opposed to the summary
+displayed by the **SearchResult** component.
 
-* Okapi data: detailed patron record for **:id** (R) that patron, their associated item records
+* Okapi data: detailed patron record for **:id** (R),
+  their associated item records
 * Local state: none
-* Child components: **Holds**, **Loans**, **Blocks**
+* Child components: **Holds**, **Loans**, **Blocks** (and **Overdues**
+  and **Fines**, but we don't discuss them here)
 
 #### Holds
 
-Part of the patron display and styled to fit therein, this component
-contains a list of the items that the patron has on hold along with a
-control to add new holds.
+This component is part of the patron display and styled to fit
+therein. It contains a list of the items that the patron has on hold,
+along with a control to add new holds.
 
-* Okapi data: Holds for this patron (CRD), associated Items (R)
-* Local state: perhaps pagination? do people have that many holds? we
-  can probably pull the whole list but use a control to display a
-  subset with a scrollbar or something 
+* Okapi data: Holds for this patron (CRD), associated items (R)
+* Local state: probably none
 * Child components: **HoldBrief**
 
-Questions:
+> ISSUE: do we need to support pagination of holds? do people have
+> that many holds? we can probably pull the whole list but use a
+> control to display a subset with a scrollbar.
 
-* We'll need the title from the Item record but do we need anything
-  from the Holdings here eg. maybe the barcode number of the specific
-  instance?
+> ISSUE: we'll need the title from the Item record but do we need
+> anything from the Holdings here? Maybe the barcode number of the
+> specific instance?
 
 ##### HoldBrief
 
-Used to render a hold passed in through props, passed a reference to
-the mutator too so it can have a button to delete them.
+Used to render a hold passed in through properties. This component
+must be passed a reference to the mutator too it can have a button to
+delete them.
 
 * Okapi data: none
 * Local state: none
@@ -300,8 +307,9 @@ the mutator too so it can have a button to delete them.
 
 ###### ItemBrief
 
-Renders item title for use in **HoldBrief** and also **LoanBrief**
-(see below); perhaps other info.
+Renders the item title for use in **HoldBrief** and also **LoanBrief**
+(see below); perhaps other information can also usefully be rendered,
+such as the author and date.
 
 * Okapi data: none
 * Local state: none
@@ -309,24 +317,28 @@ Renders item title for use in **HoldBrief** and also **LoanBrief**
 
 #### Loans
 
-Read only access to this patron's loans (you'd check things back in /
-renew them somewhere else right? though maybe not, people phone in)
+Renders a read-only list of this patron's loans.
 
 * Okapi data: loans for this patron (R)
 * Local state: none
 * Child components: **LoanBrief**
 
+> ISSUE: is read-only access enough? Perhaps we would want to be able
+> to renew a user's loans from here? But checking items back in is
+> presumably done somewhere else: it's not necessary to have first
+> found the patron before doing this.
+
 ##### LoanBrief
 
-Used to render a loan passed in through props
+Used to render a loan passed in through properties.
 
 * Okapi data: none
 * Local state: none
-* Child components: **ItemBrief**
+* Child components: **ItemBrief** (see above)
 
 #### Blocks
 
-Renders
+Renders the blocks placed on the patron.
 
 * Okapi data: Blocks (CRUD)
 * Local state: none
