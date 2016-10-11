@@ -347,36 +347,43 @@ Renders the blocks placed on the patron.
 
 ## Appendix: additional issues to be discussed
 
-* Different fields/controls displayed depending on permissions
-* Service discovery -- holds/loans only displayed if the Circulation
-  backend is enabled -- libraries that don't circulate still have
-  patrons.
-* Validation + error display -- seeded by backend JSON schema and
-  augmented locally for client-side validation, we can also do
-  server-side validation where the backend can check it too (eg. is
-  this a valid branch name in our 123 branch public library?)
-* Configuration -- maybe the `patron` module has some settings users can
-  persist to a backend like the default sort order? And maybe the
-  admin can configure some default-defaults that get used if these
-  aren't there?
-* Mechanism for modules that somehow augment patron records with
-  additional fields to also surface them in this UI. For example, a
-  `patron-demographics` module might want to add sex, ethnicity and
-  religion fields to the patron record.
-* Might patrons and users potentially be the same entity? If so then
-  we'll need to add permissions/groups
-* Multiple panes mean we're going to need to split state out for
-  component instances, just as well really
-* Really wonder what the URLs are going to look like for this system,
-  will need to ask Filip about that next week
+> **ISSUE.** Different fields/controls displayed depending on
+> permissions
 
-And Jakub asks:
+> **ISSUE.** Service discovery -- holds/loans only displayed if the
+> Circulation backend is enabled -- libraries that don't circulate
+> still have patrons.
 
-* I am assuming we would have a collection of generic, re-usable, base
-  components (e.g controls that allow one to build multiple panes of
-  the Finder-like design which Filip seemed to have put all over the
-  place, the recent apps, bar, settings pane, etc) and specific ones
-  (e.g user management pane) that inherit control’s behaviour and fill
-  in the content through the manifest configuration and specific
-  labels (we probably need a notion of "string resources" here)?
+> **ISSUE.** Validation + error display -- seeded by backend JSON
+> schema and augmented locally for client-side validation, we can also
+> do server-side validation where the backend can check it too (eg. is
+> this a valid branch name in our 123 branch public library?)
+
+> **ISSUE.** Configuration -- maybe the `patron` module has some
+> settings users can persist to a backend like the default sort order?
+> And maybe the admin can configure some default-defaults that get
+> used if these aren't there?
+
+> **ISSUE.** Mechanism for modules that somehow augment patron records
+> with additional fields to also surface them in this UI. For example,
+> a `patron-demographics` module might want to add sex, ethnicity and
+> religion fields to the patron record.
+
+> **ISSUE.** Might patrons and users potentially be the same entity?
+> If so then we'll need to add permissions/groups
+
+> **ISSUE.** Multiple panes mean we're going to need to split state
+> out for component instances, just as well really
+
+> **ISSUE.** Really wonder what the URLs are going to look like for
+> this system, will need to ask Filip about that next week
+
+> **ISSUE.** I am assuming we would have a collection of generic,
+> re-usable, base components (e.g controls that allow one to build
+> multiple panes of the Finder-like design which Filip seemed to have
+> put all over the place, the recent apps, bar, settings pane, etc)
+> and specific ones (e.g user management pane) that inherit control’s
+> behaviour and fill in the content through the manifest configuration
+> and specific labels (we probably need a notion of "string resources"
+> here)?
 
