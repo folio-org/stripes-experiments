@@ -1,4 +1,4 @@
- The Stripes Connect API
+The Stripes Connect API
 
 <!-- pandoc -f markdown_github-hard_line_breaks api.md > api.html -->
 <!-- ../../okapi/doc/md2toc -l 2 api.md -->
@@ -14,11 +14,15 @@
 * [Appendices: for developers](#appendices-for-developers)
     * [Appendix A: some implementation details](#appendix-a-some-implementation-details)
     * [Appendix B: unresolved issues](#appendix-b-unresolved-issues)
-        * [How to not fetch](#how-to-not-fetch)
         * [One vs. Many](#one-vs-many)
         * [Metadata](#metadata)
         * [Errors](#errors)
         * [Object counts](#object-counts)
+    * [Appendix C: things still to be documented](#appendix-c-things-still-to-be-documented)
+        * [How state is stored](#how-state-is-stored)
+        * [Work through the example of PatronEdit.js](#work-through-the-example-of-patroneditjs)
+        * [Work through state-object changed during a CRUD cycle](#work-through-state-object-changed-during-a-crud-cycle)
+
 
 
 ## Introduction
@@ -40,11 +44,13 @@ things: declare a _manifest_, which describes what data elements it
 wants to manage and how to link them to services; and call the
 `connect()` method on itself.
 
+
 ### Note
 
 This document describes the API as we wish it to be. The present
 version of the code implements something similar to this, but not
 identical. In what follows, additional notes mark such divergences.
+
 
 
 ## The Connection Manifest
@@ -59,6 +65,7 @@ deal with them:
           'address': { /* ... */ },
           'jobTitle': { /* ... */ }
         };
+
 
 ### Resource types
 
@@ -77,6 +84,7 @@ types are supported:
 which defaults are provided to tailor the RESTful dialgoues in
 accordance with Okapi's conventions.)
 
+
 ### Local resources
 
 A local resource needs no configuration items -- not even an explicit
@@ -86,6 +94,7 @@ simply be specified as an empty object:
         static manifest = {
           'someLocalResource': {}
         }
+
 
 ### REST resources
 
@@ -130,12 +139,17 @@ addition to `'type':'rest'`:
   records, or must accept one that is supplied by the service in
   response to a create request. Defaults to `true`.
 
+* `fetch`: a component that adds a new record to an end-point would
+  usually not need to pre-fetch from that resource. To avoid that, it
+  can set this to true. [default: false]
+
 In addition to these principal pieces of configuration, which apply to
 all operations on the resource, these values can be overridden for
 specific HTTP operations: the entries `GET`, `POST`, `PUT`, `DELETE`
 and `PATCH`, if supplied, are objects containing configuration (using
 the same keys as described above) that apply only when the specified
 operation is used.
+
 
 ### Okapi resources
 
@@ -169,6 +183,7 @@ the manifest must specify this.
             path: '_/proxy/modules'
           }
         };
+
 
 
 ## Connecting the component
@@ -208,10 +223,12 @@ remove this requirement in future.)
 <hr/>
 
 
+
 ## Appendices: for developers
 
 These sections are only for developers working on Stripes
 itself. Those working on _using_ Stripes to build a UI can ignore them.
+
 
 ### Appendix A: some implementation details
 
@@ -234,17 +251,9 @@ the wrapped component:
   in the obvious way by the POST, PUT and PATCH operations. For
   DELETE, the record need only contain the `id` field, so that it
   suffices to call `mutator.tenants.DELETE({ id: 43 })`.
+
   
 ### Appendix B: unresolved issues
-
-#### How to not fetch
-
-Sometimes we only want a mutator, for example when creating an Add
-Record form. One possibility would be to not have any path at all at
-the top level in this case, only POST.path to indicate the desired
-subset of functionality. This is appealingly minimalist, but it might
-be a bit opaque. Perhaps a boolean configuration item of `mutatorOnly`
-or `noFetch` is more explicit?
 
 #### One vs. Many
 
@@ -284,4 +293,91 @@ describing the error. We need to surface the HTTP error somehow.
 Can we get a count of holds on an item? How does that API work and
 does our above system mesh with it well enough to provide a pleasant
 developer experience?
+
+
+### Appendix C: things still to be documented
+
+[This section is mostly for Mike's benefit. In time, the material
+touched on in this section will be written up properly and merged into
+the main document.]
+
+#### How state is stored
+
+* All state is stored in a single branching structure, the _Redux
+  store_. (Module creators should not need to know about details of
+  Redux, and especially not about reducers, but this idea of a single
+  state store is important nevertheless.)
+
+* Data in this state structure consists of _resources_, each named by
+  a string.
+
+* Rather than each module having its own namespace within the
+  structure, all modules' data is kept together in a single big
+  table.
+
+* To avoid different modules' same-named data from clashing, the code
+  arranges that the keys in this table are composed of the module name
+  and the resource name separated by an underscore:
+  _moduleName_`_`_resourceName_
+
+  * XXX In fact, the code that does this is the `stateKey()` methods of
+    the various resource-types. That means (A) we need to be very
+    careful that new resource-types also remember to do this; and (B)
+    we probably made a mistake, and this should instead by done at a
+    higher level in `stripes-connect/connect.js`.
+
+* A component's resource names are defined by the keys in its _data
+  manifest_. The value associated with each key is tied to the
+  resource specified by its parameters -- for example, the `root` and
+  `path` of a REST resource. In general, that value is a list of
+  records: some components will deal only with a single record from
+  that list.
+
+  * XXX For example, `PatronEdit.js` deals only with a single record;
+    but it works with the `patrons` resource, which is a list of
+    records, and picks out the one it wants using
+    `patrons.find((p) =>  { return p._id === patronid })`.
+    If I have understoodd this correctly, it looks like a grotesque
+    inefficiency that will quickly become unworkable as we start to
+    use large patron databases.
+
+* In general, a Stripes module contains multiple connected
+  components. The data manifest is specific per-component. Components
+  may communicate with each other, or share cached data, by usingv the
+  same data keys. It is the module author's responsibility to avoid
+  inadvertent duplication of keys between unrelated components.
+
+* Some components may exist in multiple simultaneous instances: for
+  example, a list-of-records component may be designed such that a
+  user may pop up a more than one full-record component to see the
+  details of several records at once. In this case, the state keys are
+  different because the records' IDs are included (due to the manifest
+  path being of the form `/patrons/:patronid`, containing a
+  placeholder.)
+
+* For local resources, which are not persisted via a REST service such
+  as Okapi, some means must be established whereby each individual
+  datum is individually addressable. Only then can multiple instances
+  of the same component that uses local storage co-exist.
+
+  * For this reason, it may be worthwhile to prioritise the
+    development of a page that has two instances of the Trivial
+    module, and see that they can each maintain their own data.
+
+  * Also to be done: a simple implementation of search preferences, as
+    a model for how two components (SearchForm and SearchPreferneces)
+    can deliberately share data.
+
+#### Work through the example of PatronEdit.js
+
+XXX To be written
+
+#### Work through state-object changed during a CRUD cycle
+
+XXX To be written
+
+These images may be useful:
+* https://files.slack.com/files-pri/T047C3PCD-F2L37S7C2/pasted_image_at_2016_10_06_11_13_am.png
+* https://files.slack.com/files-pri/T047C3PCD-F2L2RAH5E/pasted_image_at_2016_10_06_11_15_am.png
+* https://files.slack.com/files-pri/T047C3PCD-F2L2WSHA4/pasted_image_at_2016_10_06_11_31_am.png
 
