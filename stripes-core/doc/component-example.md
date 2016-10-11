@@ -89,19 +89,66 @@ This is the code as of git commit
 
 ## Explanation
 
-XXX ES6 transpiled by Babel.
+Stripes components are written in
+[ES6](https://github.com/lukehoban/es6features),
+also known as ECMAScript 6 or (confusingly) ECMAScript 2015. This is a
+modern dialect of JavaScript that includes numerous new and important
+features, including classes, `let` and `const`, promises and modules.
+
+Because most Web browsers do not yet support ES6, it must be
+[transpiled](https://en.wikipedia.org/wiki/Source-to-source_compiler)
+into old-style JavaScript. This is done by Babel when the Stripes
+application is built using NPM. (Babel is also responsible for pulling
+in the correct set of modules that are required by the particular
+Stripes application.)
+
+The source-code below therefore includes some idioms that will not be
+familiar to all JavaScript programmers.
 
 ### Imports (lines 1-4)
 
-XXX
+ES6 `import` syntax is used to pull in objects from four other
+modules. The first two are inherent to writing Stripes components; the
+second two are relatesd to the use of the **PatronForm** component to
+render the elements of the HTML form.
+
+First we import the `Component` class from React (so that we can extend
+it when we define our own component); and the `PropTypes` object,
+which we will later use to make the router available. This is all we
+need from React.
+
+Next, we import the `connect` method from Stripes Connect. We will use
+this at the very end of the file. to turn our React component into a
+Stripes component by connecting it to Okapi.
+
+We bring in the **PatronForm** component, along with the `actionTypes`
+object which we will later use to specify that this component is
+updating and existing patron rather than creating a new one.
 
 ### Definition of class **PatronEdit** (lines 7-41)
 
-XXX
+A Stripes component is a special kind of React component. We create it
+by first creating a React component -- i.e. a class that extends
+React's `Component` class -- and then upgrading it to a Stripes
+component by calling `connect()` at the end.
 
 ### The data manifest (lines 10-14)
 
-XXX
+The data manifest describes the data resources that the component
+wants to use, and how they are connected to Okapi services (if they
+are -- some data may be purely on the client side.) Data manifests are
+described in detail in [The Stripes Connect API
+documentation](../../stripes-connect/api.md)
+
+In this case, only a single resource is needed: `patrons`. This is
+connected to Okapi; the primary key of the records is `_id` (rather
+then the default `id`); and a record whose ID is _patronid_ can be
+found at the path `apis/patrons/`_patronid_, relative to the base URL
+of the Okapi service.
+
+> **ISSUE.** Why is the primary key different from the default? The
+> patrons API of the Circulation module should use `id` unless there
+> is a compelling reason not to.
 
 ### Making the router available (lines 16-18)
 
