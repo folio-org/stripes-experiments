@@ -112,10 +112,14 @@ modules. The first two are inherent to writing Stripes components; the
 second two are relatesd to the use of the **PatronForm** component to
 render the elements of the HTML form.
 
-First we import the `Component` class from React (so that we can extend
-it when we define our own component); and the `PropTypes` object,
-which we will later use to make the router available. This is all we
-need from React.
+First we import three things from from React:
+* The `React` object itelf, which is needed by
+  [JSX](https://jsx.github.io/),
+  the syntax that allows us to embed HTML/XML directly into JavaScript.
+* The `Component` class, so that we can extend
+  it when we define our own component).
+* The `PropTypes` object, which we will later use to make the router
+  available.
 
 Next, we import the `connect` method from Stripes Connect. We will use
 this at the very end of the file. to turn our React component into a
