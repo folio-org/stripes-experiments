@@ -3,7 +3,7 @@ import crud from 'redux-crud';
 import _ from 'lodash';
 import uuid from 'node-uuid';
 
-const defaultDefaults = { pk: 'id', clientGeneratePk: true, fetch: true, clearOnFetch: true };
+const defaultDefaults = { pk: 'id', clientGeneratePk: true, fetch: true };
 
 export default class restResource { 
 
@@ -151,7 +151,7 @@ export default class restResource {
 
 
   fetchAction() {
-    const { root, path, pk, headers, GET, records, clearOnFetch } = this.options;
+    const { root, path, pk, headers, GET, records } = this.options;
     const crudActions = this.crudActions;
     const key = this.stateKey();
     // ie. only join truthy elements
@@ -164,7 +164,7 @@ export default class restResource {
             dispatch(crudActions.fetchError(response));
           } else {
             response.json().then(json => {
-              if (clearOnFetch) dispatch({ type: 'CLEAR_'+key.toUpperCase()});
+              dispatch({ type: 'CLEAR_'+key.toUpperCase()});
               let data = (records ? json[records] : json);
               dispatch(crudActions.fetchSuccess(data));
             });
