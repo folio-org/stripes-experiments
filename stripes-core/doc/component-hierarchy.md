@@ -45,7 +45,7 @@ in CamelCase and set in bold, **LikeThis**.
         * [Loans](#loans)
             * [LoanBrief](#loanbrief)
         * [Blocks](#blocks)
-* [Appendix: issues to be discussed](#appendix-issues-to-be-discussed)
+* [Appendix: additional issues to be discussed](#appendix-additional-issues-to-be-discussed)
 
 
 
@@ -345,7 +345,7 @@ Renders the blocks placed on the patron.
 * Local state: none
 * Child components: none
 
-## Appendix: issues to be discussed
+## Appendix: additional issues to be discussed
 
 * Different fields/controls displayed depending on permissions
 * Service discovery -- holds/loans only displayed if the Circulation
