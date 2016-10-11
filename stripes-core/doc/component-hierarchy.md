@@ -347,43 +347,56 @@ Renders the blocks placed on the patron.
 
 ## Appendix: additional issues to be discussed
 
-> **ISSUE.** Different fields/controls displayed depending on
-> permissions
+> **ISSUE.** The components may need to display different fields and
+> controls -- which in some cases will be sub-components -- depending
+> on the permissions of the logged-in user. For example, a user may or
+> may not be authorised to extend a patron's loans.
 
-> **ISSUE.** Service discovery -- holds/loans only displayed if the
-> Circulation backend is enabled -- libraries that don't circulate
-> still have patrons.
+> **ISSUE.** The components may need to behave differently depending
+> on what modules are enabled elsewhere: for example, holds and loans
+> can only be displayed if the back-end Circulation module is
+> enabled. How do we do this service discovery? (Libraries that don't
+> circulate still have patrons, so this is a real scenario.)
 
-> **ISSUE.** Validation + error display -- seeded by backend JSON
-> schema and augmented locally for client-side validation, we can also
-> do server-side validation where the backend can check it too (eg. is
-> this a valid branch name in our 123 branch public library?)
+> **ISSUE.** How will we do validation? In part, this should be driven
+> by the JSON schemas available to the server, but leaving it to the
+> server to do validation results in an unresponsive UI, so will
+> probably want a mechanism for the UI to get hold of these schemas
+> and do what validation can be done on the client side. (Additional
+> server-side validation will also likely be needed, by reference to
+> data that the UI may not have, or be able to efficiently obtain. For
+> example, it can check whether a branch name is valid for the
+> present library.)
 
-> **ISSUE.** Configuration -- maybe the `patron` module has some
-> settings users can persist to a backend like the default sort order?
-> And maybe the admin can configure some default-defaults that get
-> used if these aren't there?
+> **ISSUE.** Where does configuration live? Maybe the `patron` module
+> has some settings, such as default sort order, that users can
+> persist to a service? Would that service be Okapi? Perhaps the
+> tenant administrator can configure the defaults on a tenant-wide
+> basis?
 
-> **ISSUE.** Mechanism for modules that somehow augment patron records
-> with additional fields to also surface them in this UI. For example,
-> a `patron-demographics` module might want to add sex, ethnicity and
-> religion fields to the patron record.
+> **ISSUE.** How can extension modules extend the data model for
+> underlying modules?  For example, consider a `patron-demographics`
+> that might add sex, ethnicity and religion fields to the patron
+> record. Can we come up with a mechanism for augmenting the existing
+> patron records with these additional fields, and surface them in the
+> UI module?
 
 > **ISSUE.** Might patrons and users potentially be the same entity?
-> If so then we'll need to add permissions/groups
+> If so then we'll need to add more sophisticated permissions, groups
+> and suchlike.
 
-> **ISSUE.** Multiple panes mean we're going to need to split state
-> out for component instances, just as well really
+> **ISSUE.** We still need to decide what the URLs are going to look
+> like for this system, especially when using the three-pane layout
+> where the state has both a search and a record, potentially with
+> parameters for both aspects. This only gets more complicated if we
+> then implement Filip's split-screen mode.
 
-> **ISSUE.** Really wonder what the URLs are going to look like for
-> this system, will need to ask Filip about that next week
-
-> **ISSUE.** I am assuming we would have a collection of generic,
-> re-usable, base components (e.g controls that allow one to build
-> multiple panes of the Finder-like design which Filip seemed to have
-> put all over the place, the recent apps, bar, settings pane, etc)
-> and specific ones (e.g user management pane) that inherit control’s
-> behaviour and fill in the content through the manifest configuration
-> and specific labels (we probably need a notion of "string resources"
-> here)?
+> **ISSUE.** We aim to have a collection of generic, reusable base
+> components -- for example, controls that allow a module author to
+> build the multiple panes of the Finder-like design that Filip is
+> using for the UI prototype. We may also need to provide the ability
+> to invoke component sets as frameworks that we can embed specific
+> components inside -- so for example we can invoke **ThreePaneSetup**
+> in a form where it "calls back" to a component we specify such as
+> a modified form of **PatronRouter**.
 
