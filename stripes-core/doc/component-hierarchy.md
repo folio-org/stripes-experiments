@@ -1,4 +1,4 @@
-# A component hiearchy example: the `patrons` module
+# A component hierarchy example: the `patrons` module
 
 ## Introduction
 
