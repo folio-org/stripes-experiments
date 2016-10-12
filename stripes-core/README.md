@@ -10,6 +10,7 @@ This is a single-page web application that provides a platform for React compone
 * [Running Stripes from git checkouts](doc/building-from-git-checkouts.md)
 * [Testing the Okapi Console and circulation module](../okapi-console/testing-the-circulation-module.md)
 * [The stripes-connect API](../stripes-connect/api.md)
+* [A component example: the **PatronEdit** component](doc/component-example.md)
 * [A component hierarchy example: the "Patrons" module](doc/component-hierarchy.md)
 
 
