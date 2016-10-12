@@ -156,19 +156,53 @@ of the Okapi service.
 
 ### Making the router available (lines 16-18)
 
-XXX
+The handler functions will navigate to different URLs, using the
+router object to do this. In order for them to be able to do so, React
+must be instructed to make the router visible as part of the
+[React context](https://facebook.github.io/react/docs/context.html).
+This is done by setting the special `contextTypes` class variable to
+an object whose keys are the names of the elements to expose in the
+context. The corresponding value must `PropTypes.object.isRequired`.
 
 ### Handler functions (lines 22-29)
 
-XXX overview
+These are functions that are invoked when the user does
+something. They are installed as even handlers with the usual
+`<htmlElement onClick={handler}>` syntax, though in this case that is
+done by the **PatronForm** subcomponent. Note that the handler
+functions, bound to `this`, are passed in when that subcomponent is
+invoked below.
 
 #### `updatePatron()` (lines 22-25)
 
-XXX
+This handler is called when the patron form is submitted. It does two
+things.
+
+1. It sends the actual data that the user has entered in the form
+   through to the persistence mechanism (Okapi in this case). It does
+   this using the _mutator_ for the `patrons` resource. As described
+   in
+   [the Stripes Connect API documentation](../../stripes-connect/api.md),
+   a mutator is an object, provided by stripes-connect, which maps
+   each of the HTTP method names (GET, POST, PUT, DELETE) to a
+   function that implements that method for the relevant resource.
+
+2. It redirects the URL to one that the router will interpret
+   appropriately for the session to continue -- in this case, the
+   patron list at `/patrons/list`. It does this by pushing the new
+   path into the stack maintained by the router. (This is why we
+   earlier used `contextTypes` to make the router available.)
+
+> **ISSUE.** The syntax `this.props.mutator['patrons'].PUT(data)` is
+> explicit but ugly. Could we easily provide HTTP method verbs on
+> `this` so that module authors can just write
+> `this.PUT('patrons', data)`?
 
 #### `cancel()` (lines 27-29)
 
-XXX
+This handler is simpler, as it is called when the user decides not to
+edit the patron after all. It has nothing to do but redirect the
+application to the patron list.
 
 ### Rendering the edit form (lines 31-41)
 
