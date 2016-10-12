@@ -206,13 +206,72 @@ application to the patron list.
 
 ### Rendering the edit form (lines 31-41)
 
-XXX
+As with most React components, the `render()` method is at the heart
+of how it works. Unlike the handler functions `updatePatron()` and
+`cancel()`, which we wired into the patron-editing form, `render()` is
+called be React itself: it is one of the React
+["lifecycle methods"](https://facebook.github.io/react/docs/component-specs.html).
+Its job is simply to return an HTML element to be rendered: often, as
+in this case, that element will be another React component, which will
+in turn be rendered.
+
+The first thing this renderer does is extract information from the
+React properties using
+[destructuring assignment](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
+The single line 32 is equivalent to:
+
+```
+const patrons = this.props.data.patrons;
+const patronid = this.props.params.patronid;
+```
+
+The name of the data element `patrons` is taken from the data
+manifest. It is an array containing a set of patron methods.
+
+If **PatronEdit** were the only component to include `patrons` in its
+manifest, then it would be safe to assume that the only element of the
+list would be the patron identified by the `:patronid` element in the
+URL path. However, other components may also use the same resource:
+for example, **PatronList** populates it with multiple records.
+
+For this reason, it is necessary to pick out the correct relevant
+record to display as part of the edit form. This is done by line 34,
+which uses
+[the standard array method `find()`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+to pick out the element whose `_id` field matches the `patronid` we
+earlier extracted from the parameters.
+
+Finally, lines 36-39 return the rendered HTML. which in this case is
+an invocation of the **PatronForm** React component that we imported
+at the top of this source file. That component is defined to take
+several parameters:
+
+* `onSubmit` and `cancelForm` indicate which handler functions to
+  use when the form is submitted or cancelled.
+* `action` is a small package of configuration appropriate for either
+  adding a new patron or editing an existing one: it must be one of
+  the values from the `actionTypes` object that we imported from
+  **PatronForm**.
+* `initialValues` is an object containing the data of the existing
+  patron record, which is used to prepopulate the form.
 
 ### Connecting the component (line 44)
 
-XXX
+At this point, **PatronEdit** is a React component. But instead of
+exporting this, we wrap it using the `connect()` method provided by
+the `stripes-connect` module and export the resulting connected
+component. (The second parameter passed to `connect()` must be the
+name of the Stripes module that the component is a part of.)
 
 ## Summary
 
-XXX
+Creating a Stripes component consists of creating a React component
+that knows how to render the relevant data, and wrapping the result
+with `stripes-connect` to connect its data resources to persistence
+services (usually Okapi).
+
+The code for doing this is rather dense, because a lot of concepts are
+involved. But it can be quite short, and the more complex code can be
+seen as mostly consisting of easily learned idioms.
+
 
