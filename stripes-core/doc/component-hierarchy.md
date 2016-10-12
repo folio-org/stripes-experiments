@@ -70,7 +70,7 @@ metadata might look like this:
 
 The metadata of the various modules making up a Stripes application is
 aggregated by stripes-loader. (Code-loading is handled asynchronously
-so that a module's code is sent to the browser sent when visiting a
+so that a module's code is sent to the browser when visiting a
 route that uses it.)
 
 
@@ -81,7 +81,7 @@ Each stripes module maintains all of its state in a single pool. (See
 for details).
 Each piece of state has a name, and may be accessed by multiple
 components. Often, only one component will be responsible for making
-changes to a given piece of state, while other only inspect it. In
+changes to a given piece of state, while others only inspect it. In
 this case, we might say that the first component "owns" that piece of
 state. In the descriptions that follow, we will note which pieces of
 state the components of a `patrons` module might access, and the mode of access
@@ -98,17 +98,17 @@ latter as local state.
 
 ## Components
 
-All the components described here are "local", i.e.. part of this
+All the components described here are "local", i.e. part of this
 module. It may also be possible to use components from other modules
--- most importantly, from utlity modules that act as a library of
+-- most importantly, from utility modules that act as a library of
 re-usable components. The mechanisms for doing this have yet to be
 specified.
 
 Since components like ItemBrief (see [below](#itembrief)) are short
 and straightforward, it may be cleaner to design such display
-components repeatedly in the context of different modules, so as best
-to fit them to the part of the UI where they are used; or it may prove
-better to have a component library provide a one-size-fits all
+components repeatedly in the context of different modules, so as to best
+fit them to the part of the UI where they are used; or it may prove
+better to have a component library provide a one-size-fits-all
 brief-display component than can be parameterised or subclassed to
 display items, patrons, or other kinds of data, and then reused in
 disparate modules. Something like an autocompleting search-box will
@@ -126,7 +126,7 @@ high-level components and working down.
 ### Patrons
 
 As specified in the module metadata (see above), this is the module's
-root component, used when the the URL's path begins with the
+root component, used when the URL's path begins with the
 `/patrons` route. Its sole purpose is to display the top bar and
 delegate the main area underneath of the patron router.
 
@@ -140,7 +140,7 @@ A bar that goes across the top of the content area for the whole
 `patron` module, linking to various functionality and containing a
 search box to find particular patrons. Since this is a sibling of
 **PatronRouter**, it is rendered along with whichever of that router's
-subcomponents is selected.
+sub-components is selected.
 
 * Okapi data: none
 * Local state: none
@@ -157,7 +157,7 @@ to a route that includes `search/:query`, resulting in the
 **SearchResults** component being displayed by the router.
 
 * Okapi data: search completions past three characters
-* Local state: search settings (per-page, sort order, etc) (R), recent
+* Local state: search settings (per-page, sort order, etc.) (R), recent
   searches (prioritised in the completions)
 * Child components: **SearchSettings**
 
@@ -167,11 +167,11 @@ to a route that includes `search/:query`, resulting in the
 ##### SearchSettings
 
 Settings for patron search, such as how to sort the search results,
-how many results to show on each page, which fields to includ in the
+how many results to show on each page, which fields to include in the
 search, etc.
 
 * Okapi data: none
-* Local state: search settings (per-page, sort order, etc) (CRUD)
+* Local state: search settings (per-page, sort order, etc.) (CRUD)
 * Child components: various controls
 
 > **ISSUE.** How do we arrange for the **SearchSettings** panel to be
@@ -182,7 +182,7 @@ search, etc.
 
 A react-router component that manages the routing for URL fragments
 *below* `/patrons`. Module authors have some flexibility in how they
-build this. In a simple module perhaps there are no additional routes;
+build this. In a simple module, perhaps there are no additional routes;
 a fairly complex module might just use the simple JSX syntax; and a
 more complex one might organise the code however is convenient to the
 team maintaining it -- perhaps including additional code
@@ -243,8 +243,8 @@ This result list displays many individual results together.
 
 This component may pull more matches from the server than it displays
 on the page: downloading a few hundred matches is faster than
-displaying them so it's possible to out-fetch the pagination and have
-records ready in advance so that scrolling the list of moving onto the
+displaying them, so it's possible to out-fetch the pagination and have
+records ready in advance so that scrolling the list and moving onto the
 next page can be very fast. That part will leverage something from our
 component library for the list display, perhaps using
 [react-virtualized](https://bvaughn.github.io/react-virtualized/).
@@ -288,8 +288,8 @@ along with a control to add new holds.
 * Local state: probably none
 * Child components: **HoldBrief**
 
-> **ISSUE.** Do we need to support pagination of holds? do people have
-> that many holds? we can probably pull the whole list but use a
+> **ISSUE.** Do we need to support pagination of holds? Do people have
+> that many holds? We can probably pull the whole list but use a
 > control to display a subset with a scrollbar.
 
 > **ISSUE.** We'll need the title from the Item record but do we need
@@ -299,8 +299,8 @@ along with a control to add new holds.
 ##### HoldBrief
 
 Used to render a hold passed in through properties. This component
-must be passed a reference to the mutator too it can have a button to
-delete them.
+must be passed a reference to the mutator too, so that it can have
+a button to delete them.
 
 * Okapi data: none
 * Local state: none
@@ -397,6 +397,6 @@ Renders the blocks placed on the patron.
 > using for the UI prototype. We may also need to provide the ability
 > to invoke component sets as frameworks that we can embed specific
 > components inside -- so for example we can invoke **ThreePaneSetup**
-> in a form where it "calls back" to a component we specify such as
+> in a form where it "calls back" to a component we specify, such as
 > a modified form of **PatronRouter**.
 
