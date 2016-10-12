@@ -89,7 +89,7 @@ Then follow the instructions in its
 [`README`](../README.md),
 (which are currently somewhat in flux) or, if you are a developer
 running the Stripes code from a git checkout, use the instructions in
-[the Developer Guide](../stripes-core/doc/for-people-who-are-developing-stripes-itself-not-just-modules.md).
+[the Developer Guide](../stripes-core/doc/building-from-git-checkouts.md).
 
 ### Configure the Okapi Console
 
