@@ -8,7 +8,7 @@ let tests = [
 ];
 
 // The regexp used in webpack.config.base.js to choose which source files get transpiled
-let re = /\/stripes-/;
+let re = /\/stripes-(?!.*\/node_modules\/)/;
 let failed = 0;
 
 for (let i = 0; i < tests.length; i++) {
