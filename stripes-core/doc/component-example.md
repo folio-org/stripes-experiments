@@ -19,7 +19,7 @@
 
 The **PatronEdit** component is defined in the source file
 [`patrons/PatronEdit.js`](../../patrons/PatronEdit.js).
-As is conventional, the filename is that same as that of the component.
+As is conventional, the filename is the same as that of the component.
 
 The **PatronEdit** source code is quite short (44 lines including
 blanks and comments). This is achieved by including the **PatronForm**
@@ -30,7 +30,7 @@ form-handling machinery. Crucially, it is not a
 [connected component](../../stripes-connect/api.md#introduction),
 so it uses no Stripes machinery: it is pure React.
 
-**PatronEdit** itself _is_ a connected component, as serves as a
+**PatronEdit** itself _is_ a connected component, and serves as a
 simple example for how to create such components. This document will
 walk through the source code and explain each section.
 
@@ -109,25 +109,25 @@ familiar to all JavaScript programmers.
 
 ES6 `import` syntax is used to pull in objects from four other
 modules. The first two are inherent to writing Stripes components; the
-second two are relatesd to the use of the **PatronForm** component to
+second two are related to the use of the **PatronForm** component to
 render the elements of the HTML form.
 
 First we import three things from from React:
-* The `React` object itelf, which is needed by
+* The `React` object itself, which is needed by
   [JSX](https://jsx.github.io/),
   the syntax that allows us to embed HTML/XML directly into JavaScript.
 * The `Component` class, so that we can extend
-  it when we define our own component).
+  it when we define our own component.
 * The `PropTypes` object, which we will later use to make the router
   available.
 
 Next, we import the `connect` method from Stripes Connect. We will use
-this at the very end of the file. to turn our React component into a
+this at the very end of the file, to turn our React component into a
 Stripes component by connecting it to Okapi.
 
 We bring in the **PatronForm** component, along with the `actionTypes`
 object which we will later use to specify that this component is
-updating and existing patron rather than creating a new one.
+updating an existing patron rather than creating a new one.
 
 ### Definition of class **PatronEdit** (lines 7-41)
 

@@ -27,10 +27,10 @@
 
 ## Introduction
 
-Stripes Connect is one of the most important part of the Stripes
+Stripes Connect is one of the most important parts of the Stripes
 toolkit for building FOLIO UIs. It provides the connection between the
 UI and the underlying services -- most usually, Okapi (the FOLIO
-middleware), though other RESTful web services are also suported.
+middleware), though other RESTful web services are also supported.
 
 A Stripes UI is composed of
 [React](https://facebook.github.io/react/)
@@ -56,7 +56,7 @@ identical. In what follows, additional notes mark such divergences.
 ## The Connection Manifest
 
 The manifest is provided as a static member of the component class. It
-is JavaScript object in which the keys are the names of resources to
+is a JavaScript object in which the keys are the names of resources to
 be managed, and the corresponding values are objects specifying how to
 deal with them:
 
@@ -81,7 +81,7 @@ types are supported:
   Okapi.
 
 (In fact, the `okapi` type is merely a special case of `rest`, in
-which defaults are provided to tailor the RESTful dialgoues in
+which defaults are provided to tailor the RESTful dialogues in
 accordance with Okapi's conventions.)
 
 
@@ -125,7 +125,7 @@ addition to `'type':'rest'`:
 
 * `records`: The name of the key in the returned JSON that contains
   the records. Typically the JSON response from a web service is not
-  itself an arrau of records, but an object containing metadata abaout
+  itself an array of records, but an object containing metadata about
   the result (result-count, etc.) and a sub-array that contains the
   actual records. The `records` item specifies the name of that
   sub-array within the top-level response object.
@@ -135,13 +135,13 @@ addition to `'type':'rest'`:
   resources.)
 
 * `clientGeneratePk`: a boolean indicating whether the client must
-  generate a "suffiently unique" private key for newly created
+  generate a "sufficiently unique" private key for newly created
   records, or must accept one that is supplied by the service in
-  response to a create request. Defaults to `true`.
+  response to a create request. Default: `true`.
 
 * `fetch`: a component that adds a new record to an end-point would
   usually not need to pre-fetch from that resource. To avoid that, it
-  can set this to true. [default: false]
+  can set this to true. Default: `false`.
 
 In addition to these principal pieces of configuration, which apply to
 all operations on the resource, these values can be overridden for
@@ -156,7 +156,7 @@ operation is used.
 Okapi resources are REST resources, but with defaults set to make
 connecting to Okapi convenient:
 
-* `root`: defaults to a globally configured address pointing to an
+* `root`: defaults to a globally-configured address pointing to an
   Okapi instance.
 
 * `headers`: are set appropriately for each HTTP operation to send the
@@ -215,7 +215,7 @@ use
         export connect(Widget, 'stripes-module-name');
 
 (At present, it is necessary to pass as a second argument the name of
-the Stripes module that contains the connect component. We hope the
+the Stripes module that contains the connect component. We hope to
 remove this requirement in future.)
 
 <br/>
@@ -243,7 +243,7 @@ the wrapped component:
 * `mutator`: a JavaScript object with properties named after each
   resource. The corresponding values are themselves objects whose keys
   are HTTP methods and whose values are methods that perform the
-  relevant CRUD operation using HTTP and undate the internal
+  relevant CRUD operation using HTTP and update the internal
   representation of the state to match.
   The mutator methods optionally take a record as a parameter,
   represented as a JavaScript object whose keys are fieldnames and
@@ -266,7 +266,7 @@ one element.
 
 We use the Redux Crud library to, among other things, generate
 actions. It causes a number of compromises such as our needing to
-clear out the Redux state at times because it is designed for a
+clear out the Redux state at times, because it is designed for a
 slightly different universe where there is more data re-use.
 
 As part of that, it prefers to treat the responses as lists of records
@@ -318,7 +318,7 @@ the main document.]
 * To avoid different modules' same-named data from clashing, the code
   arranges that the keys in this table are composed of the module name
   and the resource name separated by an underscore:
-  _moduleName_`_`_resourceName_
+  _moduleName\_resourceName_
 
   * XXX In fact, the code that does this is the `stateKey()` methods of
     the various resource-types. That means (A) we need to be very
@@ -335,15 +335,15 @@ the main document.]
 
   * XXX For example, `PatronEdit.js` deals only with a single record;
     but it works with the `patrons` resource, which is a list of
-    records, and picks out the one it wants using
+    records, and picks out the one it wants by using
     `patrons.find((p) =>  { return p._id === patronid })`.
-    If I have understoodd this correctly, it looks like a grotesque
+    If I have understood this correctly, it looks like a grotesque
     inefficiency that will quickly become unworkable as we start to
     use large patron databases.
 
 * In general, a Stripes module contains multiple connected
   components. The data manifest is specific per-component. Components
-  may communicate with each other, or share cached data, by usingv the
+  may communicate with each other, or share cached data, by using the
   same data keys. It is the module author's responsibility to avoid
   inadvertent duplication of keys between unrelated components.
 
@@ -365,7 +365,7 @@ the main document.]
     module, and see that they can each maintain their own data.
 
   * Also to be done: a simple implementation of search preferences, as
-    a model for how two components (SearchForm and SearchPreferneces)
+    a model for how two components (SearchForm and SearchPrefernces)
     can deliberately share data.
 
 #### Work through the example of PatronEdit.js

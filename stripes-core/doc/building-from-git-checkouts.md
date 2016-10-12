@@ -7,13 +7,13 @@ have to trick NPM into pulling in these packages from your checkout
 instead of from the package repository. You do this by subverting the
 `@folio` scope as follows.
 
-First, remove any NPM configuration you may already have telling where
+First, remove any NPM configuration you may already have which tell where
 to download the production versions of these packages from:
 
 	$ npm config delete @folio:registry
 	$ npm config delete @folio-sample-modules:registry
 
-Now prepopulate the Stripes core code's node_modules area with symbolic
+Now pre-populate the Stripes core code's `node_modules` area with symbolic
 links to the code you want to work on:
 
 	$ mkdir -p node_modules/@folio
@@ -23,7 +23,7 @@ links to the code you want to work on:
 	$ npm install
 	$ cd ../../..
 
-We will also need to make need stripes-loader available in a similar way:
+We will also need to make `stripes-loader` available in a similar way:
 
 	$ cd node_modules/@folio
 	$ ln -s ../../../../stripes-loader
@@ -32,7 +32,7 @@ We will also need to make need stripes-loader available in a similar way:
 	$ npm run build
 	$ cd ../../..
 
-Next, we wire the trival module into place: so that `stripes-loader`
+Next, we wire the trivial module into place: so that `stripes-loader`
 (not `stripes-core`) can see it:
 
 	$ cd ../../stripes-loader/node_modules
@@ -56,7 +56,7 @@ This may fail with:
 
 This is because Babel is not translating the trivial from JS6. The
 rules that tell WebPack which files to transpile are found in
-`webpack.config.base.js`, These rules do do say to transpile files
+`webpack.config.base.js`, These rules do say to transpile files
 within the `@folio` area. Unfortunately, WebPack resolves symbolic
 links before making this check, so the modules that we linked into
 `@folio` are instead seen as being in their physical location, and
@@ -74,5 +74,5 @@ master repo, it will prevent modules from the NPM registry from
 working correctly.
 
 Once this change has been made, `npm run start` will finally work, and
-you can view the running UI on http://localhost:3000/.
+you can view the running UI on `http://localhost:3000/`.
 
