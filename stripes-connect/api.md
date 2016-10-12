@@ -318,7 +318,7 @@ the main document.]
 * To avoid different modules' same-named data from clashing, the code
   arranges that the keys in this table are composed of the module name
   and the resource name separated by an underscore:
-  _moduleName\_resourceName_
+  _moduleName_`_`_resourceName_
 
   * XXX In fact, the code that does this is the `stateKey()` methods of
     the various resource-types. That means (A) we need to be very
