@@ -61,9 +61,9 @@ be managed, and the corresponding values are objects specifying how to
 deal with them:
 
         static manifest = {
-          'name': { /* ... */ },
-          'address': { /* ... */ },
-          'jobTitle': { /* ... */ }
+          'bibs': { /* ... */ },
+          'items': { /* ... */ },
+          'patrons': { /* ... */ }
         };
 
 
