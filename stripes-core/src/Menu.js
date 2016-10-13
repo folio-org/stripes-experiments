@@ -6,9 +6,10 @@ import { menus } from 'stripes-loader!';
 
 export class Menu extends Component {
   render() {
+    let key=0;
     var menuLinks = menus.primary.map(function (entry) {
       return (
-        <LinkContainer to={entry.path}>
+        <LinkContainer to={entry.path} key={key++}>
           <NavItem>{entry.name}</NavItem>
         </LinkContainer>
       );
