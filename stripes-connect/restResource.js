@@ -17,7 +17,7 @@ export default class restResource {
     this.crudActions = crud.actionCreatorsFor(this.crudName);
     this.crudReducers = crud.reducersFor(this.crudName,
       { key: this.optionsTemplate.pk, store: crud.STORE_MUTABLE });
-    // Javascript methods are not bound to their instance by default
+    // JavaScript methods are not bound to their instance by default
     this.reducer = this.reducer.bind(this);
   }
 
@@ -154,7 +154,7 @@ export default class restResource {
     const { root, path, pk, headers, GET, records } = this.options;
     const crudActions = this.crudActions;
     const key = this.stateKey();
-    // ie. only join truthy elements
+    // i.e. only join truthy elements
     const url = [ root, path ].filter(_.identity).join('/');
     return function(dispatch) {
       dispatch(crudActions.fetchStart());

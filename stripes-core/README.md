@@ -1,6 +1,6 @@
 # Stripes Core
 
-This is a single-page web application that provides a platform for React components from configured modules according to their "type". (At the moment, the only "type" is "fullpage" and from metadata we glean which routes to display which components on and which of those need menu entries). 
+This is a single-page web application that provides a platform for React components from configured modules according to their "type". (At the moment, the only "type" is "fullpage" and from metadata we glean which routes to display which components on and which of those need menu entries.) 
 
 
 ## Documentation roadmap
@@ -10,12 +10,13 @@ This is a single-page web application that provides a platform for React compone
 * [Running Stripes from git checkouts](doc/building-from-git-checkouts.md)
 * [Testing the Okapi Console and circulation module](../okapi-console/testing-the-circulation-module.md)
 * [The stripes-connect API](../stripes-connect/api.md)
-* [A component hiearchy example: the "Patrons" module](doc/component-hierarchy.md)
+* [A component example: the **PatronEdit** component](doc/component-example.md)
+* [A component hierarchy example: the "Patrons" module](doc/component-hierarchy.md)
 
 
 ## Quick start
 
-To run Stripes, you'll need to have [NodeJS](https://nodejs.org/) 6.x installed.
+To run Stripes, you'll need to have [Node.js](https://nodejs.org/) 6.x installed.
 
 ### Very quick
 
@@ -28,7 +29,7 @@ npm install @folio-sample-modules/trivial
 
 ### Some details
  
-Add the Folio NPM registry to your local NPM configuration:
+Add the FOLIO NPM registry to your local NPM configuration:
 
 `npm config set @folio:registry https://repository.folio.org/repository/npm-folio/`
 

@@ -21,7 +21,7 @@
 ## Introduction
 
 Two sets of software are involved here: on the server side, Okapi with
-its modules, including the circulation module; and on the the client
+its modules, including the circulation module; and on the client
 side, the Stripes-based Okapi Console, including the patron
 module. (Patron maintenance is one of the responsibilities of the
 server-side circulation module; a single UI module is dedicated to
@@ -31,10 +31,10 @@ To exercise the circulation module from the Okapi Console, it's
 necessary to install, build and run both pieces of software. Then it
 is possible to run the UI in a browser.
 
-(Alternatively you can an existing UI and Okapi in a CI
+(Alternatively you can use an existing UI and Okapi in a CI
 installation on an AWS cluster by pointing a browser to
 [`http://redux-okapi-test-aws.indexdata.com/`](http://redux-okapi-test-aws.indexdata.com/)
-For that the steps to fetch and build Okapi and the UI can be
+For that, the steps to fetch and build Okapi and the UI can be
 skipped. See the Appendix for how module deployment is done in this
 context.)
 
@@ -79,7 +79,7 @@ asking Okapi to run for us.
 
 ### Fetch and build the Okapi Console locally
 
-This is the old Proof-Of-Concept (POC) UI Console, retrofitted to
+This is the old Proof-Of-Concept (PoC) UI Console, retrofitted to
 work over Stripes.
 
     shell2$ git clone git@github.com:folio-org/stripes-experiments
@@ -87,9 +87,9 @@ work over Stripes.
 
 Then follow the instructions in its
 [`README`](../README.md),
-(which are currently somewhat in flux) or, if you are a devleoper
+(which are currently somewhat in flux) or, if you are a developer
 running the Stripes code from a git checkout, use the instructions in
-[the Developer Guide](../stripes-core/doc/for-people-who-are-developing-stripes-itself-not-just-modules.md).
+[the Developer Guide](../stripes-core/doc/building-from-git-checkouts.md).
 
 ### Configure the Okapi Console
 
@@ -144,7 +144,7 @@ First, fill in the **module proxy** section:
 * Type `PUT` into the new **HTTP method** box.
   Another empty **Methods** box appears below the one you filled in.
 * Type `DELETE` into the new **HTTP method** box.
-  (Another empty **Methods** box appears below the one you filled in. Ignore it)
+  (Another empty **Methods** box appears below the one you filled in. Ignore it.)
 * Fill in the three elements of the routing entry as follows:
     * Request path: `/apis`
     * Priority level: `30`
@@ -238,7 +238,7 @@ cluster. In the **Okapi Modules** tab:
   ``docker stop `cat /tmp/docker.%p.cid` && docker rm `cat /tmp/docker.%p.cid` && rm -f /tmp/docker.%p.cid``
 * Press the **Submit** button at bottom right. An orange **Delete** button
   and another empty deployment entry appear below the one you filled in.
-* In this new entry, select one of the other two nodes in the **Node** dropwdown, 
+* In this new entry, select one of the other two nodes in the **Node** dropdown, 
   for example the one labelled `http://okapi-test2.aws.indexdata.com:9130`. 
   Fill in the Start command and Stop command with the same values as for the 
   first node.
