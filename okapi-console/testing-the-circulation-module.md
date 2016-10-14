@@ -44,7 +44,7 @@ context.)
 
 In a shell window, run:
 
-    shell1$ git clone git@github.com:folio-org/okapi
+    shell1$ git clone https://github.com/folio-org/okapi.git
     shell1$ cd okapi
     shell1$ mvn install
     shell1$ mvn exec:exec
@@ -57,7 +57,7 @@ allows the Okapi Console to run against a known state.
 
 These tools are needed to build the circulation module.
 
-    shell2$ git clone git@github.com:folio-org/raml-module-builder
+    shell2$ git clone https://github.com/folio-org/raml-module-builder.git
     shell2$ cd raml-module-builder
     shell2$ mvn install
     shell2$ cd ..
@@ -66,7 +66,7 @@ These tools are needed to build the circulation module.
 
 We just build this: Okapi will start it for us when needed.
 
-    shell2$ git clone git@github.com:folio-org/mod-circulation
+    shell2$ git clone https://github.com/folio-org/mod-circulation.git
     shell2$ cd mod-circulation
     shell2$ mvn install
     shell2$ cd ..
@@ -82,7 +82,7 @@ asking Okapi to run for us.
 This is the old Proof-Of-Concept (PoC) UI Console, retrofitted to
 work over Stripes.
 
-    shell2$ git clone git@github.com:folio-org/stripes-experiments
+    shell2$ git clone https://github.com/folio-org/stripes-experiments.git
     shell2$ cd stripes-experiments
 
 Then follow the instructions in its
