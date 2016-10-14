@@ -17,10 +17,15 @@ This is a single-page web application that provides a platform for React compone
 ## Quick start
 
 To run Stripes, you'll need to have [Node.js](https://nodejs.org/) 6.x installed.
+```
+node --version
+v6.8.0
+```
 
 ### Very quick
 
 ```
+cd stripes-core
 npm config set @folio:registry https://repository.folio.org/repository/npm-folio/
 npm install
 npm config set @folio-sample-modules:registry https://repository.folio.org/repository/npm-folio/
@@ -28,7 +33,11 @@ npm install @folio-sample-modules/trivial
 ```
 
 ### Some details
- 
+
+Go into the stripes-core directory within this stripes-experiments module:
+
+`cd stripes-core`
+
 Add the FOLIO NPM registry to your local NPM configuration:
 
 `npm config set @folio:registry https://repository.folio.org/repository/npm-folio/`
