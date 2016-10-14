@@ -86,7 +86,7 @@ work over Stripes.
     shell2$ cd stripes-experiments
 
 Then follow the instructions in its
-[`README`](../README.md),
+[`stripes-core/README`](../stripes-core/README.md#very-quick),
 (which are currently somewhat in flux) or, if you are a developer
 running the Stripes code from a git checkout, use the instructions in
 [the Developer Guide](../stripes-core/doc/building-from-git-checkouts.md).
