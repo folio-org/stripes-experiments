@@ -11,12 +11,8 @@
     "node": ">=6.0.0"
   },
   "stripes": {
-    "type": "fullpage",
-    "routes": [
-      {
-        "path":"trivial",
-        "component":"About"
-      }
-    ]
+    "type": "app",
+    "displayName": "Trivial Okapi",
+    "route":"/trivial-okapi"
   }
 }

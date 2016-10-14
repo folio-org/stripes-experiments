@@ -12,12 +12,14 @@ class TenantList extends Component {
   };
 
   render() {
-    if (!this.props.data.tenants) return null;
-    var tenantNodes = this.props.data.tenants.map((tenant) => {
+    console.log(this.props);
+    const { data, mutator, pathname } = this.props;
+    if (!data.tenants) return null;
+    var tenantNodes = data.tenants.map((tenant) => {
       return (
         <li key={tenant.id}>
-          {tenant.name} [<a onClick={() => this.props.mutator.tenants.DELETE(tenant)}>delete</a>]
-          [<Link to={'/trivial-okapi/edit/' + tenant.id}>Edit</Link>] 
+          {tenant.name} [<a onClick={() => mutator.tenants.DELETE(tenant)}>delete</a>]
+          [<Link to={`${pathname}/edit/${tenant.id}`}>Edit</Link>] 
         </li>
       );
     });

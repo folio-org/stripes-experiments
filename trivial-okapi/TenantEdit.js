@@ -10,7 +10,7 @@ class TenantEdit extends Component {
   };
 
   render() { 
-      return <div>Tenant Edit ID: {this.props.params.tenantid}</div>
+    return <div>Tenant Edit ID: {this.props.params.id}</div>
   }
 }
 
