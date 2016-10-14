@@ -1,6 +1,6 @@
 {
   "name": "@folio-sample-modules/trivial",
-  "version": "0.0.1-test",
+  "version": "0.0.2-test",
   "description": "A trivial Stripes module.",
   "repository": "folio-org/stripes-experiments",
   "publishConfig" : {
@@ -10,13 +10,10 @@
   "engines": {
     "node": ">=6.0.0"
   },
+  "main": "About.js",
   "stripes": {
-    "type": "fullpage",
-    "routes": [
-      {
-        "path":"trivial",
-        "component":"About"
-      }
-    ]
+    "type": "app",
+    "displayName": "Trivial",
+    "route":"/trivial"
   }
 }

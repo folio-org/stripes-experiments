@@ -4,28 +4,38 @@
   "description": "The starting point for Stripes applications",
   "license": "Apache-2.0",
   "repository": "folio-org/stripes-experiments",
-  "publishConfig" : {
-    "registry" : "https://repository.folio.org/repository/npm-folio/"
+  "publishConfig": {
+    "registry": "https://repository.folio.org/repository/npm-folio/"
   },
   "scripts": {
     "clean": "rimraf static",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.cli.prod.js",
-    "build:tenant": "cross-env NODE_ENV=production webpack --config webpack.config.cli.tenant.js",    
+    "build:tenant": "cross-env NODE_ENV=production webpack --config webpack.config.cli.tenant.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "node devServer.js",
+    "test": "mocha --compilers js:babel-core/register",
+    "test-watch": "mocha --compilers js:babel-core/register -w --watch-extensions json",
     "lint": "eslint src"
   },
   "engines": {
     "node": ">=6.0.0"
   },
   "devDependencies": {
+    "babel-register": "^6.16.3",
     "chai": "^3.5.0",
     "cross-env": "3.0.0",
+    "enzyme": "^2.4.1",
     "eslint": "^3.0.1",
+    "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-import": "^2.0.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-react": "^6.3.0",
     "express": "^4.14.0",
     "mocha": "^3.1.0",
+    "mock-require": "^1.3.0",
+    "react-addons-test-utils": "^15.3.2",
+    "react-router": "^4.0.0-alpha.4",
     "react-transform-hmr": "^1.0.4",
     "redbox-react": "^1.2.10",
     "webpack-dev-middleware": "^1.6.1",
@@ -40,8 +50,6 @@
     "react-dom": "^15.2.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
-    "react-router-bootstrap": "^0.23.0",
-    "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
@@ -67,7 +75,7 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
-    "@folio/stripes-loader":"^0.0.1-test",
-    "@folio/stripes-connect":"^0.0.2-test"
+    "@folio/stripes-loader": "^0.0.2-test",
+    "@folio/stripes-connect": "^0.0.2-test"
   }
 }

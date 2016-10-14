@@ -1,31 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem } from 'react-bootstrap';
-import { IndexLink, Link } from 'react-router';
-import { LinkContainer } from 'react-router-bootstrap';
-import { menus } from 'stripes-loader!';
+import Link from 'react-router/Link';
+import { modules } from 'stripes-loader!';
 
-export class Menu extends Component {
-  render() {
-    var menuLinks = menus.primary.map(function (entry) {
-      return (
-        <LinkContainer to={entry.path}>
-          <NavItem>{entry.name}</NavItem>
-        </LinkContainer>
-      );
-    });
-    return (
-      <Navbar fixedTop>
-        <NavbarBrand>
-          <IndexLink to="/">
-            FOLIO!
-          </IndexLink>
-        </NavbarBrand>
-        <Navbar.Collapse>
-          <Nav navbar>
-            {menuLinks}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    );
-  }
+if (!Array.isArray(modules.app) || modules.app.length < 1) {
+  throw new Error('At least one module of type "app" must be enabled.');
 }
+
+export const Menu = () => {
+  const menuLinks = modules.app.map(entry =>
+    <Link to={entry.route} key={entry.route}>{
+      ({ href, onClick }) =>
+        <NavItem onClick={onClick} href={href}>{entry.displayName}</NavItem>
+    }</Link>
+  );
+  return (
+    <Navbar fixedTop>
+      <NavbarBrand>
+        <Link to="/">FOLIO!</Link>
+      </NavbarBrand>
+      <Navbar.Collapse>
+        <Nav navbar>
+          {menuLinks}
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+};
+
+export default Menu;
