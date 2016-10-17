@@ -13,10 +13,10 @@ module.exports = {
   stripesLoader: {
     okapi: { 'url':'http://localhost:9130' },
     modules: {
-      '@folio-sample-modules/trivial': {},
-      //'@folio-sample-modules/trivial-okapi': {},
-      //'@folio-sample-modules/okapi-console': {},
-      //'@folio-sample-modules/patrons': {}
+      '@folio-sample-modules/trivial': {}
+      // You can also place additional modules that you want to load
+      // in the stripes-modules.js file: for an example, see
+      // stripes-modules.js.example
     }
   }
 };

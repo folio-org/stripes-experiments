@@ -1,4 +1,4 @@
- The Stripes Connect API
+# The Stripes Connect API
 
 <!-- pandoc -f markdown_github-hard_line_breaks api.md > api.html -->
 <!-- ../../okapi/doc/md2toc -l 2 api.md -->
@@ -14,19 +14,23 @@
 * [Appendices: for developers](#appendices-for-developers)
     * [Appendix A: some implementation details](#appendix-a-some-implementation-details)
     * [Appendix B: unresolved issues](#appendix-b-unresolved-issues)
-        * [How to not fetch](#how-to-not-fetch)
         * [One vs. Many](#one-vs-many)
         * [Metadata](#metadata)
         * [Errors](#errors)
         * [Object counts](#object-counts)
+    * [Appendix C: things still to be documented](#appendix-c-things-still-to-be-documented)
+        * [How state is stored](#how-state-is-stored)
+        * [Work through the example of PatronEdit.js](#work-through-the-example-of-patroneditjs)
+        * [Work through state-object changed during a CRUD cycle](#work-through-state-object-changed-during-a-crud-cycle)
+
 
 
 ## Introduction
 
-Stripes Connect is one of the most important part of the Stripes
+Stripes Connect is one of the most important parts of the Stripes
 toolkit for building FOLIO UIs. It provides the connection between the
 UI and the underlying services -- most usually, Okapi (the FOLIO
-middleware), though other RESTful web services are also suported.
+middleware), though other RESTful web services are also supported.
 
 A Stripes UI is composed of
 [React](https://facebook.github.io/react/)
@@ -40,6 +44,7 @@ things: declare a _manifest_, which describes what data elements it
 wants to manage and how to link them to services; and call the
 `connect()` method on itself.
 
+
 ### Note
 
 This document describes the API as we wish it to be. The present
@@ -47,18 +52,20 @@ version of the code implements something similar to this, but not
 identical. In what follows, additional notes mark such divergences.
 
 
+
 ## The Connection Manifest
 
 The manifest is provided as a static member of the component class. It
-is JavaScript object in which the keys are the names of resources to
+is a JavaScript object in which the keys are the names of resources to
 be managed, and the corresponding values are objects specifying how to
 deal with them:
 
         static manifest = {
-          'name': { /* ... */ },
-          'address': { /* ... */ },
-          'jobTitle': { /* ... */ }
+          'bibs': { /* ... */ },
+          'items': { /* ... */ },
+          'patrons': { /* ... */ }
         };
+
 
 ### Resource types
 
@@ -74,8 +81,9 @@ types are supported:
   Okapi.
 
 (In fact, the `okapi` type is merely a special case of `rest`, in
-which defaults are provided to tailor the RESTful dialgoues in
+which defaults are provided to tailor the RESTful dialogues in
 accordance with Okapi's conventions.)
+
 
 ### Local resources
 
@@ -86,6 +94,7 @@ simply be specified as an empty object:
         static manifest = {
           'someLocalResource': {}
         }
+
 
 ### REST resources
 
@@ -116,7 +125,7 @@ addition to `'type':'rest'`:
 
 * `records`: The name of the key in the returned JSON that contains
   the records. Typically the JSON response from a web service is not
-  itself an arrau of records, but an object containing metadata abaout
+  itself an array of records, but an object containing metadata about
   the result (result-count, etc.) and a sub-array that contains the
   actual records. The `records` item specifies the name of that
   sub-array within the top-level response object.
@@ -126,9 +135,13 @@ addition to `'type':'rest'`:
   resources.)
 
 * `clientGeneratePk`: a boolean indicating whether the client must
-  generate a "suffiently unique" private key for newly created
+  generate a "sufficiently unique" private key for newly created
   records, or must accept one that is supplied by the service in
-  response to a create request. Defaults to `true`.
+  response to a create request. Default: `true`.
+
+* `fetch`: a component that adds a new record to an end-point would
+  usually not need to pre-fetch from that resource. To avoid that, it
+  can set this to true. Default: `false`.
 
 In addition to these principal pieces of configuration, which apply to
 all operations on the resource, these values can be overridden for
@@ -137,12 +150,13 @@ and `PATCH`, if supplied, are objects containing configuration (using
 the same keys as described above) that apply only when the specified
 operation is used.
 
+
 ### Okapi resources
 
 Okapi resources are REST resources, but with defaults set to make
 connecting to Okapi convenient:
 
-* `root`: defaults to a globally configured address pointing to an
+* `root`: defaults to a globally-configured address pointing to an
   Okapi instance.
 
 * `headers`: are set appropriately for each HTTP operation to send the
@@ -169,6 +183,7 @@ the manifest must specify this.
             path: '_/proxy/modules'
           }
         };
+
 
 
 ## Connecting the component
@@ -200,7 +215,7 @@ use
         export connect(Widget, 'stripes-module-name');
 
 (At present, it is necessary to pass as a second argument the name of
-the Stripes module that contains the connect component. We hope the
+the Stripes module that contains the connect component. We hope to
 remove this requirement in future.)
 
 <br/>
@@ -208,10 +223,12 @@ remove this requirement in future.)
 <hr/>
 
 
+
 ## Appendices: for developers
 
 These sections are only for developers working on Stripes
 itself. Those working on _using_ Stripes to build a UI can ignore them.
+
 
 ### Appendix A: some implementation details
 
@@ -226,7 +243,7 @@ the wrapped component:
 * `mutator`: a JavaScript object with properties named after each
   resource. The corresponding values are themselves objects whose keys
   are HTTP methods and whose values are methods that perform the
-  relevant CRUD operation using HTTP and undate the internal
+  relevant CRUD operation using HTTP and update the internal
   representation of the state to match.
   The mutator methods optionally take a record as a parameter,
   represented as a JavaScript object whose keys are fieldnames and
@@ -234,17 +251,9 @@ the wrapped component:
   in the obvious way by the POST, PUT and PATCH operations. For
   DELETE, the record need only contain the `id` field, so that it
   suffices to call `mutator.tenants.DELETE({ id: 43 })`.
+
   
 ### Appendix B: unresolved issues
-
-#### How to not fetch
-
-Sometimes we only want a mutator, for example when creating an Add
-Record form. One possibility would be to not have any path at all at
-the top level in this case, only POST.path to indicate the desired
-subset of functionality. This is appealingly minimalist, but it might
-be a bit opaque. Perhaps a boolean configuration item of `mutatorOnly`
-or `noFetch` is more explicit?
 
 #### One vs. Many
 
@@ -257,7 +266,7 @@ one element.
 
 We use the Redux Crud library to, among other things, generate
 actions. It causes a number of compromises such as our needing to
-clear out the Redux state at times because it is designed for a
+clear out the Redux state at times, because it is designed for a
 slightly different universe where there is more data re-use.
 
 As part of that, it prefers to treat the responses as lists of records
@@ -284,4 +293,91 @@ describing the error. We need to surface the HTTP error somehow.
 Can we get a count of holds on an item? How does that API work and
 does our above system mesh with it well enough to provide a pleasant
 developer experience?
+
+
+### Appendix C: things still to be documented
+
+[This section is mostly for Mike's benefit. In time, the material
+touched on in this section will be written up properly and merged into
+the main document.]
+
+#### How state is stored
+
+* All state is stored in a single branching structure, the _Redux
+  store_. (Module creators should not need to know about details of
+  Redux, and especially not about reducers, but this idea of a single
+  state store is important nevertheless.)
+
+* Data in this state structure consists of _resources_, each named by
+  a string.
+
+* Rather than each module having its own namespace within the
+  structure, all modules' data is kept together in a single big
+  table.
+
+* To avoid different modules' same-named data from clashing, the code
+  arranges that the keys in this table are composed of the module name
+  and the resource name separated by an underscore:
+  _moduleName_`_`_resourceName_
+
+  * XXX In fact, the code that does this is the `stateKey()` methods of
+    the various resource-types. That means (A) we need to be very
+    careful that new resource-types also remember to do this; and (B)
+    we probably made a mistake, and this should instead by done at a
+    higher level in `stripes-connect/connect.js`.
+
+* A component's resource names are defined by the keys in its _data
+  manifest_. The value associated with each key is tied to the
+  resource specified by its parameters -- for example, the `root` and
+  `path` of a REST resource. In general, that value is a list of
+  records: some components will deal only with a single record from
+  that list.
+
+  * XXX For example, `PatronEdit.js` deals only with a single record;
+    but it works with the `patrons` resource, which is a list of
+    records, and picks out the one it wants by using
+    `patrons.find((p) =>  { return p._id === patronid })`.
+    If I have understood this correctly, it looks like a grotesque
+    inefficiency that will quickly become unworkable as we start to
+    use large patron databases.
+
+* In general, a Stripes module contains multiple connected
+  components. The data manifest is specific per-component. Components
+  may communicate with each other, or share cached data, by using the
+  same data keys. It is the module author's responsibility to avoid
+  inadvertent duplication of keys between unrelated components.
+
+* Some components may exist in multiple simultaneous instances: for
+  example, a list-of-records component may be designed such that a
+  user may pop up a more than one full-record component to see the
+  details of several records at once. In this case, the state keys are
+  different because the records' IDs are included (due to the manifest
+  path being of the form `/patrons/:patronid`, containing a
+  placeholder.)
+
+* For local resources, which are not persisted via a REST service such
+  as Okapi, some means must be established whereby each individual
+  datum is individually addressable. Only then can multiple instances
+  of the same component that uses local storage co-exist.
+
+  * For this reason, it may be worthwhile to prioritise the
+    development of a page that has two instances of the Trivial
+    module, and see that they can each maintain their own data.
+
+  * Also to be done: a simple implementation of search preferences, as
+    a model for how two components (SearchForm and SearchPrefernces)
+    can deliberately share data.
+
+#### Work through the example of PatronEdit.js
+
+XXX To be written
+
+#### Work through state-object changed during a CRUD cycle
+
+XXX To be written
+
+These images may be useful:
+* https://files.slack.com/files-pri/T047C3PCD-F2L37S7C2/pasted_image_at_2016_10_06_11_13_am.png
+* https://files.slack.com/files-pri/T047C3PCD-F2L2RAH5E/pasted_image_at_2016_10_06_11_15_am.png
+* https://files.slack.com/files-pri/T047C3PCD-F2L2WSHA4/pasted_image_at_2016_10_06_11_31_am.png
 

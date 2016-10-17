@@ -10,7 +10,7 @@ Such goals are very much in line with the process of developing FOLIO in the ope
 
 * Consistent user experience through a common software stack, core UI components, opinionated guidelines and constraints.
 
-With that in mind, our font-end toolkit "Stripes" has been taking shape.
+With that in mind, our front-end toolkit "Stripes" has been taking shape.
 
 ## Single-page application
 

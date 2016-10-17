@@ -1,14 +1,31 @@
 # Stripes Core
 
-This is a single-page web application that provides a platform for React components from configured modules according to their "type". (At the moment, the only "type" is "fullpage" and from metadata we glean which routes to display which components on and which of those need menu entries). 
+This is a single-page web application that provides a platform for React components from configured modules according to their "type". (At the moment, the only "type" is "fullpage" and from metadata we glean which routes to display which components on and which of those need menu entries.) 
+
+
+## Documentation roadmap
+
+* Quick start guide: read on below
+* [Overview of the Stripes architecture](doc/overview.md)
+* [Running Stripes from git checkouts](doc/building-from-git-checkouts.md)
+* [Testing the Okapi Console and circulation module](../okapi-console/testing-the-circulation-module.md)
+* [The stripes-connect API](../stripes-connect/api.md)
+* [A component example: the **PatronEdit** component](doc/component-example.md)
+* [A component hierarchy example: the "Patrons" module](doc/component-hierarchy.md)
+
 
 ## Quick start
 
-To run Stripes, you'll need to have [NodeJS](https://nodejs.org/) 6.x installed.
+To run Stripes, you'll need to have [Node.js](https://nodejs.org/) 6.x installed.
+```
+node --version
+v6.8.0
+```
 
 ### Very quick
 
 ```
+cd stripes-core
 npm config set @folio:registry https://repository.folio.org/repository/npm-folio/
 npm install
 npm config set @folio-sample-modules:registry https://repository.folio.org/repository/npm-folio/
@@ -16,8 +33,12 @@ npm install @folio-sample-modules/trivial
 ```
 
 ### Some details
- 
-Add the Folio NPM registry to your local NPM configuration:
+
+Go into the stripes-core directory within this stripes-experiments module:
+
+`cd stripes-core`
+
+Add the FOLIO NPM registry to your local NPM configuration:
 
 `npm config set @folio:registry https://repository.folio.org/repository/npm-folio/`
 
@@ -47,7 +68,3 @@ After following build instructions in the [Okapi repository](https://github.com/
 
 `npm install @folio-sample-modules/trivial-okapi`
 
-## For Stripes developers
-
-See
-[the separate instructions](doc/for-people-who-are-developing-stripes-itself-not-just-modules.md)
