@@ -36,19 +36,29 @@ export default class localResource {
     return `${this.module}-${this.name}`;
   }
 
+  actionApplies (action) {
+    if (action.meta && action.meta.module && action.meta.resource) {
+      const key = `${action.meta.module}-${action.meta.resource}`;
+      return key === this.stateKey();
+    } else {
+      return false;
+    }
+  }
+
   reducer(state = {}, action) {
-    if (!(action.type.startsWith('STRIPESLOCALSTATE_'))) return state;
-    if (!(action.meta.module && action.meta.resource)) return state; 
-    const actionKey = `${action.meta.module}-${action.meta.resource}`;
-    if (!(actionKey === this.stateKey())) return state;
-    switch (action.type) {
-      case 'STRIPESLOCALSTATE_UPDATE': 
-        return Object.assign({}, state, action.payload);
-      case 'STRIPESLOCALSTATE_REPLACE': 
-        return action.payload;
-    };
-    return newState;
- }
+    if (this.actionApplies(action)) {
+      switch (action.type) {
+        case 'STRIPESLOCALSTATE_UPDATE':
+          return Object.assign({}, state, action.payload);
+        case 'STRIPESLOCALSTATE_REPLACE':
+          return action.payload;
+        default:
+          return state;
+      }
+    } else {
+      return state;
+    }
+  }
   
 }
 

@@ -24,13 +24,14 @@ const wrap = (Wrapped, module) => {
       if (!(context.addReducer)) {
         throw new Error("No addReducer function available in component context");
       }
+      resources.forEach(resource => {
+        context.addReducer(resource.stateKey(), resource.reducer);
+      });
+
+
     }
 
     componentDidMount() {
-      resources.forEach(resource => {
-        this.context.addReducer(resource.stateKey(), resource.reducer);
-      });
-
       this.props.refreshRemote({...this.props});
     }
 
@@ -48,7 +49,6 @@ const wrap = (Wrapped, module) => {
 
   Wrapper.mapState = function(state) {
     return {
-
       data: resources.reduce((result, resource) => {
         result[resource.name] = _.get(state, [resource.stateKey()], null);
         return result;

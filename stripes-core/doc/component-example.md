@@ -167,7 +167,7 @@ context. The corresponding value must `PropTypes.object.isRequired`.
 ### Handler functions (lines 22-29)
 
 These are functions that are invoked when the user does
-something. They are installed as even handlers with the usual
+something. They are installed as event handlers with the usual
 `<htmlElement onClick={handler}>` syntax, though in this case that is
 done by the **PatronForm** subcomponent. Note that the handler
 functions, bound to `this`, are passed in when that subcomponent is
@@ -241,7 +241,7 @@ which uses
 to pick out the element whose `_id` field matches the `patronid` we
 earlier extracted from the parameters.
 
-Finally, lines 36-39 return the rendered HTML. which in this case is
+Finally, lines 36-39 return the rendered HTML, which in this case is
 an invocation of the **PatronForm** React component that we imported
 at the top of this source file. That component is defined to take
 several parameters:

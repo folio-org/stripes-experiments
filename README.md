@@ -11,4 +11,8 @@ Here you will find a prototype we're using to explore how a framework to build a
 
 Directories here each contain NPM modules, as things solidify they will be split into separate git repositories.
 
+## Additional information
+
 For more information and a quick-start guide to test it out, please see [stripes-core](stripes-core).
+
+Other FOLIO Developer documentation is at [dev.folio.org](http://dev.folio.org/)
