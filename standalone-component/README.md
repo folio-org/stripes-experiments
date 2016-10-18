@@ -1,8 +1,14 @@
+# Standalone Stripes components
+
 This is some minimal scaffolding you can use to run a single component with _stripes-connect_. You'll need to run `npm install` to fetch its dependencies.
 
 To load a development server at `http://localhost:3000` and display a particular component, run:
 
     npm start -- ../path/to/SomeComponent.js
+
+For example
+
+    npm start -- ../okapi-console/tenants/TenantList.js
 
 You can change the value of `OKAPI_URL` in `webpack.config.js` if the default value `http://localhost:9130` is not appropriate to your purposes.
 
