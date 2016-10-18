@@ -3,6 +3,7 @@ export default class localResource {
   constructor(name, query = {}, module = null)  {
     this.name = name;
     this.module = module;
+    this.query = query;
     this.reducer = this.reducer.bind(this);
   }
 
@@ -59,6 +60,9 @@ export default class localResource {
       return state;
     }
   }
-  
+
+  refresh(dispatch, props) {
+    return this.getMutator(dispatch).replace(this.query);
+  }
 }
 

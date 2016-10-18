@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'stripes-connect';
 class About extends Component {
-  static manifest = { greetingParams: {} };
-  componentWillMount() {
-    this.props.mutator.greetingParams.replace({ greeting: 'Hi', name: 'Kurt' });
-  }
+  static manifest = { greetingParams: { greeting: 'Hi', name: 'Kurt'} };
   handleSubmit(e) {
     e.preventDefault();
     this.props.mutator.greetingParams.replace({
