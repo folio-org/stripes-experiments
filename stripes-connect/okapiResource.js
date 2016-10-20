@@ -4,9 +4,9 @@ import restResource from './restResource';
 // standalone components.
 let system;
 if (OKAPI_URL) {
-  system = {okapi: { 'url':'http://localhost:9130' }}
+  system = {okapi: { 'url':OKAPI_URL }}
 } else {
-  system = require('stripes-loader!').system;
+  system = require('stripes-loader!');
 }
 
 const defaults = {

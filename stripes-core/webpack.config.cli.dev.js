@@ -17,7 +17,7 @@ module.exports = Object.assign({}, base, cli, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin( {
-      'OKAPI_URL': JSON.stringify('http://localhost:9130')
+      'OKAPI_URL': false
     } ),
     new ExtractTextPlugin('global.css', {
       allChunks: true
