@@ -162,7 +162,7 @@ must be instructed to make the router visible as part of the
 [React context](https://facebook.github.io/react/docs/context.html).
 This is done by setting the special `contextTypes` class variable to
 an object whose keys are the names of the elements to expose in the
-context. The corresponding value must `PropTypes.object.isRequired`.
+context. The corresponding value must be `PropTypes.object.isRequired`.
 
 ### Handler functions (lines 22-29)
 
@@ -209,7 +209,7 @@ application to the patron list.
 As with most React components, the `render()` method is at the heart
 of how it works. Unlike the handler functions `updatePatron()` and
 `cancel()`, which we wired into the patron-editing form, `render()` is
-called be React itself: it is one of the React
+called by React itself: it is one of the React
 ["lifecycle methods"](https://facebook.github.io/react/docs/component-specs.html).
 Its job is simply to return an HTML element to be rendered: often, as
 in this case, that element will be another React component, which will
