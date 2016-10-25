@@ -151,12 +151,14 @@ export default class restResource {
 
 
   fetchAction() {
+    const that = this;
     const { root, path, pk, headers, GET, records } = this.options;
     const crudActions = this.crudActions;
     const key = this.stateKey();
     // i.e. only join truthy elements
     const url = [ root, path ].filter(_.identity).join('/');
     return function(dispatch) {
+      const theOther = that;
       dispatch(crudActions.fetchStart());
       return fetch(url, { headers: Object.assign({}, headers, GET.headers) })
         .then(response => {
@@ -169,8 +171,14 @@ export default class restResource {
               dispatch(crudActions.fetchSuccess(data));
             });
           }
+        }).catch(reason => {
+          // I don't know why, but this scope cannot see that, only theOther
+          console.log("HTTP GET for module '" + theOther.module + "' resource '" + theOther.name + "' failed: ", reason);
+          dispatch(crudActions.fetchError(reason, {
+            module: theOther.module,
+            resource: theOther.name,
+          }));
         });
     };
   }
-  
 }
