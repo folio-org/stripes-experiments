@@ -27,8 +27,30 @@ const wrap = (Wrapped, module) => {
       resources.forEach(resource => {
         context.addReducer(resource.stateKey(), resource.reducer);
       });
+      context.addReducer('@@error', this.errorReducer.bind(this));
+      this.errorHandler = this.naiveErrorHandler;
+    }
 
+    errorReducer(state = [], action) {
+      // Handle error actions. I'm not sure how I feel about dispatching
+      // from a reducer, but it's the only point of universal conctact
+      // with all errors.
+      let a = action.type.split('_');
+      let typetype = a.pop();
+      if (typetype === 'ERROR') {
+        let op = a.pop();
+        this.errorHandler(Object.assign({}, action.data, { op: op, error: action.error.message }));
+      }
 
+      // No change to state
+      return state;
+    }
+
+    naiveErrorHandler(e) {
+      console.log(e);
+      alert("ERROR: in module '" + e.module + "', " +
+            " operation '" + e.op + "' on " +
+            " resource '" + e.resource + "' failed, saying: " + e.error);
     }
 
     componentDidMount() {
