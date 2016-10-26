@@ -19,6 +19,14 @@ export default class restResource {
       { key: this.optionsTemplate.pk, store: crud.STORE_MUTABLE });
     // JavaScript methods are not bound to their instance by default
     this.reducer = this.reducer.bind(this);
+    this.errorHandler = this.naiveErrorHandler;
+  }
+
+  naiveErrorHandler(e) {
+    console.log(e);
+    alert("ERROR: in module '" + e.module + "', " +
+          " operation '" + e.op + "' on " +
+          " resource '" + e.resource + "' failed, saying: " + e.error);
   }
 
   getMutator(dispatch) {
@@ -30,6 +38,18 @@ export default class restResource {
   }
 
   reducer(state = [], action) {
+    // Handle error actions. I'm not sure how I feel about dispatching
+    // from a reducer, but it's the only point of universal conctact
+    // with all errors.
+    let a = action.type.split('_');
+    let typetype = a.pop();
+    if (typetype === 'ERROR') {
+      let op = a.pop();
+      this.errorHandler(Object.assign({}, action.data, { op: op, error: action.error.message }));
+      // No change to state
+      return state;
+    }
+
     switch (action.type) {
       // extra reducer (beyond redux-crud generated reducers) for clearing a list before populating from new fetch
       case 'CLEAR_' + this.stateKey().toUpperCase():
