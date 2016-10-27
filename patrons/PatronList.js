@@ -18,14 +18,14 @@ class PatronList extends Component {
   // A Link to patrons form based on path in routes.json
   // A Link to form based on another path in routes.json  
   render() {
-    const { data: {patrons}, mutator } = this.props;
+    const { data: {patrons}, mutator, pathname } = this.props;
 
     if (!patrons) return <div/>;
     var patronNodes = patrons.map((patron) => {
       return (
         <li key={patron._id}>
           {patron.patron_name} [<a onClick={() => mutator['patrons'].DELETE(patron)}>delete</a>]
-                               &nbsp;[<Link to={'patrons/edit/' + patron._id}>edit</Link>]
+                               &nbsp; [<Link to={`${pathname}/edit/${patron._id}`}>Edit</Link>]
         </li>
       );
     });
@@ -35,7 +35,7 @@ class PatronList extends Component {
         <ul>
           {patronNodes}
         </ul>
-        [<Link to={'patrons/add'}>add patron</Link>]
+        [<Link to={`${pathname}/add`}>Add</Link>]
       </div>
     );
   }

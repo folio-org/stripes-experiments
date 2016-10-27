@@ -11,12 +11,8 @@
     "node": ">=6.0.0"
   },
   "stripes": {
-    "type": "fullpage",
-    "routes": [
-      {
-        "path":"patrons",
-        "component":"Patrons"
-      }
-    ]
+    "type": "app",
+    "displayName" : "Patronsx",
+    "route": "/patrons"
   }
 }
