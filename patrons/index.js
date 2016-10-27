@@ -9,5 +9,5 @@ import PatronEdit from './PatronEdit';
 export default ({pathname}) => <div>
   <Match exactly pattern={pathname} component={PatronList}/>
   <Match pattern={`${pathname}/edit/:patronid`} component={PatronEdit}/> 
-  <Match pattern={`${pathname}/add/:patronid`} component={PatronAdd}/>
+  <Match pattern={`${pathname}/add`} component={PatronAdd}/>
 </div>;

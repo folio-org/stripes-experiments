@@ -12,7 +12,7 @@
   },
   "stripes": {
     "type": "app",
-    "displayName" : "Patronsx",
+    "displayName" : "Patrons",
     "route": "/patrons"
   }
 }
