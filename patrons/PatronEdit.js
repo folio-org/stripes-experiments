@@ -21,11 +21,11 @@ class PatronEdit extends Component {
   // Uses router object to navigate back to list
   updatePatron(data) {
     this.props.mutator['patrons'].PUT(data);
-    this.context.router.push('/patrons/list');
+    this.context.router.transitionTo('/patrons');
   }
 
   cancel(data) {
-    this.context.router.push('/patrons/list');
+    this.context.router.transitionTo('/patrons');
   }
 
   render() { 

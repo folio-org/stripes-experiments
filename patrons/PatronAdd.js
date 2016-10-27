@@ -22,11 +22,11 @@ class PatronAdd extends Component {
 
   createPatron(data) {
     this.props.mutator['patrons'].POST(data);
-    this.context.router.push('/patrons/list');
+    this.context.router.transitionTo('/patrons');
   }
 
   cancel(data) {
-    this.context.router.push('/patrons/list');
+    this.context.router.transitionTo('/patrons');
   }
 
   render() {
