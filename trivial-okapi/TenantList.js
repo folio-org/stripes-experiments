@@ -3,7 +3,7 @@ import { connect } from 'stripes-connect';
 import { Link } from 'react-router';
 
 class TenantList extends Component {
-  static handler(error) {
+  static handler(e) {
     console.log("TenantList ERROR: in module '" + e.module + "', " +
                 " operation '" + e.op + "' on " +
                 " resource '" + e.resource + "' failed, saying: " + e.error);
