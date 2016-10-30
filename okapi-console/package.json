@@ -10,12 +10,8 @@
     "node": ">=6.0.0"
   },
   "stripes": {
-    "type": "fullpage",
-    "routes": [
-      {
-        "path":"na",
-        "component":"na"
-      }
-    ]
+    "type": "app",
+    "displayName" : "Okapi Console",
+    "route": "/okapi-console"
   }
 }

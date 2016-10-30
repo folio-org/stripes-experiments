@@ -15,12 +15,12 @@ class TenantAdd extends Component {
 
   create(data) {
     this.props.mutator['tenants'].POST(data).then(() =>
-      this.context.router.push('/okapi-console/tenants/list')
+      this.context.router.transitionTo('/okapi-console/tenants')
       );
   }
 
   cancel(data) {
-    this.context.router.push('/okapi-console/tenants/list');
+    this.context.router.transitionTo('/okapi-console/tenants');
   }
 
   render() {

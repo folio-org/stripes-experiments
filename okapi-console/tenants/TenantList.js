@@ -9,14 +9,14 @@ class TenantList extends Component {
   };
 
   render() {
-    const { data: {tenants} , mutator } = this.props;
+    const { data: {tenants} , mutator, pathname } = this.props;
 
     if (!tenants) return null;
     var tenantNodes = tenants.map((tenant) => {
       return (
         <li key={tenant.id}>
           {tenant.name}&nbsp;ID: {tenant.id}&nbsp; 
-          [<Link to={'/okapi-console/tenants/edit/' + tenant.id}>Edit</Link>]
+          [<Link to={`${pathname}/edit/${tenant.id}`}>Edit</Link>]
           [<a onClick={() => mutator.tenants.DELETE(tenant)}>delete</a>]
         </li>
       );
@@ -29,7 +29,7 @@ class TenantList extends Component {
           {tenantNodes}
         </ul>
         </div>
-        <Link to={'/okapi-console/tenants/add'}>Add tenant</Link>
+        <Link to={`${pathname}/add`}>Add tenant</Link>
       </div>
     );
   }

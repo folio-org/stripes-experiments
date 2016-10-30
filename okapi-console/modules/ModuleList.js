@@ -10,14 +10,14 @@ class ModuleList extends Component {
   };
 
   render() {
-    const { data: {modules}, mutator } = this.props;
+    const { data: {modules}, mutator, pathname } = this.props;
 
     if (!modules) return null;
     var moduleNodes = modules.map((amodule) => {
       return (
         <li key={amodule.id}>
           {amodule.name}&nbsp;
-          [<Link to={'/okapi-console/modules/edit/' + amodule.id}>Edit</Link>]
+          [<Link to={`${pathname}/edit/${amodule.id}`}>Edit</Link>]
           [<a onClick={() => mutator['modules'].DELETE(amodule)}>delete</a>]
         </li>
       );
@@ -30,7 +30,7 @@ class ModuleList extends Component {
           {moduleNodes}
         </ul>
         </div>
-        <Link to={'/okapi-console/modules/add'}>Add module</Link>
+         <Link to={`${pathname}/add`}>Add module</Link>
       </div>
     );
   }

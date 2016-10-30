@@ -14,12 +14,12 @@ class TenantEdit extends Component {
                     };
 
   cancel (data) {
-    this.context.router.push('/okapi-console/tenants/list'); 
+    this.context.router.transitionTo('/okapi-console/tenants'); 
   }
 
   update(data) {
     this.props.mutator.tenants.PUT(data).then (() =>
-      this.context.router.push('/okapi-console/tenants/list')
+      this.context.router.transitionTo('/okapi-console/tenants')
       );
   }
 

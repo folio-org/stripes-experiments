@@ -17,12 +17,12 @@ class ModuleEdit extends Component {
   update(data) {
     removeEmpty(data);
     this.props.mutator.modules.PUT(data).then(()=>
-      this.context.router.push('/okapi-console/modules/list')
+      this.context.router.transitionTo('/okapi-console/modules')
     )
   }
 
   cancel(data) {
-    this.context.router.push('/okapi-console/modules/list');
+    this.context.router.transitionTo('/okapi-console/modules');
   }
 
   render() {
