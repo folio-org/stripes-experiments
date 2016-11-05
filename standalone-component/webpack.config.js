@@ -41,6 +41,13 @@ module.exports = {
       path.join(__dirname, 'node_modules/@folio')
     ]
   },
+  postcss(webpack) {
+    return [
+      require('postcss-import')({addDependencyTo: webpack}),
+      require('postcss-url'),
+      require('postcss-cssnext')
+    ]
+  },
   module: {
     loaders: [
       {
@@ -60,6 +67,10 @@ module.exports = {
         test: /\.json$/,
         loader: 'json'
       },
+      {
+        test: /\.css$/,
+        loader: 'style!css?modules&localIdentName=[local]---[hash:base64:5]!postcss'
+      }
     ]
   }
 };
