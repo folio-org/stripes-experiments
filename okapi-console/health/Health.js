@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
-import { system } from 'stripes-loader!';
 
 class Row extends Component {
   render() {
@@ -18,6 +17,7 @@ class Row extends Component {
 
 export default class Health extends Component {
   componentDidMount() {
+    let system = require('stripes-loader!');
     fetch(system.okapi.url + '/_/discovery/health', {}).
      then((response) => {
       if (response.status != 200) {
