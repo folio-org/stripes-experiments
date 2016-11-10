@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
-
+{
+  var sys = require('stripes-loader!');
+}
 class Row extends Component {
   render() {
     let h = this.props.h;
@@ -17,12 +19,7 @@ class Row extends Component {
 
 export default class Health extends Component {
   componentDidMount() {
-    // This is likely not how 'system' is supposed to be retrieved
-    // if system is supposed to be accessible at all. But then again
-    // this component is just for illustration of a non-stripes-connected
-    // Okapi UI vs a stripes-connected one. 
-    let system = require('stripes-loader!');
-    fetch(system.okapi.url + '/_/discovery/health', {}).
+    fetch(sys.okapi.url + '/_/discovery/health', {}).
      then((response) => {
       if (response.status != 200) {
         console.log('health fetch error ' + response.status);
@@ -34,7 +31,7 @@ export default class Health extends Component {
         });
       }
     });
-    fetch(system.okapi.url + '/_/proxy/modules', {}).
+    fetch(sys.okapi.url + '/_/proxy/modules', {}).
      then((response) => {
       if (response.status != 200) {
         console.log('modules fetch error ' + response.status);
