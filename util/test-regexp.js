@@ -5,10 +5,11 @@ let tests = [
   [ true, '/home/mike/git/work/stripes-experiments/okapi-console/' ],
   [ true, '/home/mike/git/work/stripes-experiments/stripes-core/src/' ],
   [ false, '/home/mike/git/work/stripes-experiments/stripes-core/node_modules/camelcase' ],
+  [ true, '/home/mike/git/work/ui-okapi-console' ],
 ];
 
 // The regexp used in webpack.config.base.js to choose which source files get transpiled
-let re = /\/stripes-(?!.*\/node_modules\/)/;
+let re = /\/(stripes|ui)-(?!.*\/node_modules\/)/;
 let failed = 0;
 
 for (let i = 0; i < tests.length; i++) {
