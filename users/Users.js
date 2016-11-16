@@ -34,7 +34,11 @@ class Users extends React.Component{
     const fineHistory = [{"Due Date": "11/12/2014", "Amount":"34.23", "Status":"Unpaid"}];
     console.log(this.props.data.users);
     const displayUsers = this.props.data.users.reduce((results, user) => {
-      results.push({Name: user.personal.full_name, Username: user.username, Email: user.personal.email_primary});
+      console.log("USER", user);
+      let up = user.personal;
+      let full_name = up ? up.full_name : "[none]";
+      let email_primary = up ? up.email_primary : "[none]";
+      results.push({Name: full_name, Username: user.username, Email: email_primary});
       return results;
     }, []); 
     
