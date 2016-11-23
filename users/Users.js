@@ -12,7 +12,7 @@ import KeyValue from '@folio/stripes-components/lib/KeyValue'
 import {Row, Col} from 'react-bootstrap'
 import TextField from '@folio/stripes-components/lib/TextField'
 import Checkbox from '@folio/stripes-components/lib/Checkbox'
-import FilterPane from './FilterPane/index' // I don't know why simply './FilterPane' doesn't work.
+import FilterPane from './lib/FilterPane'
 import Select from '@folio/stripes-components/lib/Select'
 
 class Users extends React.Component{
