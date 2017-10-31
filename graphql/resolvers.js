@@ -1,13 +1,15 @@
 import fetch from 'node-fetch';
 import queryString from 'query-string';
+import _ from 'lodash';
 
 const okapiTenant = 'diku';
 const okapiURL = 'http://localhost:9130';
-const okapiToken = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkaWt1X2FkbWluIiwidXNlcl9pZCI6IjFhZDczN2IwLWQ4NDctMTFlNi1iZjI2LWNlYzBjOTMyY2UwMSIsInRlbmFudCI6ImRpa3UifQ.it38G5UgjExPMpSB7o4dW6X3e3N0zdHWCoOiFY8CT7v4PPdqkn9xonP6PKY_RL0D2SSAH1rgy13ASrn-ij6FiQ';
+const okapiToken = 'put token here until we replace these constants by actually hooking in as an okapi module';
 
 const headers = {
   'X-Okapi-Tenant': okapiTenant,
   'X-Okapi-Token': okapiToken,
+  'Content-type': 'application/json',
 };
 
 let cql = false;
@@ -18,10 +20,26 @@ export default {
       return fetch(`${okapiURL}/users` + (cql ? `?query=${cql}` : ''),
                     { headers }).then((response) => {
 	return response.json().then(json => {
-	  console.log(json);
 	  return json.users;
 	});
       });
     },
-  }
+  },
+
+  Mutation: {
+    updateUser: (root, updated) => {
+      // We don't currently support PATCH so we'll need to grab the record to base our update on
+      return fetch(`${okapiURL}/users/${updated.id}`, { headers })
+        .then(res => res.json())
+        .then((orig) => {
+          const record = _.merge({}, orig, updated);
+          return fetch(`${okapiURL}/users/${updated.id}`,
+                        { headers, method: 'PUT', body: JSON.stringify(record)},)
+            .then(res => res.text().then(text => {
+              if (res.status < 400) return record;
+              throw new Error(text);
+            }));
+        });
+    },
+  },
 }
