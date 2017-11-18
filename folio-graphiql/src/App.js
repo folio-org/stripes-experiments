@@ -4,6 +4,7 @@ import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.css';
 
 const defaultURL = "http://127.0.0.1:9130"
+const defaultQuery = '# Welcome to GraphiQL\n#\n# GraphiQL is an in-browser tool for writing, validating, and\n# testing GraphQL queries.\n#\n# Type queries into this side of the screen, and you will see intelligent\n# typeaheads aware of the current GraphQL type schema and live syntax and\n# validation errors highlighted within the text.\n#\n# GraphQL queries typically start with a "{" character. Lines that starts\n# with a # are ignored.\n#\n# An example GraphQL query might look like:\n#\n#     {\n#       field(arg: "value") {\n#         subField\n#       }\n#     }\n#\n# Keyboard shortcuts:\n#\n#  Prettify Query:  Shift-Ctrl-P (or press the prettify button above)\n#\n#       Run Query:  Ctrl-Enter (or press the play button above)\n#\n#   Auto Complete:  Ctrl-Space (or just start typing)\n#\n\nquery {\n  users {\n    id\n    username\n  }\n}\n\n';
 
 class App extends Component {
   fetcher = (graphQLParams) => {
@@ -49,7 +50,7 @@ class App extends Component {
   render() {
     if (this.state && this.state.okapi) {
       return (
-        <GraphiQL fetcher={this.fetcher} />    
+        <GraphiQL fetcher={this.fetcher} defaultQuery={defaultQuery} />
       );
     }
     return (
