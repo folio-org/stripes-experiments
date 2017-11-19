@@ -10,6 +10,7 @@ class App extends Component {
   fetcher = (graphQLParams) => {
     const { okapi } = this.state;
     return fetch(`${okapi.url}/graphql`, {
+      mode: 'cors',
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -31,6 +32,7 @@ class App extends Component {
       password: this.refs.password.value,
     };
     fetch(`${okapi.url}/bl-users/login`, {
+      mode: 'cors',
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
