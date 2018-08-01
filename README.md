@@ -16,6 +16,6 @@ Directories here each contain NPM modules, as things solidify they will be conti
 For more information and a quick-start guide to test it out, please see [stripes-core](https://github.com/folio-org/stripes-core).
 
 See project [STRIPES](https://issues.folio.org/browse/STRIPES)
-at the [FOLIO issue tracker](http://dev.folio.org/community/guide-issues).
+at the [FOLIO issue tracker](https://dev.folio.org/guidelines/issue-tracker/).
 
-Other FOLIO Developer documentation is at [dev.folio.org](http://dev.folio.org/)
+Other FOLIO Developer documentation is at [dev.folio.org](https://dev.folio.org/)
